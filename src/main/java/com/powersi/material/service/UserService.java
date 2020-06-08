@@ -24,17 +24,32 @@ public class UserService {
 
     private final RedisTemplate<String,Object> redisTemplate;
 
+    /**
+     * 审核用户是否可以登录
+     * @param user  用户对象
+     * @return      用户名与token的集合
+     */
     public Map verify(User user) throws Exception{
+        //判断用户是否为空
         Assert.notNull(user,"请求参数错误");
+        //通过jpa来查询用户名字，返回该用户对象
         User rUser = userRepository.findByUsername(user.getUsername());
+        //再次判断用户是否为空
         Assert.notNull(rUser,"用户不存在");
+        //判断两个对象的密码是否一致
         if(!rUser.getPassword().equals(user.getPassword()))
             throw new Exception("密码错误");
+        //通过用户的id获得用户的名字的集合
         Set<String> roles = roleMapper.findByUid(rUser.getUid());
+        //设置用户的角色
         if(roles!=null && roles.size()>0) rUser.setRoles(roles);
+        //设置密码为空
         rUser.setPassword(null);
+        //设置用户的唯一标识token
         String token = UUID.randomUUID().toString().replaceAll("-", "");
+        //设置redis保存用户的信息
         redisTemplate.opsForValue().set(token,rUser,2*30*60,TimeUnit.SECONDS);
+        //返回hash集合
         return new HashMap(){{
             put("username",rUser.getUsername());
             put("token", token);

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="context1">
+		<commentGenerator>
+			<property name="suppressDate" value="true"/>
+			<!-- 注释开关 -->
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+
+		<jdbcConnection 
+			connectionURL="jdbc:mysql://172.18.100.106:3306/material"
+			driverClass="com.mysql.jdbc.Driver"
+			password="root$123"
+			userId="root" />
+			
+		<javaModelGenerator 
+			targetPackage="com.powersi.material.pojo"
+			targetProject="src/main/java" />
+			
+		<sqlMapGenerator 
+			targetPackage="mapper"
+			targetProject="src/main/resources" />
+		<javaClientGenerator
+			targetPackage="com.powersi.material.mapper"
+			targetProject="src/main/java" 
+			type="XMLMAPPER" />
+		<!-- 下面添加需要自动生成MyBatis代码的表 -->
+		
+ 	<table schema="" tableName="%" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+<!--	<table schema="" tableName="user_info" domainObjectName="UserInfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+<!-- 	<table schema="" tableName="activity_info" domainObjectName="ActivityInfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/> -->
+<!-- 	<table schema="" tableName="news_info" domainObjectName="NewsInfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/> -->
+		
+	</context>
+</generatorConfiguration>
