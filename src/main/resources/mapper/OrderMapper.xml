@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Order">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="employee_id" jdbcType="VARCHAR" property="employeeId" />
+    <result column="order_oper_date" jdbcType="TIMESTAMP" property="orderOperDate" />
+    <result column="order_is_arrive" jdbcType="VARCHAR" property="orderIsArrive" />
+    <result column="orde_status" jdbcType="VARCHAR" property="ordeStatus" />
+    <result column="order_amount_money" jdbcType="DECIMAL" property="orderAmountMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, employee_id, order_oper_date, order_is_arrive, orde_status, order_amount_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Order">
+    insert into order (id, employee_id, order_oper_date, 
+      order_is_arrive, orde_status, order_amount_money
+      )
+    values (#{id,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR}, #{orderOperDate,jdbcType=TIMESTAMP}, 
+      #{orderIsArrive,jdbcType=VARCHAR}, #{ordeStatus,jdbcType=VARCHAR}, #{orderAmountMoney,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Order">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="orderOperDate != null">
+        order_oper_date,
+      </if>
+      <if test="orderIsArrive != null">
+        order_is_arrive,
+      </if>
+      <if test="ordeStatus != null">
+        orde_status,
+      </if>
+      <if test="orderAmountMoney != null">
+        order_amount_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderOperDate != null">
+        #{orderOperDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderIsArrive != null">
+        #{orderIsArrive,jdbcType=VARCHAR},
+      </if>
+      <if test="ordeStatus != null">
+        #{ordeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmountMoney != null">
+        #{orderAmountMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Order">
+    update order
+    <set>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderOperDate != null">
+        order_oper_date = #{orderOperDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderIsArrive != null">
+        order_is_arrive = #{orderIsArrive,jdbcType=VARCHAR},
+      </if>
+      <if test="ordeStatus != null">
+        orde_status = #{ordeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmountMoney != null">
+        order_amount_money = #{orderAmountMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Order">
+    update order
+    set employee_id = #{employeeId,jdbcType=VARCHAR},
+      order_oper_date = #{orderOperDate,jdbcType=TIMESTAMP},
+      order_is_arrive = #{orderIsArrive,jdbcType=VARCHAR},
+      orde_status = #{ordeStatus,jdbcType=VARCHAR},
+      order_amount_money = #{orderAmountMoney,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

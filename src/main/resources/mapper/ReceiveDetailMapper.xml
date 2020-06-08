@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.ReceiveDetailMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.ReceiveDetail">
+    <id column="rece_id" jdbcType="VARCHAR" property="receId" />
+    <id column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <id column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <result column="rece_arrive_number" jdbcType="DECIMAL" property="receArriveNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rece_id, supplier_id, item_id, rece_arrive_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.powersi.material.pojo.ReceiveDetailKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from receive_detail
+    where rece_id = #{receId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.ReceiveDetailKey">
+    delete from receive_detail
+    where rece_id = #{receId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.ReceiveDetail">
+    insert into receive_detail (rece_id, supplier_id, item_id, 
+      rece_arrive_number)
+    values (#{receId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, 
+      #{receArriveNumber,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.ReceiveDetail">
+    insert into receive_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="receId != null">
+        rece_id,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="receArriveNumber != null">
+        rece_arrive_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="receId != null">
+        #{receId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="receArriveNumber != null">
+        #{receArriveNumber,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.ReceiveDetail">
+    update receive_detail
+    <set>
+      <if test="receArriveNumber != null">
+        rece_arrive_number = #{receArriveNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where rece_id = #{receId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.ReceiveDetail">
+    update receive_detail
+    set rece_arrive_number = #{receArriveNumber,jdbcType=DECIMAL}
+    where rece_id = #{receId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+  </update>
+</mapper>

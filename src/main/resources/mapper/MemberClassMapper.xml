@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.MemberClassMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.MemberClass">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="member_class_name" jdbcType="VARCHAR" property="memberClassName" />
+    <result column="member_class_discount" jdbcType="REAL" property="memberClassDiscount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, member_class_name, member_class_discount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member_class
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from member_class
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.MemberClass">
+    insert into member_class (id, member_class_name, member_class_discount
+      )
+    values (#{id,jdbcType=INTEGER}, #{memberClassName,jdbcType=VARCHAR}, #{memberClassDiscount,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.MemberClass">
+    insert into member_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="memberClassName != null">
+        member_class_name,
+      </if>
+      <if test="memberClassDiscount != null">
+        member_class_discount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberClassName != null">
+        #{memberClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberClassDiscount != null">
+        #{memberClassDiscount,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.MemberClass">
+    update member_class
+    <set>
+      <if test="memberClassName != null">
+        member_class_name = #{memberClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberClassDiscount != null">
+        member_class_discount = #{memberClassDiscount,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.MemberClass">
+    update member_class
+    set member_class_name = #{memberClassName,jdbcType=VARCHAR},
+      member_class_discount = #{memberClassDiscount,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

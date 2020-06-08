@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.ItemClassMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.ItemClass">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="item_class_father" jdbcType="INTEGER" property="itemClassFather" />
+    <result column="item_class_name" jdbcType="VARCHAR" property="itemClassName" />
+    <result column="item_class_desc" jdbcType="VARCHAR" property="itemClassDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, item_class_father, item_class_name, item_class_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_class
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item_class
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.ItemClass">
+    insert into item_class (id, item_class_father, item_class_name, 
+      item_class_desc)
+    values (#{id,jdbcType=INTEGER}, #{itemClassFather,jdbcType=INTEGER}, #{itemClassName,jdbcType=VARCHAR}, 
+      #{itemClassDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.ItemClass">
+    insert into item_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="itemClassFather != null">
+        item_class_father,
+      </if>
+      <if test="itemClassName != null">
+        item_class_name,
+      </if>
+      <if test="itemClassDesc != null">
+        item_class_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="itemClassFather != null">
+        #{itemClassFather,jdbcType=INTEGER},
+      </if>
+      <if test="itemClassName != null">
+        #{itemClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemClassDesc != null">
+        #{itemClassDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.ItemClass">
+    update item_class
+    <set>
+      <if test="itemClassFather != null">
+        item_class_father = #{itemClassFather,jdbcType=INTEGER},
+      </if>
+      <if test="itemClassName != null">
+        item_class_name = #{itemClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemClassDesc != null">
+        item_class_desc = #{itemClassDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.ItemClass">
+    update item_class
+    set item_class_father = #{itemClassFather,jdbcType=INTEGER},
+      item_class_name = #{itemClassName,jdbcType=VARCHAR},
+      item_class_desc = #{itemClassDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

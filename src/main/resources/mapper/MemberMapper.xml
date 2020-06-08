@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.MemberMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Member">
+    <id column="member_telp" jdbcType="VARCHAR" property="memberTelp" />
+    <result column="member_class_id" jdbcType="VARCHAR" property="memberClassId" />
+    <result column="member_name" jdbcType="VARCHAR" property="memberName" />
+    <result column="member_id_num" jdbcType="VARCHAR" property="memberIdNum" />
+    <result column="member_reg_time" jdbcType="DATE" property="memberRegTime" />
+    <result column="member_amount_money" jdbcType="DECIMAL" property="memberAmountMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    member_telp, member_class_id, member_name, member_id_num, member_reg_time, member_amount_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where member_telp = #{memberTelp,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from member
+    where member_telp = #{memberTelp,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Member">
+    insert into member (member_telp, member_class_id, member_name, 
+      member_id_num, member_reg_time, member_amount_money
+      )
+    values (#{memberTelp,jdbcType=VARCHAR}, #{memberClassId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, 
+      #{memberIdNum,jdbcType=VARCHAR}, #{memberRegTime,jdbcType=DATE}, #{memberAmountMoney,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Member">
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberTelp != null">
+        member_telp,
+      </if>
+      <if test="memberClassId != null">
+        member_class_id,
+      </if>
+      <if test="memberName != null">
+        member_name,
+      </if>
+      <if test="memberIdNum != null">
+        member_id_num,
+      </if>
+      <if test="memberRegTime != null">
+        member_reg_time,
+      </if>
+      <if test="memberAmountMoney != null">
+        member_amount_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberTelp != null">
+        #{memberTelp,jdbcType=VARCHAR},
+      </if>
+      <if test="memberClassId != null">
+        #{memberClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null">
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberIdNum != null">
+        #{memberIdNum,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRegTime != null">
+        #{memberRegTime,jdbcType=DATE},
+      </if>
+      <if test="memberAmountMoney != null">
+        #{memberAmountMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Member">
+    update member
+    <set>
+      <if test="memberClassId != null">
+        member_class_id = #{memberClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null">
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberIdNum != null">
+        member_id_num = #{memberIdNum,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRegTime != null">
+        member_reg_time = #{memberRegTime,jdbcType=DATE},
+      </if>
+      <if test="memberAmountMoney != null">
+        member_amount_money = #{memberAmountMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where member_telp = #{memberTelp,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Member">
+    update member
+    set member_class_id = #{memberClassId,jdbcType=VARCHAR},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      member_id_num = #{memberIdNum,jdbcType=VARCHAR},
+      member_reg_time = #{memberRegTime,jdbcType=DATE},
+      member_amount_money = #{memberAmountMoney,jdbcType=DECIMAL}
+    where member_telp = #{memberTelp,jdbcType=VARCHAR}
+  </update>
+</mapper>

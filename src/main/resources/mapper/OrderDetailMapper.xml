@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.OrderDetail">
+    <id column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <id column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_number" jdbcType="DECIMAL" property="orderNumber" />
+    <result column="arrive_number" jdbcType="DECIMAL" property="arriveNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    item_id, supplier_id, order_id, order_number, arrive_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.powersi.material.pojo.OrderDetailKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_detail
+    where item_id = #{itemId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.OrderDetailKey">
+    delete from order_detail
+    where item_id = #{itemId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.OrderDetail">
+    insert into order_detail (item_id, supplier_id, order_id, 
+      order_number, arrive_number)
+    values (#{itemId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{orderNumber,jdbcType=DECIMAL}, #{arriveNumber,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.OrderDetail">
+    insert into order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="arriveNumber != null">
+        arrive_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="arriveNumber != null">
+        #{arriveNumber,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.OrderDetail">
+    update order_detail
+    <set>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="arriveNumber != null">
+        arrive_number = #{arriveNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where item_id = #{itemId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.OrderDetail">
+    update order_detail
+    set order_number = #{orderNumber,jdbcType=DECIMAL},
+      arrive_number = #{arriveNumber,jdbcType=DECIMAL}
+    where item_id = #{itemId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

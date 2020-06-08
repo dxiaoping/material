@@ -1,8 +1,73 @@
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.powersi.material.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Role">
+    <id column="rid" jdbcType="BIGINT" property="rid" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rid, uid, role_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where rid = #{rid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from role
+    where rid = #{rid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Role">
+    insert into role (rid, uid, role_name
+      )
+    values (#{rid,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        rid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=BIGINT},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Role">
+    update role
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Role">
+    update role
+    set uid = #{uid,jdbcType=BIGINT},
+      role_name = #{roleName,jdbcType=VARCHAR}
+    where rid = #{rid,jdbcType=BIGINT}
+  </update>
     <select id="findByUid" resultType="string">
         select `role_name` from role where uid = #{uid};
     </select>

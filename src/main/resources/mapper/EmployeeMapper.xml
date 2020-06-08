@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Employee">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="emp_name" jdbcType="VARCHAR" property="empName" />
+    <result column="emp_sex" jdbcType="VARCHAR" property="empSex" />
+    <result column="emp_birthday" jdbcType="DATE" property="empBirthday" />
+    <result column="emp_role" jdbcType="VARCHAR" property="empRole" />
+    <result column="emp_telp" jdbcType="VARCHAR" property="empTelp" />
+    <result column="emp_join_date" jdbcType="DATE" property="empJoinDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, emp_name, emp_sex, emp_birthday, emp_role, emp_telp, emp_join_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from employee
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Employee">
+    insert into employee (id, emp_name, emp_sex, 
+      emp_birthday, emp_role, emp_telp, 
+      emp_join_date)
+    values (#{id,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{empSex,jdbcType=VARCHAR}, 
+      #{empBirthday,jdbcType=DATE}, #{empRole,jdbcType=VARCHAR}, #{empTelp,jdbcType=VARCHAR}, 
+      #{empJoinDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Employee">
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="empName != null">
+        emp_name,
+      </if>
+      <if test="empSex != null">
+        emp_sex,
+      </if>
+      <if test="empBirthday != null">
+        emp_birthday,
+      </if>
+      <if test="empRole != null">
+        emp_role,
+      </if>
+      <if test="empTelp != null">
+        emp_telp,
+      </if>
+      <if test="empJoinDate != null">
+        emp_join_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="empName != null">
+        #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSex != null">
+        #{empSex,jdbcType=VARCHAR},
+      </if>
+      <if test="empBirthday != null">
+        #{empBirthday,jdbcType=DATE},
+      </if>
+      <if test="empRole != null">
+        #{empRole,jdbcType=VARCHAR},
+      </if>
+      <if test="empTelp != null">
+        #{empTelp,jdbcType=VARCHAR},
+      </if>
+      <if test="empJoinDate != null">
+        #{empJoinDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Employee">
+    update employee
+    <set>
+      <if test="empName != null">
+        emp_name = #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSex != null">
+        emp_sex = #{empSex,jdbcType=VARCHAR},
+      </if>
+      <if test="empBirthday != null">
+        emp_birthday = #{empBirthday,jdbcType=DATE},
+      </if>
+      <if test="empRole != null">
+        emp_role = #{empRole,jdbcType=VARCHAR},
+      </if>
+      <if test="empTelp != null">
+        emp_telp = #{empTelp,jdbcType=VARCHAR},
+      </if>
+      <if test="empJoinDate != null">
+        emp_join_date = #{empJoinDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Employee">
+    update employee
+    set emp_name = #{empName,jdbcType=VARCHAR},
+      emp_sex = #{empSex,jdbcType=VARCHAR},
+      emp_birthday = #{empBirthday,jdbcType=DATE},
+      emp_role = #{empRole,jdbcType=VARCHAR},
+      emp_telp = #{empTelp,jdbcType=VARCHAR},
+      emp_join_date = #{empJoinDate,jdbcType=DATE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.SupplierItemMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.SupplierItem">
+    <id column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <id column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <result column="in_price" jdbcType="DECIMAL" property="inPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    supplier_id, item_id, in_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.powersi.material.pojo.SupplierItemKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from supplier_item
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.SupplierItemKey">
+    delete from supplier_item
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.SupplierItem">
+    insert into supplier_item (supplier_id, item_id, in_price
+      )
+    values (#{supplierId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{inPrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.SupplierItem">
+    insert into supplier_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="inPrice != null">
+        in_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="inPrice != null">
+        #{inPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.SupplierItem">
+    update supplier_item
+    <set>
+      <if test="inPrice != null">
+        in_price = #{inPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.SupplierItem">
+    update supplier_item
+    set in_price = #{inPrice,jdbcType=DECIMAL}
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.InRepositoryDetailMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.InRepositoryDetail">
+    <id column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <id column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <id column="in_repo_id" jdbcType="VARCHAR" property="inRepoId" />
+    <result column="repo_id" jdbcType="VARCHAR" property="repoId" />
+    <result column="times" jdbcType="INTEGER" property="times" />
+    <result column="in_repo_number" jdbcType="DECIMAL" property="inRepoNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    supplier_id, item_id, in_repo_id, repo_id, times, in_repo_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.powersi.material.pojo.InRepositoryDetailKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from in_repository_detail
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+      and in_repo_id = #{inRepoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.InRepositoryDetailKey">
+    delete from in_repository_detail
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+      and in_repo_id = #{inRepoId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.InRepositoryDetail">
+    insert into in_repository_detail (supplier_id, item_id, in_repo_id, 
+      repo_id, times, in_repo_number
+      )
+    values (#{supplierId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{inRepoId,jdbcType=VARCHAR}, 
+      #{repoId,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, #{inRepoNumber,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.InRepositoryDetail">
+    insert into in_repository_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="inRepoId != null">
+        in_repo_id,
+      </if>
+      <if test="repoId != null">
+        repo_id,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="inRepoNumber != null">
+        in_repo_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="inRepoId != null">
+        #{inRepoId,jdbcType=VARCHAR},
+      </if>
+      <if test="repoId != null">
+        #{repoId,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="inRepoNumber != null">
+        #{inRepoNumber,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.InRepositoryDetail">
+    update in_repository_detail
+    <set>
+      <if test="repoId != null">
+        repo_id = #{repoId,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="inRepoNumber != null">
+        in_repo_number = #{inRepoNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+      and in_repo_id = #{inRepoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.InRepositoryDetail">
+    update in_repository_detail
+    set repo_id = #{repoId,jdbcType=VARCHAR},
+      times = #{times,jdbcType=INTEGER},
+      in_repo_number = #{inRepoNumber,jdbcType=DECIMAL}
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+      and in_repo_id = #{inRepoId,jdbcType=VARCHAR}
+  </update>
+</mapper>

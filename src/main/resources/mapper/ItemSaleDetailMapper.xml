@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.ItemSaleDetailMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.ItemSaleDetail">
+    <id column="item_sale_id" jdbcType="VARCHAR" property="itemSaleId" />
+    <id column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <id column="repo_id" jdbcType="VARCHAR" property="repoId" />
+    <id column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <result column="sale_price" jdbcType="DECIMAL" property="salePrice" />
+    <result column="sale_number" jdbcType="BIGINT" property="saleNumber" />
+    <result column="sale_after_discount" jdbcType="DECIMAL" property="saleAfterDiscount" />
+    <result column="sale_discount_amount" jdbcType="DECIMAL" property="saleDiscountAmount" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    item_sale_id, item_id, repo_id, supplier_id, sale_price, sale_number, sale_after_discount, 
+    sale_discount_amount, total_amount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.powersi.material.pojo.ItemSaleDetailKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_sale_detail
+    where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+      and repo_id = #{repoId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.ItemSaleDetailKey">
+    delete from item_sale_detail
+    where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+      and repo_id = #{repoId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.ItemSaleDetail">
+    insert into item_sale_detail (item_sale_id, item_id, repo_id, 
+      supplier_id, sale_price, sale_number, 
+      sale_after_discount, sale_discount_amount, 
+      total_amount)
+    values (#{itemSaleId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{repoId,jdbcType=VARCHAR}, 
+      #{supplierId,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL}, #{saleNumber,jdbcType=BIGINT}, 
+      #{saleAfterDiscount,jdbcType=DECIMAL}, #{saleDiscountAmount,jdbcType=DECIMAL}, 
+      #{totalAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.ItemSaleDetail">
+    insert into item_sale_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemSaleId != null">
+        item_sale_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="repoId != null">
+        repo_id,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="salePrice != null">
+        sale_price,
+      </if>
+      <if test="saleNumber != null">
+        sale_number,
+      </if>
+      <if test="saleAfterDiscount != null">
+        sale_after_discount,
+      </if>
+      <if test="saleDiscountAmount != null">
+        sale_discount_amount,
+      </if>
+      <if test="totalAmount != null">
+        total_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemSaleId != null">
+        #{itemSaleId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="repoId != null">
+        #{repoId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleNumber != null">
+        #{saleNumber,jdbcType=BIGINT},
+      </if>
+      <if test="saleAfterDiscount != null">
+        #{saleAfterDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleDiscountAmount != null">
+        #{saleDiscountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.ItemSaleDetail">
+    update item_sale_detail
+    <set>
+      <if test="salePrice != null">
+        sale_price = #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleNumber != null">
+        sale_number = #{saleNumber,jdbcType=BIGINT},
+      </if>
+      <if test="saleAfterDiscount != null">
+        sale_after_discount = #{saleAfterDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleDiscountAmount != null">
+        sale_discount_amount = #{saleDiscountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalAmount != null">
+        total_amount = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+      and repo_id = #{repoId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.ItemSaleDetail">
+    update item_sale_detail
+    set sale_price = #{salePrice,jdbcType=DECIMAL},
+      sale_number = #{saleNumber,jdbcType=BIGINT},
+      sale_after_discount = #{saleAfterDiscount,jdbcType=DECIMAL},
+      sale_discount_amount = #{saleDiscountAmount,jdbcType=DECIMAL},
+      total_amount = #{totalAmount,jdbcType=DECIMAL}
+    where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
+      and item_id = #{itemId,jdbcType=VARCHAR}
+      and repo_id = #{repoId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+</mapper>

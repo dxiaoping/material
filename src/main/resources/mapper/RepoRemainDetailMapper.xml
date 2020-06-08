@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.RepoRemainDetailMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.RepoRemainDetail">
+    <id column="repo_remain_id" jdbcType="VARCHAR" property="repoRemainId" />
+    <id column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <result column="times" jdbcType="INTEGER" property="times" />
+    <result column="remain_amount" jdbcType="INTEGER" property="remainAmount" />
+    <result column="repo_remain_in_pic" jdbcType="DECIMAL" property="repoRemainInPic" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    repo_remain_id, supplier_id, times, remain_amount, repo_remain_in_pic
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.powersi.material.pojo.RepoRemainDetailKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from repo_remain_detail
+    where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.RepoRemainDetailKey">
+    delete from repo_remain_detail
+    where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.RepoRemainDetail">
+    insert into repo_remain_detail (repo_remain_id, supplier_id, times, 
+      remain_amount, repo_remain_in_pic)
+    values (#{repoRemainId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, 
+      #{remainAmount,jdbcType=INTEGER}, #{repoRemainInPic,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.RepoRemainDetail">
+    insert into repo_remain_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="repoRemainId != null">
+        repo_remain_id,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="remainAmount != null">
+        remain_amount,
+      </if>
+      <if test="repoRemainInPic != null">
+        repo_remain_in_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="repoRemainId != null">
+        #{repoRemainId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="remainAmount != null">
+        #{remainAmount,jdbcType=INTEGER},
+      </if>
+      <if test="repoRemainInPic != null">
+        #{repoRemainInPic,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.RepoRemainDetail">
+    update repo_remain_detail
+    <set>
+      <if test="times != null">
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="remainAmount != null">
+        remain_amount = #{remainAmount,jdbcType=INTEGER},
+      </if>
+      <if test="repoRemainInPic != null">
+        repo_remain_in_pic = #{repoRemainInPic,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.RepoRemainDetail">
+    update repo_remain_detail
+    set times = #{times,jdbcType=INTEGER},
+      remain_amount = #{remainAmount,jdbcType=INTEGER},
+      repo_remain_in_pic = #{repoRemainInPic,jdbcType=DECIMAL}
+    where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
+      and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+</mapper>

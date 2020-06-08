@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.ItemMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Item">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="item_class_id" jdbcType="INTEGER" property="itemClassId" />
+    <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="item_spell" jdbcType="VARCHAR" property="itemSpell" />
+    <result column="item_wubi" jdbcType="VARCHAR" property="itemWubi" />
+    <result column="item_spec" jdbcType="VARCHAR" property="itemSpec" />
+    <result column="item_unit" jdbcType="VARCHAR" property="itemUnit" />
+    <result column="item_sale_price" jdbcType="DECIMAL" property="itemSalePrice" />
+    <result column="item_factory_name" jdbcType="VARCHAR" property="itemFactoryName" />
+    <result column="item_disc_state" jdbcType="INTEGER" property="itemDiscState" />
+    <result column="item_lately_pic" jdbcType="DECIMAL" property="itemLatelyPic" />
+    <result column="item_aver_pic" jdbcType="DECIMAL" property="itemAverPic" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, item_class_id, item_code, item_name, item_spell, item_wubi, item_spec, item_unit, 
+    item_sale_price, item_factory_name, item_disc_state, item_lately_pic, item_aver_pic
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from item
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Item">
+    insert into item (id, item_class_id, item_code, 
+      item_name, item_spell, item_wubi, 
+      item_spec, item_unit, item_sale_price, 
+      item_factory_name, item_disc_state, item_lately_pic, 
+      item_aver_pic)
+    values (#{id,jdbcType=VARCHAR}, #{itemClassId,jdbcType=INTEGER}, #{itemCode,jdbcType=VARCHAR}, 
+      #{itemName,jdbcType=VARCHAR}, #{itemSpell,jdbcType=VARCHAR}, #{itemWubi,jdbcType=VARCHAR}, 
+      #{itemSpec,jdbcType=VARCHAR}, #{itemUnit,jdbcType=VARCHAR}, #{itemSalePrice,jdbcType=DECIMAL}, 
+      #{itemFactoryName,jdbcType=VARCHAR}, #{itemDiscState,jdbcType=INTEGER}, #{itemLatelyPic,jdbcType=DECIMAL}, 
+      #{itemAverPic,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Item">
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="itemClassId != null">
+        item_class_id,
+      </if>
+      <if test="itemCode != null">
+        item_code,
+      </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
+      <if test="itemSpell != null">
+        item_spell,
+      </if>
+      <if test="itemWubi != null">
+        item_wubi,
+      </if>
+      <if test="itemSpec != null">
+        item_spec,
+      </if>
+      <if test="itemUnit != null">
+        item_unit,
+      </if>
+      <if test="itemSalePrice != null">
+        item_sale_price,
+      </if>
+      <if test="itemFactoryName != null">
+        item_factory_name,
+      </if>
+      <if test="itemDiscState != null">
+        item_disc_state,
+      </if>
+      <if test="itemLatelyPic != null">
+        item_lately_pic,
+      </if>
+      <if test="itemAverPic != null">
+        item_aver_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="itemClassId != null">
+        #{itemClassId,jdbcType=INTEGER},
+      </if>
+      <if test="itemCode != null">
+        #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSpell != null">
+        #{itemSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="itemWubi != null">
+        #{itemWubi,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSpec != null">
+        #{itemSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="itemUnit != null">
+        #{itemUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSalePrice != null">
+        #{itemSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemFactoryName != null">
+        #{itemFactoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDiscState != null">
+        #{itemDiscState,jdbcType=INTEGER},
+      </if>
+      <if test="itemLatelyPic != null">
+        #{itemLatelyPic,jdbcType=DECIMAL},
+      </if>
+      <if test="itemAverPic != null">
+        #{itemAverPic,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Item">
+    update item
+    <set>
+      <if test="itemClassId != null">
+        item_class_id = #{itemClassId,jdbcType=INTEGER},
+      </if>
+      <if test="itemCode != null">
+        item_code = #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSpell != null">
+        item_spell = #{itemSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="itemWubi != null">
+        item_wubi = #{itemWubi,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSpec != null">
+        item_spec = #{itemSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="itemUnit != null">
+        item_unit = #{itemUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSalePrice != null">
+        item_sale_price = #{itemSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemFactoryName != null">
+        item_factory_name = #{itemFactoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDiscState != null">
+        item_disc_state = #{itemDiscState,jdbcType=INTEGER},
+      </if>
+      <if test="itemLatelyPic != null">
+        item_lately_pic = #{itemLatelyPic,jdbcType=DECIMAL},
+      </if>
+      <if test="itemAverPic != null">
+        item_aver_pic = #{itemAverPic,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Item">
+    update item
+    set item_class_id = #{itemClassId,jdbcType=INTEGER},
+      item_code = #{itemCode,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      item_spell = #{itemSpell,jdbcType=VARCHAR},
+      item_wubi = #{itemWubi,jdbcType=VARCHAR},
+      item_spec = #{itemSpec,jdbcType=VARCHAR},
+      item_unit = #{itemUnit,jdbcType=VARCHAR},
+      item_sale_price = #{itemSalePrice,jdbcType=DECIMAL},
+      item_factory_name = #{itemFactoryName,jdbcType=VARCHAR},
+      item_disc_state = #{itemDiscState,jdbcType=INTEGER},
+      item_lately_pic = #{itemLatelyPic,jdbcType=DECIMAL},
+      item_aver_pic = #{itemAverPic,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

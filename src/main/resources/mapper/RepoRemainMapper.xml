@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powersi.material.mapper.RepoRemainMapper">
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.RepoRemain">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="repo_id" jdbcType="VARCHAR" property="repoId" />
+    <result column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <result column="total_remain" jdbcType="DECIMAL" property="totalRemain" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, repo_id, item_id, total_remain
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from repo_remain
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from repo_remain
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.RepoRemain">
+    insert into repo_remain (id, repo_id, item_id, 
+      total_remain)
+    values (#{id,jdbcType=VARCHAR}, #{repoId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, 
+      #{totalRemain,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.RepoRemain">
+    insert into repo_remain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="repoId != null">
+        repo_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="totalRemain != null">
+        total_remain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="repoId != null">
+        #{repoId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalRemain != null">
+        #{totalRemain,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.RepoRemain">
+    update repo_remain
+    <set>
+      <if test="repoId != null">
+        repo_id = #{repoId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalRemain != null">
+        total_remain = #{totalRemain,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.RepoRemain">
+    update repo_remain
+    set repo_id = #{repoId,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=VARCHAR},
+      total_remain = #{totalRemain,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
