@@ -14,7 +14,7 @@ public class ItemSaleDetailKey {
     }
 
     public void setItemSaleId(String itemSaleId) {
-        this.itemSaleId = itemSaleId;
+        this.itemSaleId = itemSaleId == null ? null : itemSaleId.trim();
     }
 
     public String getItemId() {
@@ -22,7 +22,7 @@ public class ItemSaleDetailKey {
     }
 
     public void setItemId(String itemId) {
-        this.itemId = itemId;
+        this.itemId = itemId == null ? null : itemId.trim();
     }
 
     public String getRepoId() {
@@ -30,7 +30,7 @@ public class ItemSaleDetailKey {
     }
 
     public void setRepoId(String repoId) {
-        this.repoId = repoId;
+        this.repoId = repoId == null ? null : repoId.trim();
     }
 
     public String getSupplierId() {
@@ -38,6 +38,6 @@ public class ItemSaleDetailKey {
     }
 
     public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
+        this.supplierId = supplierId == null ? null : supplierId.trim();
     }
 }

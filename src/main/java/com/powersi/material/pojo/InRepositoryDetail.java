@@ -14,7 +14,7 @@ public class InRepositoryDetail extends InRepositoryDetailKey {
     }
 
     public void setRepoId(String repoId) {
-        this.repoId = repoId;
+        this.repoId = repoId == null ? null : repoId.trim();
     }
 
     public Integer getTimes() {

@@ -1,18 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.powersi.material.mapper.InRepositoryDetailMapper">
-  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.InRepositoryDetail">
-    <id column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
-    <id column="item_id" jdbcType="VARCHAR" property="itemId" />
-    <id column="in_repo_id" jdbcType="VARCHAR" property="inRepoId" />
-    <result column="repo_id" jdbcType="VARCHAR" property="repoId" />
-    <result column="times" jdbcType="INTEGER" property="times" />
-    <result column="in_repo_number" jdbcType="DECIMAL" property="inRepoNumber" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.powersi.material.mapper.InRepositoryDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.InRepositoryDetail" >
+    <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <id column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <id column="in_repo_id" property="inRepoId" jdbcType="VARCHAR" />
+    <result column="repo_id" property="repoId" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="INTEGER" />
+    <result column="in_repo_number" property="inRepoNumber" jdbcType="DECIMAL" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
     supplier_id, item_id, in_repo_id, repo_id, times, in_repo_number
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.powersi.material.pojo.InRepositoryDetailKey" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.InRepositoryDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from in_repository_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.InRepositoryDetailKey" >
     select 
     <include refid="Base_Column_List" />
     from in_repository_detail
@@ -20,13 +92,19 @@
       and item_id = #{itemId,jdbcType=VARCHAR}
       and in_repo_id = #{inRepoId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.InRepositoryDetailKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.InRepositoryDetailKey" >
     delete from in_repository_detail
     where supplier_id = #{supplierId,jdbcType=VARCHAR}
       and item_id = #{itemId,jdbcType=VARCHAR}
       and in_repo_id = #{inRepoId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.powersi.material.pojo.InRepositoryDetail">
+  <delete id="deleteByExample" parameterType="com.powersi.material.pojo.InRepositoryDetailExample" >
+    delete from in_repository_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.InRepositoryDetail" >
     insert into in_repository_detail (supplier_id, item_id, in_repo_id, 
       repo_id, times, in_repo_number
       )
@@ -34,59 +112,103 @@
       #{repoId,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, #{inRepoNumber,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.powersi.material.pojo.InRepositoryDetail">
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.InRepositoryDetail" >
     insert into in_repository_detail
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="supplierId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
         supplier_id,
       </if>
-      <if test="itemId != null">
+      <if test="itemId != null" >
         item_id,
       </if>
-      <if test="inRepoId != null">
+      <if test="inRepoId != null" >
         in_repo_id,
       </if>
-      <if test="repoId != null">
+      <if test="repoId != null" >
         repo_id,
       </if>
-      <if test="times != null">
+      <if test="times != null" >
         times,
       </if>
-      <if test="inRepoNumber != null">
+      <if test="inRepoNumber != null" >
         in_repo_number,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="supplierId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
         #{supplierId,jdbcType=VARCHAR},
       </if>
-      <if test="itemId != null">
+      <if test="itemId != null" >
         #{itemId,jdbcType=VARCHAR},
       </if>
-      <if test="inRepoId != null">
+      <if test="inRepoId != null" >
         #{inRepoId,jdbcType=VARCHAR},
       </if>
-      <if test="repoId != null">
+      <if test="repoId != null" >
         #{repoId,jdbcType=VARCHAR},
       </if>
-      <if test="times != null">
+      <if test="times != null" >
         #{times,jdbcType=INTEGER},
       </if>
-      <if test="inRepoNumber != null">
+      <if test="inRepoNumber != null" >
         #{inRepoNumber,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.InRepositoryDetail">
+  <select id="countByExample" parameterType="com.powersi.material.pojo.InRepositoryDetailExample" resultType="java.lang.Integer" >
+    select count(*) from in_repository_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
     update in_repository_detail
-    <set>
-      <if test="repoId != null">
+    <set >
+      <if test="record.supplierId != null" >
+        supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemId != null" >
+        item_id = #{record.itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inRepoId != null" >
+        in_repo_id = #{record.inRepoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repoId != null" >
+        repo_id = #{record.repoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.times != null" >
+        times = #{record.times,jdbcType=INTEGER},
+      </if>
+      <if test="record.inRepoNumber != null" >
+        in_repo_number = #{record.inRepoNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update in_repository_detail
+    set supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      item_id = #{record.itemId,jdbcType=VARCHAR},
+      in_repo_id = #{record.inRepoId,jdbcType=VARCHAR},
+      repo_id = #{record.repoId,jdbcType=VARCHAR},
+      times = #{record.times,jdbcType=INTEGER},
+      in_repo_number = #{record.inRepoNumber,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.InRepositoryDetail" >
+    update in_repository_detail
+    <set >
+      <if test="repoId != null" >
         repo_id = #{repoId,jdbcType=VARCHAR},
       </if>
-      <if test="times != null">
+      <if test="times != null" >
         times = #{times,jdbcType=INTEGER},
       </if>
-      <if test="inRepoNumber != null">
+      <if test="inRepoNumber != null" >
         in_repo_number = #{inRepoNumber,jdbcType=DECIMAL},
       </if>
     </set>
@@ -94,7 +216,7 @@
       and item_id = #{itemId,jdbcType=VARCHAR}
       and in_repo_id = #{inRepoId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.InRepositoryDetail">
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.InRepositoryDetail" >
     update in_repository_detail
     set repo_id = #{repoId,jdbcType=VARCHAR},
       times = #{times,jdbcType=INTEGER},

@@ -20,7 +20,7 @@ public class MemberClass {
     }
 
     public void setMemberClassName(String memberClassName) {
-        this.memberClassName = memberClassName;
+        this.memberClassName = memberClassName == null ? null : memberClassName.trim();
     }
 
     public Float getMemberClassDiscount() {

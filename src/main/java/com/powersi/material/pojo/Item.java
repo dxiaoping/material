@@ -34,7 +34,7 @@ public class Item {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public Integer getItemClassId() {
@@ -50,7 +50,7 @@ public class Item {
     }
 
     public void setItemCode(String itemCode) {
-        this.itemCode = itemCode;
+        this.itemCode = itemCode == null ? null : itemCode.trim();
     }
 
     public String getItemName() {
@@ -58,7 +58,7 @@ public class Item {
     }
 
     public void setItemName(String itemName) {
-        this.itemName = itemName;
+        this.itemName = itemName == null ? null : itemName.trim();
     }
 
     public String getItemSpell() {
@@ -66,7 +66,7 @@ public class Item {
     }
 
     public void setItemSpell(String itemSpell) {
-        this.itemSpell = itemSpell;
+        this.itemSpell = itemSpell == null ? null : itemSpell.trim();
     }
 
     public String getItemWubi() {
@@ -74,7 +74,7 @@ public class Item {
     }
 
     public void setItemWubi(String itemWubi) {
-        this.itemWubi = itemWubi;
+        this.itemWubi = itemWubi == null ? null : itemWubi.trim();
     }
 
     public String getItemSpec() {
@@ -82,7 +82,7 @@ public class Item {
     }
 
     public void setItemSpec(String itemSpec) {
-        this.itemSpec = itemSpec;
+        this.itemSpec = itemSpec == null ? null : itemSpec.trim();
     }
 
     public String getItemUnit() {
@@ -90,7 +90,7 @@ public class Item {
     }
 
     public void setItemUnit(String itemUnit) {
-        this.itemUnit = itemUnit;
+        this.itemUnit = itemUnit == null ? null : itemUnit.trim();
     }
 
     public BigDecimal getItemSalePrice() {
@@ -106,7 +106,7 @@ public class Item {
     }
 
     public void setItemFactoryName(String itemFactoryName) {
-        this.itemFactoryName = itemFactoryName;
+        this.itemFactoryName = itemFactoryName == null ? null : itemFactoryName.trim();
     }
 
     public Integer getItemDiscState() {

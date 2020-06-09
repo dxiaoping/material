@@ -22,7 +22,7 @@ public class Employee {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getEmpName() {
@@ -30,7 +30,7 @@ public class Employee {
     }
 
     public void setEmpName(String empName) {
-        this.empName = empName;
+        this.empName = empName == null ? null : empName.trim();
     }
 
     public String getEmpSex() {
@@ -38,7 +38,7 @@ public class Employee {
     }
 
     public void setEmpSex(String empSex) {
-        this.empSex = empSex;
+        this.empSex = empSex == null ? null : empSex.trim();
     }
 
     public Date getEmpBirthday() {
@@ -54,7 +54,7 @@ public class Employee {
     }
 
     public void setEmpRole(String empRole) {
-        this.empRole = empRole;
+        this.empRole = empRole == null ? null : empRole.trim();
     }
 
     public String getEmpTelp() {
@@ -62,7 +62,7 @@ public class Employee {
     }
 
     public void setEmpTelp(String empTelp) {
-        this.empTelp = empTelp;
+        this.empTelp = empTelp == null ? null : empTelp.trim();
     }
 
     public Date getEmpJoinDate() {

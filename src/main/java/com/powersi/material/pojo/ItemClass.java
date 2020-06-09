@@ -30,7 +30,7 @@ public class ItemClass {
     }
 
     public void setItemClassName(String itemClassName) {
-        this.itemClassName = itemClassName;
+        this.itemClassName = itemClassName == null ? null : itemClassName.trim();
     }
 
     public String getItemClassDesc() {
@@ -38,6 +38,6 @@ public class ItemClass {
     }
 
     public void setItemClassDesc(String itemClassDesc) {
-        this.itemClassDesc = itemClassDesc;
+        this.itemClassDesc = itemClassDesc == null ? null : itemClassDesc.trim();
     }
 }

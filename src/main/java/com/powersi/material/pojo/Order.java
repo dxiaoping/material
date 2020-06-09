@@ -21,7 +21,7 @@ public class Order {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getEmployeeId() {
@@ -29,7 +29,7 @@ public class Order {
     }
 
     public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+        this.employeeId = employeeId == null ? null : employeeId.trim();
     }
 
     public Date getOrderOperDate() {
@@ -45,7 +45,7 @@ public class Order {
     }
 
     public void setOrderIsArrive(String orderIsArrive) {
-        this.orderIsArrive = orderIsArrive;
+        this.orderIsArrive = orderIsArrive == null ? null : orderIsArrive.trim();
     }
 
     public String getOrdeStatus() {
@@ -53,7 +53,7 @@ public class Order {
     }
 
     public void setOrdeStatus(String ordeStatus) {
-        this.ordeStatus = ordeStatus;
+        this.ordeStatus = ordeStatus == null ? null : ordeStatus.trim();
     }
 
     public BigDecimal getOrderAmountMoney() {

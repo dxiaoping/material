@@ -10,7 +10,7 @@ public class RepoRemainDetailKey {
     }
 
     public void setRepoRemainId(String repoRemainId) {
-        this.repoRemainId = repoRemainId;
+        this.repoRemainId = repoRemainId == null ? null : repoRemainId.trim();
     }
 
     public String getSupplierId() {
@@ -18,6 +18,6 @@ public class RepoRemainDetailKey {
     }
 
     public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
+        this.supplierId = supplierId == null ? null : supplierId.trim();
     }
 }

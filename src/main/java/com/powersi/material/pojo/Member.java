@@ -21,7 +21,7 @@ public class Member {
     }
 
     public void setMemberTelp(String memberTelp) {
-        this.memberTelp = memberTelp;
+        this.memberTelp = memberTelp == null ? null : memberTelp.trim();
     }
 
     public String getMemberClassId() {
@@ -29,7 +29,7 @@ public class Member {
     }
 
     public void setMemberClassId(String memberClassId) {
-        this.memberClassId = memberClassId;
+        this.memberClassId = memberClassId == null ? null : memberClassId.trim();
     }
 
     public String getMemberName() {
@@ -37,7 +37,7 @@ public class Member {
     }
 
     public void setMemberName(String memberName) {
-        this.memberName = memberName;
+        this.memberName = memberName == null ? null : memberName.trim();
     }
 
     public String getMemberIdNum() {
@@ -45,7 +45,7 @@ public class Member {
     }
 
     public void setMemberIdNum(String memberIdNum) {
-        this.memberIdNum = memberIdNum;
+        this.memberIdNum = memberIdNum == null ? null : memberIdNum.trim();
     }
 
     public Date getMemberRegTime() {

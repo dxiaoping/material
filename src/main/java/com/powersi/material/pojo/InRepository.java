@@ -18,7 +18,7 @@ public class InRepository {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getReceiveId() {
@@ -26,7 +26,7 @@ public class InRepository {
     }
 
     public void setReceiveId(String receiveId) {
-        this.receiveId = receiveId;
+        this.receiveId = receiveId == null ? null : receiveId.trim();
     }
 
     public String getEmployeeId() {
@@ -34,7 +34,7 @@ public class InRepository {
     }
 
     public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+        this.employeeId = employeeId == null ? null : employeeId.trim();
     }
 
     public Date getInRepoDate() {

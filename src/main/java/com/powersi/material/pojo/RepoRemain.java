@@ -16,7 +16,7 @@ public class RepoRemain {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getRepoId() {
@@ -24,7 +24,7 @@ public class RepoRemain {
     }
 
     public void setRepoId(String repoId) {
-        this.repoId = repoId;
+        this.repoId = repoId == null ? null : repoId.trim();
     }
 
     public String getItemId() {
@@ -32,7 +32,7 @@ public class RepoRemain {
     }
 
     public void setItemId(String itemId) {
-        this.itemId = itemId;
+        this.itemId = itemId == null ? null : itemId.trim();
     }
 
     public BigDecimal getTotalRemain() {

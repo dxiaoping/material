@@ -25,7 +25,7 @@ public class ItemSale {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getMemberId() {
@@ -33,7 +33,7 @@ public class ItemSale {
     }
 
     public void setMemberId(String memberId) {
-        this.memberId = memberId;
+        this.memberId = memberId == null ? null : memberId.trim();
     }
 
     public String getEmployeeId() {
@@ -41,7 +41,7 @@ public class ItemSale {
     }
 
     public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+        this.employeeId = employeeId == null ? null : employeeId.trim();
     }
 
     public Date getSaleTime() {

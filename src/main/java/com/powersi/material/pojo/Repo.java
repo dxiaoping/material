@@ -10,7 +10,7 @@ public class Repo {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getRepoName() {
@@ -18,6 +18,6 @@ public class Repo {
     }
 
     public void setRepoName(String repoName) {
-        this.repoName = repoName;
+        this.repoName = repoName == null ? null : repoName.trim();
     }
 }

@@ -12,7 +12,7 @@ public class InRepositoryDetailKey {
     }
 
     public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
+        this.supplierId = supplierId == null ? null : supplierId.trim();
     }
 
     public String getItemId() {
@@ -20,7 +20,7 @@ public class InRepositoryDetailKey {
     }
 
     public void setItemId(String itemId) {
-        this.itemId = itemId;
+        this.itemId = itemId == null ? null : itemId.trim();
     }
 
     public String getInRepoId() {
@@ -28,6 +28,6 @@ public class InRepositoryDetailKey {
     }
 
     public void setInRepoId(String inRepoId) {
-        this.inRepoId = inRepoId;
+        this.inRepoId = inRepoId == null ? null : inRepoId.trim();
     }
 }

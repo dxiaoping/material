@@ -10,7 +10,7 @@ public class Supplier {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getSupplierName() {
@@ -18,6 +18,6 @@ public class Supplier {
     }
 
     public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
+        this.supplierName = supplierName == null ? null : supplierName.trim();
     }
 }

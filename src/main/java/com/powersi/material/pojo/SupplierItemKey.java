@@ -10,7 +10,7 @@ public class SupplierItemKey {
     }
 
     public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
+        this.supplierId = supplierId == null ? null : supplierId.trim();
     }
 
     public String getItemId() {
@@ -18,6 +18,6 @@ public class SupplierItemKey {
     }
 
     public void setItemId(String itemId) {
-        this.itemId = itemId;
+        this.itemId = itemId == null ? null : itemId.trim();
     }
 }

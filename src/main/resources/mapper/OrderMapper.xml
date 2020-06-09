@@ -1,28 +1,106 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.powersi.material.mapper.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Order">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="employee_id" jdbcType="VARCHAR" property="employeeId" />
-    <result column="order_oper_date" jdbcType="TIMESTAMP" property="orderOperDate" />
-    <result column="order_is_arrive" jdbcType="VARCHAR" property="orderIsArrive" />
-    <result column="orde_status" jdbcType="VARCHAR" property="ordeStatus" />
-    <result column="order_amount_money" jdbcType="DECIMAL" property="orderAmountMoney" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.powersi.material.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Order" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="VARCHAR" />
+    <result column="order_oper_date" property="orderOperDate" jdbcType="TIMESTAMP" />
+    <result column="order_is_arrive" property="orderIsArrive" jdbcType="VARCHAR" />
+    <result column="orde_status" property="ordeStatus" jdbcType="VARCHAR" />
+    <result column="order_amount_money" property="orderAmountMoney" jdbcType="DECIMAL" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
     id, employee_id, order_oper_date, order_is_arrive, orde_status, order_amount_money
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from order
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from order
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.powersi.material.pojo.Order">
+  <delete id="deleteByExample" parameterType="com.powersi.material.pojo.OrderExample" >
+    delete from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Order" >
     insert into order (id, employee_id, order_oper_date, 
       order_is_arrive, orde_status, order_amount_money
       )
@@ -30,71 +108,115 @@
       #{orderIsArrive,jdbcType=VARCHAR}, #{ordeStatus,jdbcType=VARCHAR}, #{orderAmountMoney,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Order">
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Order" >
     insert into order
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="employeeId != null">
+      <if test="employeeId != null" >
         employee_id,
       </if>
-      <if test="orderOperDate != null">
+      <if test="orderOperDate != null" >
         order_oper_date,
       </if>
-      <if test="orderIsArrive != null">
+      <if test="orderIsArrive != null" >
         order_is_arrive,
       </if>
-      <if test="ordeStatus != null">
+      <if test="ordeStatus != null" >
         orde_status,
       </if>
-      <if test="orderAmountMoney != null">
+      <if test="orderAmountMoney != null" >
         order_amount_money,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="employeeId != null">
+      <if test="employeeId != null" >
         #{employeeId,jdbcType=VARCHAR},
       </if>
-      <if test="orderOperDate != null">
+      <if test="orderOperDate != null" >
         #{orderOperDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="orderIsArrive != null">
+      <if test="orderIsArrive != null" >
         #{orderIsArrive,jdbcType=VARCHAR},
       </if>
-      <if test="ordeStatus != null">
+      <if test="ordeStatus != null" >
         #{ordeStatus,jdbcType=VARCHAR},
       </if>
-      <if test="orderAmountMoney != null">
+      <if test="orderAmountMoney != null" >
         #{orderAmountMoney,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Order">
+  <select id="countByExample" parameterType="com.powersi.material.pojo.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
     update order
-    <set>
-      <if test="employeeId != null">
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderOperDate != null" >
+        order_oper_date = #{record.orderOperDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderIsArrive != null" >
+        order_is_arrive = #{record.orderIsArrive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordeStatus != null" >
+        orde_status = #{record.ordeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderAmountMoney != null" >
+        order_amount_money = #{record.orderAmountMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order
+    set id = #{record.id,jdbcType=VARCHAR},
+      employee_id = #{record.employeeId,jdbcType=VARCHAR},
+      order_oper_date = #{record.orderOperDate,jdbcType=TIMESTAMP},
+      order_is_arrive = #{record.orderIsArrive,jdbcType=VARCHAR},
+      orde_status = #{record.ordeStatus,jdbcType=VARCHAR},
+      order_amount_money = #{record.orderAmountMoney,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Order" >
+    update order
+    <set >
+      <if test="employeeId != null" >
         employee_id = #{employeeId,jdbcType=VARCHAR},
       </if>
-      <if test="orderOperDate != null">
+      <if test="orderOperDate != null" >
         order_oper_date = #{orderOperDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="orderIsArrive != null">
+      <if test="orderIsArrive != null" >
         order_is_arrive = #{orderIsArrive,jdbcType=VARCHAR},
       </if>
-      <if test="ordeStatus != null">
+      <if test="ordeStatus != null" >
         orde_status = #{ordeStatus,jdbcType=VARCHAR},
       </if>
-      <if test="orderAmountMoney != null">
+      <if test="orderAmountMoney != null" >
         order_amount_money = #{orderAmountMoney,jdbcType=DECIMAL},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Order">
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Order" >
     update order
     set employee_id = #{employeeId,jdbcType=VARCHAR},
       order_oper_date = #{orderOperDate,jdbcType=TIMESTAMP},

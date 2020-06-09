@@ -12,7 +12,7 @@ public class OrderDetailKey {
     }
 
     public void setItemId(String itemId) {
-        this.itemId = itemId;
+        this.itemId = itemId == null ? null : itemId.trim();
     }
 
     public String getSupplierId() {
@@ -20,7 +20,7 @@ public class OrderDetailKey {
     }
 
     public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
+        this.supplierId = supplierId == null ? null : supplierId.trim();
     }
 
     public String getOrderId() {
@@ -28,6 +28,6 @@ public class OrderDetailKey {
     }
 
     public void setOrderId(String orderId) {
-        this.orderId = orderId;
+        this.orderId = orderId == null ? null : orderId.trim();
     }
 }

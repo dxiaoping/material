@@ -1,29 +1,107 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.powersi.material.mapper.EmployeeMapper">
-  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Employee">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="emp_name" jdbcType="VARCHAR" property="empName" />
-    <result column="emp_sex" jdbcType="VARCHAR" property="empSex" />
-    <result column="emp_birthday" jdbcType="DATE" property="empBirthday" />
-    <result column="emp_role" jdbcType="VARCHAR" property="empRole" />
-    <result column="emp_telp" jdbcType="VARCHAR" property="empTelp" />
-    <result column="emp_join_date" jdbcType="DATE" property="empJoinDate" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.powersi.material.mapper.EmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Employee" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+    <result column="emp_sex" property="empSex" jdbcType="VARCHAR" />
+    <result column="emp_birthday" property="empBirthday" jdbcType="DATE" />
+    <result column="emp_role" property="empRole" jdbcType="VARCHAR" />
+    <result column="emp_telp" property="empTelp" jdbcType="VARCHAR" />
+    <result column="emp_join_date" property="empJoinDate" jdbcType="DATE" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
     id, emp_name, emp_sex, emp_birthday, emp_role, emp_telp, emp_join_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.EmployeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from employee
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from employee
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.powersi.material.pojo.Employee">
+  <delete id="deleteByExample" parameterType="com.powersi.material.pojo.EmployeeExample" >
+    delete from employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Employee" >
     insert into employee (id, emp_name, emp_sex, 
       emp_birthday, emp_role, emp_telp, 
       emp_join_date)
@@ -31,80 +109,128 @@
       #{empBirthday,jdbcType=DATE}, #{empRole,jdbcType=VARCHAR}, #{empTelp,jdbcType=VARCHAR}, 
       #{empJoinDate,jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Employee">
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Employee" >
     insert into employee
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="empName != null">
+      <if test="empName != null" >
         emp_name,
       </if>
-      <if test="empSex != null">
+      <if test="empSex != null" >
         emp_sex,
       </if>
-      <if test="empBirthday != null">
+      <if test="empBirthday != null" >
         emp_birthday,
       </if>
-      <if test="empRole != null">
+      <if test="empRole != null" >
         emp_role,
       </if>
-      <if test="empTelp != null">
+      <if test="empTelp != null" >
         emp_telp,
       </if>
-      <if test="empJoinDate != null">
+      <if test="empJoinDate != null" >
         emp_join_date,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="empName != null">
+      <if test="empName != null" >
         #{empName,jdbcType=VARCHAR},
       </if>
-      <if test="empSex != null">
+      <if test="empSex != null" >
         #{empSex,jdbcType=VARCHAR},
       </if>
-      <if test="empBirthday != null">
+      <if test="empBirthday != null" >
         #{empBirthday,jdbcType=DATE},
       </if>
-      <if test="empRole != null">
+      <if test="empRole != null" >
         #{empRole,jdbcType=VARCHAR},
       </if>
-      <if test="empTelp != null">
+      <if test="empTelp != null" >
         #{empTelp,jdbcType=VARCHAR},
       </if>
-      <if test="empJoinDate != null">
+      <if test="empJoinDate != null" >
         #{empJoinDate,jdbcType=DATE},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Employee">
+  <select id="countByExample" parameterType="com.powersi.material.pojo.EmployeeExample" resultType="java.lang.Integer" >
+    select count(*) from employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
     update employee
-    <set>
-      <if test="empName != null">
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empName != null" >
+        emp_name = #{record.empName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empSex != null" >
+        emp_sex = #{record.empSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empBirthday != null" >
+        emp_birthday = #{record.empBirthday,jdbcType=DATE},
+      </if>
+      <if test="record.empRole != null" >
+        emp_role = #{record.empRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empTelp != null" >
+        emp_telp = #{record.empTelp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empJoinDate != null" >
+        emp_join_date = #{record.empJoinDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update employee
+    set id = #{record.id,jdbcType=VARCHAR},
+      emp_name = #{record.empName,jdbcType=VARCHAR},
+      emp_sex = #{record.empSex,jdbcType=VARCHAR},
+      emp_birthday = #{record.empBirthday,jdbcType=DATE},
+      emp_role = #{record.empRole,jdbcType=VARCHAR},
+      emp_telp = #{record.empTelp,jdbcType=VARCHAR},
+      emp_join_date = #{record.empJoinDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Employee" >
+    update employee
+    <set >
+      <if test="empName != null" >
         emp_name = #{empName,jdbcType=VARCHAR},
       </if>
-      <if test="empSex != null">
+      <if test="empSex != null" >
         emp_sex = #{empSex,jdbcType=VARCHAR},
       </if>
-      <if test="empBirthday != null">
+      <if test="empBirthday != null" >
         emp_birthday = #{empBirthday,jdbcType=DATE},
       </if>
-      <if test="empRole != null">
+      <if test="empRole != null" >
         emp_role = #{empRole,jdbcType=VARCHAR},
       </if>
-      <if test="empTelp != null">
+      <if test="empTelp != null" >
         emp_telp = #{empTelp,jdbcType=VARCHAR},
       </if>
-      <if test="empJoinDate != null">
+      <if test="empJoinDate != null" >
         emp_join_date = #{empJoinDate,jdbcType=DATE},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Employee">
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Employee" >
     update employee
     set emp_name = #{empName,jdbcType=VARCHAR},
       emp_sex = #{empSex,jdbcType=VARCHAR},

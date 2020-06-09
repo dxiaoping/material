@@ -1,28 +1,106 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.powersi.material.mapper.MemberMapper">
-  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Member">
-    <id column="member_telp" jdbcType="VARCHAR" property="memberTelp" />
-    <result column="member_class_id" jdbcType="VARCHAR" property="memberClassId" />
-    <result column="member_name" jdbcType="VARCHAR" property="memberName" />
-    <result column="member_id_num" jdbcType="VARCHAR" property="memberIdNum" />
-    <result column="member_reg_time" jdbcType="DATE" property="memberRegTime" />
-    <result column="member_amount_money" jdbcType="DECIMAL" property="memberAmountMoney" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.powersi.material.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Member" >
+    <id column="member_telp" property="memberTelp" jdbcType="VARCHAR" />
+    <result column="member_class_id" property="memberClassId" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="member_id_num" property="memberIdNum" jdbcType="VARCHAR" />
+    <result column="member_reg_time" property="memberRegTime" jdbcType="DATE" />
+    <result column="member_amount_money" property="memberAmountMoney" jdbcType="DECIMAL" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
     member_telp, member_class_id, member_name, member_id_num, member_reg_time, member_amount_money
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.MemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from member
     where member_telp = #{memberTelp,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from member
     where member_telp = #{memberTelp,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.powersi.material.pojo.Member">
+  <delete id="deleteByExample" parameterType="com.powersi.material.pojo.MemberExample" >
+    delete from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Member" >
     insert into member (member_telp, member_class_id, member_name, 
       member_id_num, member_reg_time, member_amount_money
       )
@@ -30,71 +108,115 @@
       #{memberIdNum,jdbcType=VARCHAR}, #{memberRegTime,jdbcType=DATE}, #{memberAmountMoney,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Member">
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Member" >
     insert into member
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="memberTelp != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberTelp != null" >
         member_telp,
       </if>
-      <if test="memberClassId != null">
+      <if test="memberClassId != null" >
         member_class_id,
       </if>
-      <if test="memberName != null">
+      <if test="memberName != null" >
         member_name,
       </if>
-      <if test="memberIdNum != null">
+      <if test="memberIdNum != null" >
         member_id_num,
       </if>
-      <if test="memberRegTime != null">
+      <if test="memberRegTime != null" >
         member_reg_time,
       </if>
-      <if test="memberAmountMoney != null">
+      <if test="memberAmountMoney != null" >
         member_amount_money,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="memberTelp != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberTelp != null" >
         #{memberTelp,jdbcType=VARCHAR},
       </if>
-      <if test="memberClassId != null">
+      <if test="memberClassId != null" >
         #{memberClassId,jdbcType=VARCHAR},
       </if>
-      <if test="memberName != null">
+      <if test="memberName != null" >
         #{memberName,jdbcType=VARCHAR},
       </if>
-      <if test="memberIdNum != null">
+      <if test="memberIdNum != null" >
         #{memberIdNum,jdbcType=VARCHAR},
       </if>
-      <if test="memberRegTime != null">
+      <if test="memberRegTime != null" >
         #{memberRegTime,jdbcType=DATE},
       </if>
-      <if test="memberAmountMoney != null">
+      <if test="memberAmountMoney != null" >
         #{memberAmountMoney,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Member">
+  <select id="countByExample" parameterType="com.powersi.material.pojo.MemberExample" resultType="java.lang.Integer" >
+    select count(*) from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
     update member
-    <set>
-      <if test="memberClassId != null">
+    <set >
+      <if test="record.memberTelp != null" >
+        member_telp = #{record.memberTelp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberClassId != null" >
+        member_class_id = #{record.memberClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberName != null" >
+        member_name = #{record.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberIdNum != null" >
+        member_id_num = #{record.memberIdNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberRegTime != null" >
+        member_reg_time = #{record.memberRegTime,jdbcType=DATE},
+      </if>
+      <if test="record.memberAmountMoney != null" >
+        member_amount_money = #{record.memberAmountMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update member
+    set member_telp = #{record.memberTelp,jdbcType=VARCHAR},
+      member_class_id = #{record.memberClassId,jdbcType=VARCHAR},
+      member_name = #{record.memberName,jdbcType=VARCHAR},
+      member_id_num = #{record.memberIdNum,jdbcType=VARCHAR},
+      member_reg_time = #{record.memberRegTime,jdbcType=DATE},
+      member_amount_money = #{record.memberAmountMoney,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Member" >
+    update member
+    <set >
+      <if test="memberClassId != null" >
         member_class_id = #{memberClassId,jdbcType=VARCHAR},
       </if>
-      <if test="memberName != null">
+      <if test="memberName != null" >
         member_name = #{memberName,jdbcType=VARCHAR},
       </if>
-      <if test="memberIdNum != null">
+      <if test="memberIdNum != null" >
         member_id_num = #{memberIdNum,jdbcType=VARCHAR},
       </if>
-      <if test="memberRegTime != null">
+      <if test="memberRegTime != null" >
         member_reg_time = #{memberRegTime,jdbcType=DATE},
       </if>
-      <if test="memberAmountMoney != null">
+      <if test="memberAmountMoney != null" >
         member_amount_money = #{memberAmountMoney,jdbcType=DECIMAL},
       </if>
     </set>
     where member_telp = #{memberTelp,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Member">
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Member" >
     update member
     set member_class_id = #{memberClassId,jdbcType=VARCHAR},
       member_name = #{memberName,jdbcType=VARCHAR},

@@ -1,36 +1,114 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.powersi.material.mapper.ItemMapper">
-  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Item">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="item_class_id" jdbcType="INTEGER" property="itemClassId" />
-    <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
-    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
-    <result column="item_spell" jdbcType="VARCHAR" property="itemSpell" />
-    <result column="item_wubi" jdbcType="VARCHAR" property="itemWubi" />
-    <result column="item_spec" jdbcType="VARCHAR" property="itemSpec" />
-    <result column="item_unit" jdbcType="VARCHAR" property="itemUnit" />
-    <result column="item_sale_price" jdbcType="DECIMAL" property="itemSalePrice" />
-    <result column="item_factory_name" jdbcType="VARCHAR" property="itemFactoryName" />
-    <result column="item_disc_state" jdbcType="INTEGER" property="itemDiscState" />
-    <result column="item_lately_pic" jdbcType="DECIMAL" property="itemLatelyPic" />
-    <result column="item_aver_pic" jdbcType="DECIMAL" property="itemAverPic" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.powersi.material.mapper.ItemMapper" >
+  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.Item" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="item_class_id" property="itemClassId" jdbcType="INTEGER" />
+    <result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="item_spell" property="itemSpell" jdbcType="VARCHAR" />
+    <result column="item_wubi" property="itemWubi" jdbcType="VARCHAR" />
+    <result column="item_spec" property="itemSpec" jdbcType="VARCHAR" />
+    <result column="item_unit" property="itemUnit" jdbcType="VARCHAR" />
+    <result column="item_sale_price" property="itemSalePrice" jdbcType="DECIMAL" />
+    <result column="item_factory_name" property="itemFactoryName" jdbcType="VARCHAR" />
+    <result column="item_disc_state" property="itemDiscState" jdbcType="INTEGER" />
+    <result column="item_lately_pic" property="itemLatelyPic" jdbcType="DECIMAL" />
+    <result column="item_aver_pic" property="itemAverPic" jdbcType="DECIMAL" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
     id, item_class_id, item_code, item_name, item_spell, item_wubi, item_spec, item_unit, 
     item_sale_price, item_factory_name, item_disc_state, item_lately_pic, item_aver_pic
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from item
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from item
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.powersi.material.pojo.Item">
+  <delete id="deleteByExample" parameterType="com.powersi.material.pojo.ItemExample" >
+    delete from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.powersi.material.pojo.Item" >
     insert into item (id, item_class_id, item_code, 
       item_name, item_spell, item_wubi, 
       item_spec, item_unit, item_sale_price, 
@@ -42,134 +120,206 @@
       #{itemFactoryName,jdbcType=VARCHAR}, #{itemDiscState,jdbcType=INTEGER}, #{itemLatelyPic,jdbcType=DECIMAL}, 
       #{itemAverPic,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Item">
+  <insert id="insertSelective" parameterType="com.powersi.material.pojo.Item" >
     insert into item
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="itemClassId != null">
+      <if test="itemClassId != null" >
         item_class_id,
       </if>
-      <if test="itemCode != null">
+      <if test="itemCode != null" >
         item_code,
       </if>
-      <if test="itemName != null">
+      <if test="itemName != null" >
         item_name,
       </if>
-      <if test="itemSpell != null">
+      <if test="itemSpell != null" >
         item_spell,
       </if>
-      <if test="itemWubi != null">
+      <if test="itemWubi != null" >
         item_wubi,
       </if>
-      <if test="itemSpec != null">
+      <if test="itemSpec != null" >
         item_spec,
       </if>
-      <if test="itemUnit != null">
+      <if test="itemUnit != null" >
         item_unit,
       </if>
-      <if test="itemSalePrice != null">
+      <if test="itemSalePrice != null" >
         item_sale_price,
       </if>
-      <if test="itemFactoryName != null">
+      <if test="itemFactoryName != null" >
         item_factory_name,
       </if>
-      <if test="itemDiscState != null">
+      <if test="itemDiscState != null" >
         item_disc_state,
       </if>
-      <if test="itemLatelyPic != null">
+      <if test="itemLatelyPic != null" >
         item_lately_pic,
       </if>
-      <if test="itemAverPic != null">
+      <if test="itemAverPic != null" >
         item_aver_pic,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="itemClassId != null">
+      <if test="itemClassId != null" >
         #{itemClassId,jdbcType=INTEGER},
       </if>
-      <if test="itemCode != null">
+      <if test="itemCode != null" >
         #{itemCode,jdbcType=VARCHAR},
       </if>
-      <if test="itemName != null">
+      <if test="itemName != null" >
         #{itemName,jdbcType=VARCHAR},
       </if>
-      <if test="itemSpell != null">
+      <if test="itemSpell != null" >
         #{itemSpell,jdbcType=VARCHAR},
       </if>
-      <if test="itemWubi != null">
+      <if test="itemWubi != null" >
         #{itemWubi,jdbcType=VARCHAR},
       </if>
-      <if test="itemSpec != null">
+      <if test="itemSpec != null" >
         #{itemSpec,jdbcType=VARCHAR},
       </if>
-      <if test="itemUnit != null">
+      <if test="itemUnit != null" >
         #{itemUnit,jdbcType=VARCHAR},
       </if>
-      <if test="itemSalePrice != null">
+      <if test="itemSalePrice != null" >
         #{itemSalePrice,jdbcType=DECIMAL},
       </if>
-      <if test="itemFactoryName != null">
+      <if test="itemFactoryName != null" >
         #{itemFactoryName,jdbcType=VARCHAR},
       </if>
-      <if test="itemDiscState != null">
+      <if test="itemDiscState != null" >
         #{itemDiscState,jdbcType=INTEGER},
       </if>
-      <if test="itemLatelyPic != null">
+      <if test="itemLatelyPic != null" >
         #{itemLatelyPic,jdbcType=DECIMAL},
       </if>
-      <if test="itemAverPic != null">
+      <if test="itemAverPic != null" >
         #{itemAverPic,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Item">
+  <select id="countByExample" parameterType="com.powersi.material.pojo.ItemExample" resultType="java.lang.Integer" >
+    select count(*) from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
     update item
-    <set>
-      <if test="itemClassId != null">
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemClassId != null" >
+        item_class_id = #{record.itemClassId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemCode != null" >
+        item_code = #{record.itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemName != null" >
+        item_name = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemSpell != null" >
+        item_spell = #{record.itemSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemWubi != null" >
+        item_wubi = #{record.itemWubi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemSpec != null" >
+        item_spec = #{record.itemSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemUnit != null" >
+        item_unit = #{record.itemUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemSalePrice != null" >
+        item_sale_price = #{record.itemSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemFactoryName != null" >
+        item_factory_name = #{record.itemFactoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemDiscState != null" >
+        item_disc_state = #{record.itemDiscState,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemLatelyPic != null" >
+        item_lately_pic = #{record.itemLatelyPic,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemAverPic != null" >
+        item_aver_pic = #{record.itemAverPic,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update item
+    set id = #{record.id,jdbcType=VARCHAR},
+      item_class_id = #{record.itemClassId,jdbcType=INTEGER},
+      item_code = #{record.itemCode,jdbcType=VARCHAR},
+      item_name = #{record.itemName,jdbcType=VARCHAR},
+      item_spell = #{record.itemSpell,jdbcType=VARCHAR},
+      item_wubi = #{record.itemWubi,jdbcType=VARCHAR},
+      item_spec = #{record.itemSpec,jdbcType=VARCHAR},
+      item_unit = #{record.itemUnit,jdbcType=VARCHAR},
+      item_sale_price = #{record.itemSalePrice,jdbcType=DECIMAL},
+      item_factory_name = #{record.itemFactoryName,jdbcType=VARCHAR},
+      item_disc_state = #{record.itemDiscState,jdbcType=INTEGER},
+      item_lately_pic = #{record.itemLatelyPic,jdbcType=DECIMAL},
+      item_aver_pic = #{record.itemAverPic,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.Item" >
+    update item
+    <set >
+      <if test="itemClassId != null" >
         item_class_id = #{itemClassId,jdbcType=INTEGER},
       </if>
-      <if test="itemCode != null">
+      <if test="itemCode != null" >
         item_code = #{itemCode,jdbcType=VARCHAR},
       </if>
-      <if test="itemName != null">
+      <if test="itemName != null" >
         item_name = #{itemName,jdbcType=VARCHAR},
       </if>
-      <if test="itemSpell != null">
+      <if test="itemSpell != null" >
         item_spell = #{itemSpell,jdbcType=VARCHAR},
       </if>
-      <if test="itemWubi != null">
+      <if test="itemWubi != null" >
         item_wubi = #{itemWubi,jdbcType=VARCHAR},
       </if>
-      <if test="itemSpec != null">
+      <if test="itemSpec != null" >
         item_spec = #{itemSpec,jdbcType=VARCHAR},
       </if>
-      <if test="itemUnit != null">
+      <if test="itemUnit != null" >
         item_unit = #{itemUnit,jdbcType=VARCHAR},
       </if>
-      <if test="itemSalePrice != null">
+      <if test="itemSalePrice != null" >
         item_sale_price = #{itemSalePrice,jdbcType=DECIMAL},
       </if>
-      <if test="itemFactoryName != null">
+      <if test="itemFactoryName != null" >
         item_factory_name = #{itemFactoryName,jdbcType=VARCHAR},
       </if>
-      <if test="itemDiscState != null">
+      <if test="itemDiscState != null" >
         item_disc_state = #{itemDiscState,jdbcType=INTEGER},
       </if>
-      <if test="itemLatelyPic != null">
+      <if test="itemLatelyPic != null" >
         item_lately_pic = #{itemLatelyPic,jdbcType=DECIMAL},
       </if>
-      <if test="itemAverPic != null">
+      <if test="itemAverPic != null" >
         item_aver_pic = #{itemAverPic,jdbcType=DECIMAL},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Item">
+  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.Item" >
     update item
     set item_class_id = #{itemClassId,jdbcType=INTEGER},
       item_code = #{itemCode,jdbcType=VARCHAR},

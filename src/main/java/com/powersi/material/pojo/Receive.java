@@ -18,7 +18,7 @@ public class Receive {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getOrderId() {
@@ -26,7 +26,7 @@ public class Receive {
     }
 
     public void setOrderId(String orderId) {
-        this.orderId = orderId;
+        this.orderId = orderId == null ? null : orderId.trim();
     }
 
     public String getEmployeeId() {
@@ -34,7 +34,7 @@ public class Receive {
     }
 
     public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+        this.employeeId = employeeId == null ? null : employeeId.trim();
     }
 
     public Date getReceOperDate() {
