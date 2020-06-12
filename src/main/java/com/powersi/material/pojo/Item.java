@@ -1,5 +1,6 @@
 package com.powersi.material.pojo;
 
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 public class Item {

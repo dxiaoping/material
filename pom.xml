@@ -71,14 +71,17 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
+        <!-- 分页操作 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <!--热部署配置-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -88,6 +91,7 @@
                     <fork>true</fork>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
