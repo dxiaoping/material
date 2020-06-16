@@ -1,7 +1,9 @@
 package com.powersi.material.service;
 
 import com.powersi.material.mapper.RoleMapper;
+import com.powersi.material.pojo.Employee;
 import com.powersi.material.pojo.User;
+import com.powersi.material.repository.EmployeeRepository;
 import com.powersi.material.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,6 +25,9 @@ public class UserService {
     private final RoleMapper roleMapper;
 
     private final RedisTemplate<String,Object> redisTemplate;
+
+    //测试
+    private final EmployeeRepository employ;
 
     /**
      * 审核用户是否可以登录
@@ -56,6 +61,43 @@ public class UserService {
         }};
     }
 
+    /**
+     * 审核用户是否可以登录
+     * @param emp  职工对象
+     * @return      职工名字与token的集合
+     */
+    public Map empLogin(Employee emp) throws Exception{
+
+        //判断员工是否为空
+        Assert.notNull(emp,"请求参数错误");
+
+        Employee employee = employ.findByIdAndEmpTelp(emp.getId(),emp.getEmpTelp());
+
+        //再次判断员工是否为空
+        Assert.notNull(employee,"员工不存在");
+
+        //判断两个员工的密码是否一致
+        if(!employee.getEmpTelp().equals(emp.getEmpTelp()))
+            throw new Exception("密码错误");
+
+        //设置用户的唯一标识token
+        String token = UUID.randomUUID().toString().replaceAll("-", "");
+        //设置redis保存用户的信息
+        redisTemplate.opsForValue().set(token,employee,2*30*60,TimeUnit.SECONDS);
+
+        return new HashMap(){{
+//            put("id",employee.getId());
+            put("empName",employee.getEmpName());
+            put("token", token);
+        }};
+
+    }
+
+    /**
+     * 通过在redis中获取员工信息
+     * @param token
+     * @return
+     */
     public Object getUserInfo(String token) {
         Object o = redisTemplate.opsForValue().get(token);
         if(o != null) redisTemplate.expire(token,2*30*60, TimeUnit.SECONDS);
