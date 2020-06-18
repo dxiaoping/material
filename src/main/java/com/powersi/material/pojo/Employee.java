@@ -1,5 +1,7 @@
 package com.powersi.material.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,12 +18,14 @@ public class Employee {
 
     private String empSex;
 
+//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date empBirthday;
 
     private String empRole;
 
     private String empTelp;
 
+//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date empJoinDate;
 
     public String getId() {
