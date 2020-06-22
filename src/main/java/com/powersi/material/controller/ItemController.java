@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/item")
 public class ItemController {
@@ -39,6 +41,18 @@ public class ItemController {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 
+        }
+
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<String> search (String keyWord){
+
+
+        try {
+            return ResponseEntity.ok(mapper.writeValueAsString(service.search(keyWord)));
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
     }
