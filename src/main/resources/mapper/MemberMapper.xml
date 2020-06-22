@@ -84,8 +84,12 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from member
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from member
     where member_telp = #{memberTelp,jdbcType=VARCHAR}
@@ -101,10 +105,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.powersi.material.pojo.Member" >
-    insert into member (member_telp, member_class_id, member_name, 
+    insert into member (member_telp, member_class_id, member_name,
       member_id_num, member_reg_time, member_amount_money
       )
-    values (#{memberTelp,jdbcType=VARCHAR}, #{memberClassId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, 
+    values (#{memberTelp,jdbcType=VARCHAR}, #{memberClassId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR},
       #{memberIdNum,jdbcType=VARCHAR}, #{memberRegTime,jdbcType=DATE}, #{memberAmountMoney,jdbcType=DECIMAL}
       )
   </insert>
