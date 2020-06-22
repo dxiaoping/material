@@ -4,20 +4,21 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ItemSale {
+    /**销售编号*/
     private String id;
-
+    /**会员编号*/
     private String memberId;
-
+    /**员工编号*/
     private String employeeId;
-
+    /**销售时间*/
     private Date saleTime;
-
+    /**是否退货*/
     private Integer saleRejectRemark;
-
+    /**折后价*/
     private BigDecimal saleAfterDiscount;
-
+    /**优惠金额*/
     private BigDecimal saleDiscountAmount;
-
+    /**总金额*/
     private BigDecimal saleTotalAmount;
 
     public String getId() {

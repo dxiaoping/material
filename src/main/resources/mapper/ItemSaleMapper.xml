@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, member_id, employee_id, sale_time, sale_reject_remark, sale_after_discount, sale_discount_amount, 
+    id, member_id, employee_id, sale_time, sale_reject_remark, sale_after_discount, sale_discount_amount,
     sale_total_amount
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemSaleExample" >
@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from item_sale
     where id = #{id,jdbcType=VARCHAR}
@@ -104,11 +104,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.powersi.material.pojo.ItemSale" >
-    insert into item_sale (id, member_id, employee_id, 
-      sale_time, sale_reject_remark, sale_after_discount, 
+    insert into item_sale (id, member_id, employee_id,
+      sale_time, sale_reject_remark, sale_after_discount,
       sale_discount_amount, sale_total_amount)
-    values (#{id,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR}, 
-      #{saleTime,jdbcType=TIMESTAMP}, #{saleRejectRemark,jdbcType=INTEGER}, #{saleAfterDiscount,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR},
+      #{saleTime,jdbcType=TIMESTAMP}, #{saleRejectRemark,jdbcType=INTEGER}, #{saleAfterDiscount,jdbcType=DECIMAL},
       #{saleDiscountAmount,jdbcType=DECIMAL}, #{saleTotalAmount,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.powersi.material.pojo.ItemSale" >
@@ -166,6 +166,27 @@
       </if>
     </trim>
   </insert>
+  <select id="selectByCondition" resultType="com.powersi.material.pojo.ItemSale">
+    select * from item_sale
+    <where>
+    <choose>
+      <when test="startTime != null and endTime != null">
+        and sale_time between #{startTime} and #{endTime}
+      </when>
+      <when test="startTime != null and endTime == null">
+        and sale_time <![CDATA[ >= ]]> #{startTime}
+      </when>
+      <when test="startTime == null and endTime != null">
+        and sale_time <![CDATA[ <= ]]> #{endTimeTime}
+      </when>
+    </choose>
+
+        <if test="key != null">
+          and (id like #{key} or member_id like #{key} or employee_id like #{key})
+        </if>
+    </where>
+
+  </select>
   <select id="countByExample" parameterType="com.powersi.material.pojo.ItemSaleExample" resultType="java.lang.Integer" >
     select count(*) from item_sale
     <if test="_parameter != null" >
