@@ -1,13 +1,10 @@
 package com.powersi.material.pojo;
 
 public class ItemSaleDetailKey {
-    private String itemSaleId;
-
-    private String itemId;
-
-    private String repoId;
-
-    private String supplierId;
+    /**销售单id*/private String itemSaleId;
+    /**商品id*/private String itemId;
+    /**仓库*/private String repoId;
+    /**供货商*/private String supplierId;
 
     public String getItemSaleId() {
         return itemSaleId;
