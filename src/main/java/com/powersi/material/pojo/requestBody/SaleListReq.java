@@ -1,9 +1,13 @@
 package com.powersi.material.pojo.requestBody;
-
+/**
+ * @description: 销售订单查询前端传入参数
+ * @author: Duan xiaoping
+ * @mailbox: xiaoping.duan@powersi.com.cn
+ * @create: 2020-06-9 10:34
+ */
 import java.util.Date;
 
-//销售订单查询前端传入参数
-public class SaleListParam {
+public class SaleListReq {
 //  查询起始时间
     private Date startTime;
     //  查询起始时间

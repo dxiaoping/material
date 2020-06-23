@@ -8,6 +8,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ItemSaleDetailMapper {
+
+    List<ItemSaleDetail> selectBySaleId(String itemSaleId);
+
+    int insertSaleDetail(List<ItemSaleDetail> saleDetails);
+
     int countByExample(ItemSaleDetailExample example);
 
     int deleteByExample(ItemSaleDetailExample example);

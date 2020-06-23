@@ -27,6 +27,8 @@ public interface ItemMapper {
             "or i.id like concat('%',#{itemName},'%') )")
     List<SearchItemDTO> selectByItemName(@Param("itemName") String itemName);
 
+    List<Item> selectByKeyWord(@Param("keyWord") String keyWord);
+
     @Select("select i.id,\n" +
             "i.item_class_id,\n" +
             "concat((select itc.item_class_name from item_class itc where itc.id = ic.item_class_father),' / ',ic.item_class_name) as item_class_name,\n" +

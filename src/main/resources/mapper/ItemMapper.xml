@@ -75,9 +75,13 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, item_class_id, item_code, item_name, item_spell, item_wubi, item_spec, item_unit, 
+    id, item_class_id, item_code, item_name, item_spell, item_wubi, item_spec, item_unit,
     item_sale_price, item_factory_name, item_disc_state, item_lately_pic, item_aver_pic
   </sql>
+  <select id="selectByKeyWord" resultMap="BaseResultMap">
+    select * from item where item_name like #{keyWord};
+  </select>
+
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemExample" >
     select
     <if test="distinct" >
@@ -93,7 +97,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from item
     where id = #{id,jdbcType=VARCHAR}
@@ -109,15 +113,15 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.powersi.material.pojo.Item" >
-    insert into item (id, item_class_id, item_code, 
-      item_name, item_spell, item_wubi, 
-      item_spec, item_unit, item_sale_price, 
-      item_factory_name, item_disc_state, item_lately_pic, 
+    insert into item (id, item_class_id, item_code,
+      item_name, item_spell, item_wubi,
+      item_spec, item_unit, item_sale_price,
+      item_factory_name, item_disc_state, item_lately_pic,
       item_aver_pic)
-    values (#{id,jdbcType=VARCHAR}, #{itemClassId,jdbcType=INTEGER}, #{itemCode,jdbcType=VARCHAR}, 
-      #{itemName,jdbcType=VARCHAR}, #{itemSpell,jdbcType=VARCHAR}, #{itemWubi,jdbcType=VARCHAR}, 
-      #{itemSpec,jdbcType=VARCHAR}, #{itemUnit,jdbcType=VARCHAR}, #{itemSalePrice,jdbcType=DECIMAL}, 
-      #{itemFactoryName,jdbcType=VARCHAR}, #{itemDiscState,jdbcType=INTEGER}, #{itemLatelyPic,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=VARCHAR}, #{itemClassId,jdbcType=INTEGER}, #{itemCode,jdbcType=VARCHAR},
+      #{itemName,jdbcType=VARCHAR}, #{itemSpell,jdbcType=VARCHAR}, #{itemWubi,jdbcType=VARCHAR},
+      #{itemSpec,jdbcType=VARCHAR}, #{itemUnit,jdbcType=VARCHAR}, #{itemSalePrice,jdbcType=DECIMAL},
+      #{itemFactoryName,jdbcType=VARCHAR}, #{itemDiscState,jdbcType=INTEGER}, #{itemLatelyPic,jdbcType=DECIMAL},
       #{itemAverPic,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.powersi.material.pojo.Item" >

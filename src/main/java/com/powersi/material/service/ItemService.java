@@ -40,4 +40,13 @@ public class ItemService {
         return page;
     }
 
+    public List search(String keyWord){
+
+//        PageHelper.startPage(pageNO,10);
+
+
+        List<Item> list = mapper.selectByKeyWord("%"+keyWord+"%");
+
+        return list;
+    }
 }

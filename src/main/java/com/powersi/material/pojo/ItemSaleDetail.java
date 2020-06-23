@@ -3,14 +3,15 @@ package com.powersi.material.pojo;
 import java.math.BigDecimal;
 
 public class ItemSaleDetail extends ItemSaleDetailKey {
+    /**销售价格*/
     private BigDecimal salePrice;
-
+    /**销售数量*/
     private Long saleNumber;
-
+    /**折后价*/
     private BigDecimal saleAfterDiscount;
-
+    /**优惠金额*/
     private BigDecimal saleDiscountAmount;
-
+    /**总金额*/
     private BigDecimal totalAmount;
 
     public BigDecimal getSalePrice() {

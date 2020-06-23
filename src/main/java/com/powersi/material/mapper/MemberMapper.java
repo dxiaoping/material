@@ -18,6 +18,7 @@ public interface MemberMapper {
     int insertSelective(Member record);
 
     List<Member> selectByExample(MemberExample example);
+    List<Member> selectAll();
 
     Member selectByPrimaryKey(String memberTelp);
 
