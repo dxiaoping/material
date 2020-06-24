@@ -2,10 +2,8 @@ package com.powersi.material.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.powersi.material.mapper.ItemClassMapper;
 import com.powersi.material.mapper.ItemMapper;
 import com.powersi.material.pojo.Item;
-import com.powersi.material.pojo.ItemClass;
 import com.powersi.material.pojo.requestBody.SearchItemDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,6 @@ import java.util.Map;
 public class ItemService {
 
     private final ItemMapper mapper;
-
-    private final ItemClassMapper classmapper;
 
     public PageInfo<SearchItemDTO> searchItem(Integer pageNO,String itemName,String itemClass){
 
@@ -42,13 +38,6 @@ public class ItemService {
         PageInfo<SearchItemDTO> page = new PageInfo<SearchItemDTO>(list);
 
         return page;
-    }
-
-    public List<ItemClass> getItemClass(){
-
-        List<ItemClass> list = classmapper.selectAllItem();
-
-        return list;
     }
 
 }

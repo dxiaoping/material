@@ -67,6 +67,11 @@
   <sql id="Base_Column_List" >
     id, member_class_name, member_class_discount
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from member_class
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.MemberClassExample" >
     select
     <if test="distinct" >
@@ -81,11 +86,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="string" >
+    select
     <include refid="Base_Column_List" />
     from member_class
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from member_class

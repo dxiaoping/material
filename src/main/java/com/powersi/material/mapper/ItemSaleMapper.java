@@ -4,9 +4,13 @@ import com.powersi.material.pojo.ItemSale;
 import com.powersi.material.pojo.ItemSaleExample;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ItemSaleMapper {
+
+    List<ItemSale> selectByCondition(@Param("startTime") Date startTime,@Param("endTime")Date endTime,@Param("key")String key);
+
     int countByExample(ItemSaleExample example);
 
     int deleteByExample(ItemSaleExample example);

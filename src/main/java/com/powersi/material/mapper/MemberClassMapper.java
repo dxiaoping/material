@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface MemberClassMapper {
+
+
     int countByExample(MemberClassExample example);
 
     int deleteByExample(MemberClassExample example);
@@ -18,8 +20,9 @@ public interface MemberClassMapper {
     int insertSelective(MemberClass record);
 
     List<MemberClass> selectByExample(MemberClassExample example);
+    List<MemberClass> selectAll();
 
-    MemberClass selectByPrimaryKey(Integer id);
+    MemberClass selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") MemberClass record, @Param("example") MemberClassExample example);
 
