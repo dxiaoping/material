@@ -30,7 +30,8 @@ public interface ItemClassMapper {
 
     int updateByPrimaryKey(ItemClass record);
 
-    @Select("select * from item_class where item_class_father <> 0")
+    //查询商品类别
+    @Select("select id,item_class_father,item_class_name from item_class where item_class_father <> 0")
     List<ItemClass> selectAllItem();
 
 }
