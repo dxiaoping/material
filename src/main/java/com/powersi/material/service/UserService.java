@@ -99,8 +99,12 @@ public class UserService {
      * @return
      */
     public Object getUserInfo(String token) {
+        //通过toekn获取员工信息
         Object o = redisTemplate.opsForValue().get(token);
-        if(o != null) redisTemplate.expire(token,2*30*60, TimeUnit.SECONDS);
+        //用户不为空，表示有该用户
+        if(o != null)
+            //将用户的token保存在redis中，重新定义过期时间
+            redisTemplate.expire(token,2*30*60, TimeUnit.SECONDS);
         return o;
     }
 
