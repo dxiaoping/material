@@ -4,18 +4,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.powersi.material.mapper.ItemClassMapper;
 import com.powersi.material.mapper.ItemMapper;
-import com.powersi.material.pojo.Item;
 import com.powersi.material.pojo.ItemClass;
-import com.powersi.material.pojo.requestBody.SearchItemDTO;
+import com.powersi.material.pojo.ItemExample;
+import com.powersi.material.pojo.requestBody.SeLectItemDTO;
+import com.powersi.material.pojo.responseBody.SearchItemDTO;
+import com.powersi.material.pojo.responseBody.SelectItemRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -28,6 +27,19 @@ public class ItemService {
     private final ItemClassMapper classmapper;
 
     private final RedisTemplate<String,Object> redisTemplate;
+
+
+    public PageInfo<SelectItemRes> selectItem(SeLectItemDTO dto,Integer pageNO,Integer pageSize){
+
+        PageHelper.startPage(pageNO,pageSize);
+
+        List<SelectItemRes> list = mapper.selectItem(dto);
+
+        PageInfo<SelectItemRes> info = new PageInfo<>(list);
+
+        return info;
+    }
+
 
     public PageInfo<SearchItemDTO> searchItem(Integer pageNO,String itemName,String itemClass){
 
