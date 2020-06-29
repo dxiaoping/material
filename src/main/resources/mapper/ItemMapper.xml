@@ -79,7 +79,9 @@
     item_sale_price, item_factory_name, item_disc_state, item_lately_pic, item_aver_pic
   </sql>
   <select id="selectByKeyWord" resultMap="BaseResultMap">
-    select * from item where item_name like #{keyWord};
+    select * from item
+    where item_name like #{keyWord}
+    or id like #{keyWord};
   </select>
 
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemExample" >
