@@ -1,4 +1,4 @@
-package com.powersi.material.pojo.requestBody;
+package com.powersi.material.pojo.responseBody;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  */
 
 @Data
-public class SearchItemDTO {
+public class SelectItemRes {
 
     private String id;
 
@@ -19,16 +19,8 @@ public class SearchItemDTO {
 
     private String itemName;
 
-    private String itemUnit;
-
     private BigDecimal itemSalePrice;
 
     private String itemFactoryName;
-
-    private Integer itemDiscState;
-
-    private BigDecimal itemLatelyPic;
-
-    private BigDecimal itemAverPic;
 
 }

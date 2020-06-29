@@ -184,6 +184,10 @@
         <if test="key != null">
           and (id like #{key} or member_id like #{key} or employee_id like #{key})
         </if>
+      <if test="backSaleState != 2">
+          and (sale_reject_remark = #{backSaleState})
+        </if>
+
     </where>
 
   </select>
@@ -277,4 +281,8 @@
       sale_total_amount = #{saleTotalAmount,jdbcType=DECIMAL}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="getAllItem" resultType="com.powersi.material.pojo.Item">
+    select * from item;
+  </select>
 </mapper>

@@ -79,7 +79,9 @@
     item_sale_price, item_factory_name, item_disc_state, item_lately_pic, item_aver_pic
   </sql>
   <select id="selectByKeyWord" resultMap="BaseResultMap">
-    select * from item where item_name like #{keyWord};
+    select * from item
+    where item_name like #{keyWord}
+    or id like #{keyWord};
   </select>
 
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemExample" >
@@ -339,4 +341,40 @@
       item_aver_pic = #{itemAverPic,jdbcType=DECIMAL}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+
+
+
+  <select id="selectItem" parameterType="com.powersi.material.pojo.requestBody.SeLectItemDTO"
+          resultType="com.powersi.material.pojo.responseBody.SelectItemRes" >
+
+    select i.id,i.item_class_id,ic.item_class_name,i.item_name,i.item_sale_price,i.item_factory_name from item i,item_class ic
+
+    where i.item_class_id = ic.id
+
+    <if test="itemName != null" >
+      and ( i.id like "%"#{itemName,jdbcType=VARCHAR}"%" or i.item_name like "%"#{itemName,jdbcType=VARCHAR}"%" )
+    </if>
+
+    <if test="itemClassId != null" >
+      and (i.item_class_id = #{itemClassId,jdbcType=INTEGER} or ic.item_class_father = #{itemClassId,jdbcType=INTEGER})
+    </if>
+
+    <if test="itemFactoryName != null" >
+      and i.item_factory_name like "%"#{itemFactoryName,jdbcType=VARCHAR}"%"
+    </if>
+
+    <if test="itemSalePrice1 != null" >
+      and i.item_sale_price &gt;= #{itemSalePrice1,jdbcType=DECIMAL}
+    </if>
+
+    <if test="itemSalePrice2 != null" >
+      and i.item_sale_price &lt;= #{itemSalePrice2,jdbcType=DECIMAL}
+    </if>
+
+  </select>
+
+
+
+
 </mapper>

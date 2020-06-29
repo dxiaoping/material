@@ -3,6 +3,7 @@ package com.powersi.material.mapper;
 import com.powersi.material.pojo.ItemClass;
 import com.powersi.material.pojo.ItemClassExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -28,4 +29,9 @@ public interface ItemClassMapper {
     int updateByPrimaryKeySelective(ItemClass record);
 
     int updateByPrimaryKey(ItemClass record);
+
+    //查询商品类别
+    @Select("select id,item_class_father,item_class_name from item_class where item_class_father <> 0")
+    List<ItemClass> selectAllItem();
+
 }

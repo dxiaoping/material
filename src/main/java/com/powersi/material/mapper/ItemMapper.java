@@ -2,7 +2,9 @@ package com.powersi.material.mapper;
 
 import com.powersi.material.pojo.Item;
 import com.powersi.material.pojo.ItemExample;
-import com.powersi.material.pojo.requestBody.SearchItemDTO;
+import com.powersi.material.pojo.requestBody.SeLectItemDTO;
+import com.powersi.material.pojo.responseBody.SearchItemDTO;
+import com.powersi.material.pojo.responseBody.SelectItemRes;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -28,6 +30,8 @@ public interface ItemMapper {
     List<SearchItemDTO> selectByItemName(@Param("itemName") String itemName);
 
     List<Item> selectByKeyWord(@Param("keyWord") String keyWord);
+
+    List<SelectItemRes> selectItem(SeLectItemDTO example);
 
     @Select("select i.id,\n" +
             "i.item_class_id,\n" +

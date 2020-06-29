@@ -32,6 +32,7 @@ public interface ItemSaleDetailMapper {
     int updateByExample(@Param("record") ItemSaleDetail record, @Param("example") ItemSaleDetailExample example);
 
     int updateByPrimaryKeySelective(ItemSaleDetail record);
+    int updateBySaleId(@Param("itemSaleId") String itemSaleId);
 
     int updateByPrimaryKey(ItemSaleDetail record);
 }

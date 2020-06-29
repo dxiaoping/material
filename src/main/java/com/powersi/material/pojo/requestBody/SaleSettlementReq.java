@@ -30,4 +30,12 @@ public class SaleSettlementReq {
     public void setItemSaleDetails(List<ItemSaleDetail> itemSaleDetails) {
         this.itemSaleDetails = itemSaleDetails;
     }
+
+    @Override
+    public String toString() {
+        return "SaleSettlementReq{" +
+                "itemSale=" + itemSale +
+                ", itemSaleDetails=" + itemSaleDetails +
+                '}';
+    }
 }

@@ -183,7 +183,7 @@
   </insert>
   <sql id="base_attribute">
      item_sale_id, item_id, repo_id, supplier_id, sale_price, sale_number, sale_after_discount,
-    sale_discount_amount, total_amount
+    sale_discount_amount, total_amount,sale_time,sale_reject_remark
   </sql>
   <select id="selectBySaleId" resultType="com.powersi.material.pojo.ItemSaleDetail">
     select * from item_sale_detail where item_sale_id = #{itemSaleId}
@@ -210,8 +210,9 @@
       #{detail.saleNumber},
       #{detail.saleAfterDiscount},
       #{detail.saleDiscountAmount},
-      #{detail.totalAmount}
-
+      #{detail.totalAmount},
+      #{detail.saleTime},
+      #{detail.saleRejectRemark}
       )
     </foreach>
 
@@ -295,6 +296,10 @@
       and item_id = #{itemId,jdbcType=VARCHAR}
       and repo_id = #{repoId,jdbcType=VARCHAR}
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBySaleId">
+    update item_sale_detail set sale_reject_remark = 0
+    where item_sale_id=#{itemSaleId}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.ItemSaleDetail" >
     update item_sale_detail
