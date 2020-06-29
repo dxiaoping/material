@@ -14,6 +14,8 @@ public class SaleListReq {
     private Date endTime;
     //  订单号/操作人/顾客名
     private String key;
+//    退货状态
+    private int backSaleState;
 
     public Date getStartTime() {
         return startTime;
@@ -37,5 +39,13 @@ public class SaleListReq {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public int getBackSaleState() {
+        return backSaleState;
+    }
+
+    public void setBackSaleState(int backSaleState) {
+        this.backSaleState = backSaleState;
     }
 }

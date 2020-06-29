@@ -5,6 +5,7 @@ package com.powersi.material.controller;
  * @mailbox: xiaoping.duan@powersi.com.cn
  * @create: 2020-06-9 10:34
  */
+
 import com.powersi.material.pojo.ItemSaleDetail;
 import com.powersi.material.pojo.requestBody.SaleListReq;
 import com.powersi.material.pojo.requestBody.SaleSettlementReq;
@@ -22,37 +23,56 @@ public class ItemSaleController {
     @Autowired
     IItemSaleService itemSaleService;
 
-//    @PostMapping
-//    public ResponseEntity<Integer> createSaleOrder(@RequestBody List<ItemSaleDetail> list){
-//        int count = itemSaleService.createSaleOrder(list);
-//        return ResponseEntity.ok(count);
-//    }
+    /**
+     * 获取销售单列表
+     *
+     * @param saleListReq
+     * @return
+     */
 
     @PostMapping("sale_list")
-    public ResponseEntity<List> getSaleList(@RequestBody(required = false) SaleListReq saleListReq){
+    public ResponseEntity<List> getSaleList(@RequestBody(required = false) SaleListReq saleListReq) {
 
         List list = itemSaleService.getSaleList(saleListReq);
 
         return ResponseEntity.ok(list);
     }
 
+    /**
+     * 获取销售单详情
+     *
+     * @param itemSaleId
+     * @return
+     */
     @GetMapping("detail")
-    public ResponseEntity<List> detail(String itemSaleId){
+    public ResponseEntity<List> detail(String itemSaleId) {
 
         List list = itemSaleService.getSaleDetail(itemSaleId);
         return ResponseEntity.ok(list);
     }
+
+    /**
+     * 结算创建销售单及明细
+     *
+     * @param saleSettlementReq
+     * @return
+     */
     @PostMapping("settlement")
-    public ResponseEntity<String> settlement(@RequestBody SaleSettlementReq saleSettlementReq){
-          //                          /*销售编号*/
-          //                          /*顾客编号*/
-          //                          /*操作人员编号*/
-          //                          /*销售时间*/
-          //                          /*退货标记*/
-          //                          /*总金额*/
-          //                          /*优惠金额*/
-          //                          /*折后价*/
+    public ResponseEntity<String> settlement(@RequestBody SaleSettlementReq saleSettlementReq) {
+
         itemSaleService.createSaleOrder(saleSettlementReq);
+        return ResponseEntity.ok("");
+    }
+
+    /**
+     * 退货
+     *
+     * @param id
+     * @return
+     */
+    @PostMapping("back_sale")
+    public ResponseEntity<String> delSale(String id) {
+        itemSaleService.backSale(id);
         return ResponseEntity.ok("");
     }
 }

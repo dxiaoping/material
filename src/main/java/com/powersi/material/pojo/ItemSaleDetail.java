@@ -1,6 +1,7 @@
 package com.powersi.material.pojo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class ItemSaleDetail extends ItemSaleDetailKey {
     /**销售价格*/
@@ -13,6 +14,10 @@ public class ItemSaleDetail extends ItemSaleDetailKey {
     private BigDecimal saleDiscountAmount;
     /**总金额*/
     private BigDecimal totalAmount;
+    /**销售时间*/
+    private Date saleTime;
+    /**是否退货 0:退货 1:正常*/
+    private Integer saleRejectRemark;
 
     public BigDecimal getSalePrice() {
         return salePrice;
@@ -52,5 +57,34 @@ public class ItemSaleDetail extends ItemSaleDetailKey {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public Date getSaleTime() {
+        return saleTime;
+    }
+
+    public void setSaleTime(Date saleTime) {
+        this.saleTime = saleTime;
+    }
+
+    public Integer getSaleRejectRemark() {
+        return saleRejectRemark;
+    }
+
+    public void setSaleRejectRemark(Integer saleRejectRemark) {
+        this.saleRejectRemark = saleRejectRemark;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemSaleDetail{" +
+                "salePrice=" + salePrice +
+                ", saleNumber=" + saleNumber +
+                ", saleAfterDiscount=" + saleAfterDiscount +
+                ", saleDiscountAmount=" + saleDiscountAmount +
+                ", totalAmount=" + totalAmount +
+                ", saleTime=" + saleTime +
+                ", saleRejectRemark=" + saleRejectRemark +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package com.powersi.material.mapper;
 
+import com.powersi.material.pojo.Item;
 import com.powersi.material.pojo.ItemSale;
 import com.powersi.material.pojo.ItemSaleExample;
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface ItemSaleMapper {
 
-    List<ItemSale> selectByCondition(@Param("startTime") Date startTime,@Param("endTime")Date endTime,@Param("key")String key);
+    List<ItemSale> selectByCondition(@Param("startTime") Date startTime,@Param("endTime")Date endTime,@Param("key")String key,@Param("backSaleState") int backSaleState);
 
     int countByExample(ItemSaleExample example);
 
@@ -32,4 +33,6 @@ public interface ItemSaleMapper {
     int updateByPrimaryKeySelective(ItemSale record);
 
     int updateByPrimaryKey(ItemSale record);
+
+    List<Item> getAllItem();
 }

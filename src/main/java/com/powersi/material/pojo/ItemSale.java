@@ -12,7 +12,7 @@ public class ItemSale {
     private String employeeId;
     /**销售时间*/
     private Date saleTime;
-    /**是否退货*/
+    /**是否退货 0:退货 1:正常*/
     private Integer saleRejectRemark;
     /**折后价*/
     private BigDecimal saleAfterDiscount;
@@ -83,5 +83,19 @@ public class ItemSale {
 
     public void setSaleTotalAmount(BigDecimal saleTotalAmount) {
         this.saleTotalAmount = saleTotalAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemSale{" +
+                "id='" + id + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                ", saleTime=" + saleTime +
+                ", saleRejectRemark=" + saleRejectRemark +
+                ", saleAfterDiscount=" + saleAfterDiscount +
+                ", saleDiscountAmount=" + saleDiscountAmount +
+                ", saleTotalAmount=" + saleTotalAmount +
+                '}';
     }
 }
