@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.powersi.material.mapper.ItemClassMapper;
 import com.powersi.material.mapper.ItemMapper;
+import com.powersi.material.pojo.Item;
 import com.powersi.material.pojo.ItemClass;
 import com.powersi.material.pojo.ItemExample;
 import com.powersi.material.pojo.requestBody.SeLectItemDTO;
@@ -79,4 +80,9 @@ public class ItemService {
         return list;
     }
 
+    public List<Item> search(String keyWord){
+
+        List<Item> list = mapper.selectByKeyWord("%"+keyWord+"%");
+        return list;
+    }
 }
