@@ -18,14 +18,14 @@ public class Employee {
 
     private String empSex;
 
-//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+   @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date empBirthday;
 
     private String empRole;
 
     private String empTelp;
 
-//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date empJoinDate;
 
     public String getId() {

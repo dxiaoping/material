@@ -101,7 +101,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.powersi.material.pojo.Order" >
-    insert into order (id, employee_id, order_oper_date, 
+    insert into `order` (id, employee_id, order_oper_date,
       order_is_arrive, orde_status, order_amount_money
       )
     values (#{id,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR}, #{orderOperDate,jdbcType=TIMESTAMP}, 

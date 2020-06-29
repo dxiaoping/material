@@ -63,4 +63,17 @@ public class Order {
     public void setOrderAmountMoney(BigDecimal orderAmountMoney) {
         this.orderAmountMoney = orderAmountMoney;
     }
+
+    public Order() {
+
+    }
+
+    public Order(String id, String employeeId, Date orderOperDate, String orderIsArrive, String ordeStatus, BigDecimal orderAmountMoney) {
+        this.id = id;
+        this.employeeId = employeeId;
+        this.orderOperDate = orderOperDate;
+        this.orderIsArrive = orderIsArrive;
+        this.ordeStatus = ordeStatus;
+        this.orderAmountMoney = orderAmountMoney;
+    }
 }
