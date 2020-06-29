@@ -357,7 +357,7 @@
     </if>
 
     <if test="itemClassId != null" >
-      and i.item_class_id = #{itemClassId,jdbcType=INTEGER}
+      and (i.item_class_id = #{itemClassId,jdbcType=INTEGER} or ic.item_class_father = #{itemClassId,jdbcType=INTEGER})
     </if>
 
     <if test="itemFactoryName != null" >
