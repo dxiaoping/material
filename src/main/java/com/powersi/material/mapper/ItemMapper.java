@@ -5,10 +5,12 @@ import com.powersi.material.pojo.ItemExample;
 import com.powersi.material.pojo.requestBody.SeLectItemDTO;
 import com.powersi.material.pojo.responseBody.SearchItemDTO;
 import com.powersi.material.pojo.responseBody.SelectItemRes;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.math.BigDecimal;
 import java.util.List;
 @Mapper
 public interface ItemMapper {
@@ -70,4 +72,12 @@ public interface ItemMapper {
     int updateByPrimaryKeySelective(Item record);
 
     int updateByPrimaryKey(Item record);
+
+    @Select("select i.id from item i")
+    List<String> selectAllItem();
+
+    @Insert("insert into supplier_item (supplier_id,item_id,in_price) " +
+            "values (#{supplier_id},#{item_id},#{in_price})")
+    int insertST(@Param("supplier_id") String supplier_id,@Param("item_id") String item_id,@Param("in_price") BigDecimal in_price);
+
 }
