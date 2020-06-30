@@ -146,6 +146,9 @@
       <if test="repoRemainInPic != null" >
         #{repoRemainInPic,jdbcType=DECIMAL},
       </if>
+      <if test="inRepoDate != null" >
+        #{inRepoDate,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.powersi.material.pojo.RepoRemainDetailExample" resultType="java.lang.Integer" >
