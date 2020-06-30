@@ -3,13 +3,17 @@ package com.powersi.material.mapper;
 import com.powersi.material.pojo.ItemSaleDetail;
 import com.powersi.material.pojo.ItemSaleDetailExample;
 import com.powersi.material.pojo.ItemSaleDetailKey;
+import com.powersi.material.pojo.responseBody.BestsellerRes;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ItemSaleDetailMapper {
 
     List<ItemSaleDetail> selectBySaleId(String itemSaleId);
+    List<ItemSaleDetail> selectByTimeAndClass(@Param("startTime")Date startTime,@Param("endTime")Date endTime,@Param("itemClass")String itemClass);
+    List<BestsellerRes> selectBestsellerItem(@Param("startTime")Date startTime, @Param("endTime")Date endTime);
 
     int insertSaleDetail(List<ItemSaleDetail> saleDetails);
 
