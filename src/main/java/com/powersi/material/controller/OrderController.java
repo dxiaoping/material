@@ -28,13 +28,15 @@ public class OrderController {
     @Autowired
     private ISupplierService supplierService;
 
+
+
     @RequestMapping("/dealOrderReq")
-    public void dealOrderReq(@RequestBody(required = false) OrderReqList orderReqList){
+    public void dealOrderReq(@RequestBody OrderReqList orderReqList){
         System.out.println("进来了啊啊啊啊啊啊啊啊");
         Double sumMoney=0d;
         List<OrderReq> list=orderReqList.getOrderReqList();
         for(int i=0;i<list.size();i++){
-            sumMoney=sumMoney+(list.get(i).getItemSalePrice()*list.get(i).getItemNumber());
+            sumMoney=sumMoney+(list.get(i).getInPrice()*list.get(i).getItemNumber());
         }
 
         Order order=new Order();
@@ -51,7 +53,8 @@ public class OrderController {
         for (OrderReq orderReq : list) {
             orderDetail.setItemId(orderReq.getId());
             orderDetail.setArriveNumber(new BigDecimal(orderReq.getItemNumber()));
-            orderDetail.setSupplierId(supplierService.findByName(orderReq.getItemFactoryName()).getId());
+//            orderDetail.setSupplierId(supplierService.findByName(orderReq.getItemFactoryName()).getId());
+            orderDetail.setSupplierId(supplierService.findByName(orderReq.getSupplierName()).getId());
             orderDetail.setOrderId(orderId);
             orderDetail.setOrderNumber(new BigDecimal(orderReq.getItemNumber()));
             orderDetailService.insertOrderDetail(orderDetail);
@@ -63,6 +66,18 @@ public class OrderController {
     public List<Order> findAllOrder(){
 
         return orderService.findAll();
+    }
+
+    @RequestMapping("/findSupplierNameByItemId")
+    public List<String> findSupplierNameByItemId(String itemId){
+        return orderService.findSupplierNameByItemId(itemId);
+    }
+
+    @RequestMapping("/findInPriceByItemIdAndSupplierName")
+    public Double  findInPriceByItemIdAndSupplierName( String itemId,String supplierName){
+        System.out.println(itemId);
+        System.out.println(supplierName);
+        return Double.parseDouble(orderService.findInPriceByItemIdAndSupplierName(itemId,supplierName));
     }
 
 

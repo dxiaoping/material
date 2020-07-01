@@ -18,6 +18,10 @@ public class OrderReq {
 
     private String itemFactoryName;
 
+    private Double inPrice;
+
+    private String supplierName;
+
     public String getId() {
         return id;
     }
@@ -72,5 +76,21 @@ public class OrderReq {
 
     public void setItemFactoryName(String itemFactoryName) {
         this.itemFactoryName = itemFactoryName;
+    }
+
+    public Double getInPrice() {
+        return inPrice;
+    }
+
+    public void setInPrice(Double inPrice) {
+        this.inPrice = inPrice;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 }

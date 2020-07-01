@@ -15,4 +15,8 @@ public interface IOrderService {
     public void deleteOrderById(String id);
 
     public void insertOrder(Order order);
+
+    public List<String> findSupplierNameByItemId(String itemId);
+
+    public String findInPriceByItemIdAndSupplierName(String itemId,String supplierName);
 }
