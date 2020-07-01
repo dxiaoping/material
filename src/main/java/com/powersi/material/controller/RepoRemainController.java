@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.powersi.material.pojo.requestBody.RepoRemainReq;
 import com.powersi.material.pojo.requestBody.SeLectItemDTO;
+import com.powersi.material.pojo.responseBody.ClassRemainRes;
 import com.powersi.material.pojo.responseBody.RepoRemainRes;
 import com.powersi.material.pojo.responseBody.SelectItemRes;
 import com.powersi.material.service.RepoRemainService;
@@ -65,6 +66,22 @@ public class RepoRemainController {
 
     }
 
+
+    @GetMapping("/getClassRemain")
+    public ResponseEntity<String> getClassRemain(Integer classId) {
+
+        try {
+            System.out.println("类别："+classId);
+            List<ClassRemainRes> list = service.getClassRemain(classId);
+
+            return ResponseEntity.ok(mapper.writeValueAsString(list));
+
+        } catch (JsonProcessingException e) {
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+
+    }
+    }
 
 
 }

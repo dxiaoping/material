@@ -3,7 +3,9 @@ package com.powersi.material.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.powersi.material.mapper.RepoRemainDetailMapper;
+import com.powersi.material.mapper.RepoRemainMapper;
 import com.powersi.material.pojo.requestBody.RepoRemainReq;
+import com.powersi.material.pojo.responseBody.ClassRemainRes;
 import com.powersi.material.pojo.responseBody.RepoRemainRes;
 import com.powersi.material.service.RepoRemainService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,9 @@ import java.util.List;
         @Autowired
         RepoRemainDetailMapper rrdmapper;
 
+        @Autowired
+        RepoRemainMapper rrmapper;
+
     /**
      * 查询库存情况
      * @param req
@@ -37,5 +42,19 @@ import java.util.List;
         PageInfo<RepoRemainRes> info = new PageInfo<>(list);
 
         return info;
+    }
+
+    @Transactional
+    public List<ClassRemainRes> getClassRemain(Integer classId){
+
+        List<ClassRemainRes> list = null;
+
+            if(classId == 0){
+                list = rrmapper.getAllClassRemain();
+            }else{
+                list = rrmapper.getOneClassRemain(classId);
+            }
+
+        return list;
     }
 }
