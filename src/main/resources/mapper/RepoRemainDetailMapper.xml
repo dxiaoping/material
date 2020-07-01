@@ -7,6 +7,7 @@
     <result column="times" property="times" jdbcType="INTEGER" />
     <result column="remain_amount" property="remainAmount" jdbcType="INTEGER" />
     <result column="repo_remain_in_pic" property="repoRemainInPic" jdbcType="DECIMAL" />
+    <result column="in_repo_date" property="inRepoDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    repo_remain_id, supplier_id, times, remain_amount, repo_remain_in_pic
+    repo_remain_id, supplier_id, times, remain_amount, repo_remain_in_pic, in_repo_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.RepoRemainDetailExample" >
     select
@@ -103,9 +104,9 @@
   </delete>
   <insert id="insert" parameterType="com.powersi.material.pojo.RepoRemainDetail" >
     insert into repo_remain_detail (repo_remain_id, supplier_id, times, 
-      remain_amount, repo_remain_in_pic)
+      remain_amount, repo_remain_in_pic, in_repo_date)
     values (#{repoRemainId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, 
-      #{remainAmount,jdbcType=INTEGER}, #{repoRemainInPic,jdbcType=DECIMAL})
+      #{remainAmount,jdbcType=INTEGER}, #{repoRemainInPic,jdbcType=DECIMAL}, #{inRepoDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.powersi.material.pojo.RepoRemainDetail" >
     insert into repo_remain_detail
@@ -125,6 +126,9 @@
       <if test="repoRemainInPic != null" >
         repo_remain_in_pic,
       </if>
+      <if test="inRepoDate != null" >
+        in_repo_date,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="repoRemainId != null" >
@@ -141,6 +145,9 @@
       </if>
       <if test="repoRemainInPic != null" >
         #{repoRemainInPic,jdbcType=DECIMAL},
+      </if>
+      <if test="inRepoDate != null" >
+        #{inRepoDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -168,6 +175,9 @@
       <if test="record.repoRemainInPic != null" >
         repo_remain_in_pic = #{record.repoRemainInPic,jdbcType=DECIMAL},
       </if>
+      <if test="record.inRepoDate != null" >
+        in_repo_date = #{record.inRepoDate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -179,7 +189,8 @@
       supplier_id = #{record.supplierId,jdbcType=VARCHAR},
       times = #{record.times,jdbcType=INTEGER},
       remain_amount = #{record.remainAmount,jdbcType=INTEGER},
-      repo_remain_in_pic = #{record.repoRemainInPic,jdbcType=DECIMAL}
+      repo_remain_in_pic = #{record.repoRemainInPic,jdbcType=DECIMAL},
+      in_repo_date = #{record.inRepoDate,jdbcType=TIMESTAMP},
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -196,6 +207,9 @@
       <if test="repoRemainInPic != null" >
         repo_remain_in_pic = #{repoRemainInPic,jdbcType=DECIMAL},
       </if>
+      <if test="inRepoDate != null" >
+        in_repo_date = #{inRepoDate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
@@ -204,7 +218,8 @@
     update repo_remain_detail
     set times = #{times,jdbcType=INTEGER},
       remain_amount = #{remainAmount,jdbcType=INTEGER},
-      repo_remain_in_pic = #{repoRemainInPic,jdbcType=DECIMAL}
+      repo_remain_in_pic = #{repoRemainInPic,jdbcType=DECIMAL},
+      in_repo_date = #{inRepoDate,jdbcType=TIMESTAMP}
     where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
   </update>

@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class SaleSettlementReq {
     private ItemSale itemSale;
+
     private List<ItemSaleDetail> itemSaleDetails;
 
     public ItemSale getItemSale() {

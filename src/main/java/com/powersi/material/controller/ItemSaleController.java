@@ -6,7 +6,6 @@ package com.powersi.material.controller;
  * @create: 2020-06-9 10:34
  */
 
-import com.powersi.material.pojo.ItemSaleDetail;
 import com.powersi.material.pojo.requestBody.SaleListReq;
 import com.powersi.material.pojo.requestBody.SaleSettlementReq;
 import com.powersi.material.service.IItemSaleService;

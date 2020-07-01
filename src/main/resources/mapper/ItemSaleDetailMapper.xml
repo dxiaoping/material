@@ -1,116 +1,120 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.powersi.material.mapper.ItemSaleDetailMapper" >
-  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.ItemSaleDetail" >
-    <id column="item_sale_id" property="itemSaleId" jdbcType="VARCHAR" />
-    <id column="item_id" property="itemId" jdbcType="VARCHAR" />
-    <id column="repo_id" property="repoId" jdbcType="VARCHAR" />
-    <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
-    <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
-    <result column="sale_number" property="saleNumber" jdbcType="BIGINT" />
-    <result column="sale_after_discount" property="saleAfterDiscount" jdbcType="DECIMAL" />
-    <result column="sale_discount_amount" property="saleDiscountAmount" jdbcType="DECIMAL" />
-    <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+<mapper namespace="com.powersi.material.mapper.ItemSaleDetailMapper">
+    <resultMap id="BaseResultMap" type="com.powersi.material.pojo.ItemSaleDetail">
+        <id column="item_sale_id" property="itemSaleId" jdbcType="VARCHAR"/>
+        <id column="item_id" property="itemId" jdbcType="VARCHAR"/>
+        <id column="repo_id" property="repoId" jdbcType="VARCHAR"/>
+        <id column="supplier_id" property="supplierId" jdbcType="VARCHAR"/>
+        <result column="sale_price" property="salePrice" jdbcType="DECIMAL"/>
+        <result column="sale_number" property="saleNumber" jdbcType="BIGINT"/>
+        <result column="sale_after_discount" property="saleAfterDiscount" jdbcType="DECIMAL"/>
+        <result column="sale_discount_amount" property="saleDiscountAmount" jdbcType="DECIMAL"/>
+        <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     item_sale_id, item_id, repo_id, supplier_id, sale_price, sale_number, sale_after_discount,
     sale_discount_amount, total_amount
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemSaleDetailExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from item_sale_detail
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemSaleDetailKey" >
-    select
-    <include refid="Base_Column_List" />
-    from item_sale_detail
-    where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
-      and item_id = #{itemId,jdbcType=VARCHAR}
-      and repo_id = #{repoId,jdbcType=VARCHAR}
-      and supplier_id = #{supplierId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.ItemSaleDetailKey" >
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.powersi.material.pojo.ItemSaleDetailExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from item_sale_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="com.powersi.material.pojo.ItemSaleDetailKey">
+        select
+        <include refid="Base_Column_List"/>
+        from item_sale_detail
+        where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
+        and item_id = #{itemId,jdbcType=VARCHAR}
+        and repo_id = #{repoId,jdbcType=VARCHAR}
+        and supplier_id = #{supplierId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.ItemSaleDetailKey">
     delete from item_sale_detail
     where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
       and item_id = #{itemId,jdbcType=VARCHAR}
       and repo_id = #{repoId,jdbcType=VARCHAR}
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.powersi.material.pojo.ItemSaleDetailExample" >
-    delete from item_sale_detail
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.powersi.material.pojo.ItemSaleDetail" >
+    <delete id="deleteByExample" parameterType="com.powersi.material.pojo.ItemSaleDetailExample">
+        delete from item_sale_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.powersi.material.pojo.ItemSaleDetail">
     insert into item_sale_detail (item_sale_id, item_id, repo_id,
       supplier_id, sale_price, sale_number,
       sale_after_discount, sale_discount_amount,
@@ -120,188 +124,225 @@
       #{saleAfterDiscount,jdbcType=DECIMAL}, #{saleDiscountAmount,jdbcType=DECIMAL},
       #{totalAmount,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="com.powersi.material.pojo.ItemSaleDetail" >
-    insert into item_sale_detail
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="itemSaleId != null" >
-        item_sale_id,
-      </if>
-      <if test="itemId != null" >
-        item_id,
-      </if>
-      <if test="repoId != null" >
-        repo_id,
-      </if>
-      <if test="supplierId != null" >
-        supplier_id,
-      </if>
-      <if test="salePrice != null" >
-        sale_price,
-      </if>
-      <if test="saleNumber != null" >
-        sale_number,
-      </if>
-      <if test="saleAfterDiscount != null" >
-        sale_after_discount,
-      </if>
-      <if test="saleDiscountAmount != null" >
-        sale_discount_amount,
-      </if>
-      <if test="totalAmount != null" >
-        total_amount,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="itemSaleId != null" >
-        #{itemSaleId,jdbcType=VARCHAR},
-      </if>
-      <if test="itemId != null" >
-        #{itemId,jdbcType=VARCHAR},
-      </if>
-      <if test="repoId != null" >
-        #{repoId,jdbcType=VARCHAR},
-      </if>
-      <if test="supplierId != null" >
-        #{supplierId,jdbcType=VARCHAR},
-      </if>
-      <if test="salePrice != null" >
-        #{salePrice,jdbcType=DECIMAL},
-      </if>
-      <if test="saleNumber != null" >
-        #{saleNumber,jdbcType=BIGINT},
-      </if>
-      <if test="saleAfterDiscount != null" >
-        #{saleAfterDiscount,jdbcType=DECIMAL},
-      </if>
-      <if test="saleDiscountAmount != null" >
-        #{saleDiscountAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="totalAmount != null" >
-        #{totalAmount,jdbcType=DECIMAL},
-      </if>
-    </trim>
-  </insert>
-  <sql id="base_attribute">
+    <insert id="insertSelective" parameterType="com.powersi.material.pojo.ItemSaleDetail">
+        insert into item_sale_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemSaleId != null">
+                item_sale_id,
+            </if>
+            <if test="itemId != null">
+                item_id,
+            </if>
+            <if test="repoId != null">
+                repo_id,
+            </if>
+            <if test="supplierId != null">
+                supplier_id,
+            </if>
+            <if test="salePrice != null">
+                sale_price,
+            </if>
+            <if test="saleNumber != null">
+                sale_number,
+            </if>
+            <if test="saleAfterDiscount != null">
+                sale_after_discount,
+            </if>
+            <if test="saleDiscountAmount != null">
+                sale_discount_amount,
+            </if>
+            <if test="totalAmount != null">
+                total_amount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemSaleId != null">
+                #{itemSaleId,jdbcType=VARCHAR},
+            </if>
+            <if test="itemId != null">
+                #{itemId,jdbcType=VARCHAR},
+            </if>
+            <if test="repoId != null">
+                #{repoId,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierId != null">
+                #{supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="salePrice != null">
+                #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="saleNumber != null">
+                #{saleNumber,jdbcType=BIGINT},
+            </if>
+            <if test="saleAfterDiscount != null">
+                #{saleAfterDiscount,jdbcType=DECIMAL},
+            </if>
+            <if test="saleDiscountAmount != null">
+                #{saleDiscountAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <sql id="base_attribute">
      item_sale_id, item_id, repo_id, supplier_id, sale_price, sale_number, sale_after_discount,
     sale_discount_amount, total_amount,sale_time,sale_reject_remark
   </sql>
-  <select id="selectBySaleId" resultType="com.powersi.material.pojo.ItemSaleDetail">
+    <select id="selectBySaleId" resultType="com.powersi.material.pojo.ItemSaleDetail">
     select * from item_sale_detail where item_sale_id = #{itemSaleId}
   </select>
 
-  <insert id="insertSaleDetail" parameterType="java.util.List"
-          useGeneratedKeys="true">
-    <!-- 批量插入数据 -->
-    <selectKey resultType="long" keyProperty="id" order="AFTER">
-      SELECT
-      LAST_INSERT_ID()
-    </selectKey>
-    insert into item_sale_detail(
-    <include refid="base_attribute"/>)
-    values
-    <foreach collection="list" item="detail" index="index"
-             separator=",">
-      (
-      #{detail.itemSaleId},
-      #{detail.itemId},
-      #{detail.repoId},
-      #{detail.supplierId},
-      #{detail.salePrice},
-      #{detail.saleNumber},
-      #{detail.saleAfterDiscount},
-      #{detail.saleDiscountAmount},
-      #{detail.totalAmount},
-      #{detail.saleTime},
-      #{detail.saleRejectRemark}
-      )
-    </foreach>
+    <select id="selectByTimeAndClass" resultType="com.powersi.material.pojo.ItemSaleDetail">
+        select * from item_sale_detail where sale_reject_remark = 1
+        <choose>
+            <when test="startTime != null and endTime != null">
+                and sale_time between #{startTime} and #{endTime}
+            </when>
+            <when test="startTime != null and endTime == null">
+                and sale_time <![CDATA[ >= ]]> #{startTime}
+            </when>
+            <when test="startTime == null and endTime != null">
+                and sale_time <![CDATA[ <= ]]> #{endTimeTime}
+            </when>
+        </choose>
+        <!--      <if test="itemClass != null">-->
+        <!--        and (id like #{key} or member_id like #{key} or employee_id like #{key})-->
+        <!--      </if>-->
+        order by sale_time asc
+    </select>
+    <select id="selectBestsellerItem" resultType="com.powersi.material.pojo.responseBody.BestsellerRes">
+        select item_id,sum(sale_number) total_nun,sum(sale_after_discount) total_volume
+        from item_sale_detail where sale_reject_remark = 1
+        <choose>
+            <when test="startTime != null and endTime != null">
+                and sale_time between #{startTime} and #{endTime}
+            </when>
+            <when test="startTime != null and endTime == null">
+                and sale_time <![CDATA[ >= ]]> #{startTime}
+            </when>
+            <when test="startTime == null and endTime != null">
+                and sale_time <![CDATA[ <= ]]> #{endTimeTime}
+            </when>
+        </choose>
+        group by item_id
+        order by total_nun desc
+    </select>
 
-  </insert>
-  <select id="countByExample" parameterType="com.powersi.material.pojo.ItemSaleDetailExample" resultType="java.lang.Integer" >
-    select count(*) from item_sale_detail
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update item_sale_detail
-    <set >
-      <if test="record.itemSaleId != null" >
-        item_sale_id = #{record.itemSaleId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.itemId != null" >
+    <insert id="insertSaleDetail" parameterType="java.util.List"
+            useGeneratedKeys="true">
+        <!-- 批量插入数据 -->
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT
+            LAST_INSERT_ID()
+        </selectKey>
+        insert into item_sale_detail(
+        <include refid="base_attribute"/>)
+        values
+        <foreach collection="list" item="detail" index="index"
+                 separator=",">
+            (
+            #{detail.itemSaleId},
+            #{detail.itemId},
+            #{detail.repoId},
+            #{detail.supplierId},
+            #{detail.salePrice},
+            #{detail.saleNumber},
+            #{detail.saleAfterDiscount},
+            #{detail.saleDiscountAmount},
+            #{detail.totalAmount},
+            #{detail.saleTime},
+            #{detail.saleRejectRemark}
+            )
+        </foreach>
+
+    </insert>
+    <select id="countByExample" parameterType="com.powersi.material.pojo.ItemSaleDetailExample"
+            resultType="java.lang.Integer">
+        select count(*) from item_sale_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update item_sale_detail
+        <set>
+            <if test="record.itemSaleId != null">
+                item_sale_id = #{record.itemSaleId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.itemId != null">
+                item_id = #{record.itemId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.repoId != null">
+                repo_id = #{record.repoId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierId != null">
+                supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.salePrice != null">
+                sale_price = #{record.salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="record.saleNumber != null">
+                sale_number = #{record.saleNumber,jdbcType=BIGINT},
+            </if>
+            <if test="record.saleAfterDiscount != null">
+                sale_after_discount = #{record.saleAfterDiscount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.saleDiscountAmount != null">
+                sale_discount_amount = #{record.saleDiscountAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.totalAmount != null">
+                total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update item_sale_detail
+        set item_sale_id = #{record.itemSaleId,jdbcType=VARCHAR},
         item_id = #{record.itemId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.repoId != null" >
         repo_id = #{record.repoId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.supplierId != null" >
         supplier_id = #{record.supplierId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.salePrice != null" >
         sale_price = #{record.salePrice,jdbcType=DECIMAL},
-      </if>
-      <if test="record.saleNumber != null" >
         sale_number = #{record.saleNumber,jdbcType=BIGINT},
-      </if>
-      <if test="record.saleAfterDiscount != null" >
         sale_after_discount = #{record.saleAfterDiscount,jdbcType=DECIMAL},
-      </if>
-      <if test="record.saleDiscountAmount != null" >
         sale_discount_amount = #{record.saleDiscountAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="record.totalAmount != null" >
-        total_amount = #{record.totalAmount,jdbcType=DECIMAL},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update item_sale_detail
-    set item_sale_id = #{record.itemSaleId,jdbcType=VARCHAR},
-      item_id = #{record.itemId,jdbcType=VARCHAR},
-      repo_id = #{record.repoId,jdbcType=VARCHAR},
-      supplier_id = #{record.supplierId,jdbcType=VARCHAR},
-      sale_price = #{record.salePrice,jdbcType=DECIMAL},
-      sale_number = #{record.saleNumber,jdbcType=BIGINT},
-      sale_after_discount = #{record.saleAfterDiscount,jdbcType=DECIMAL},
-      sale_discount_amount = #{record.saleDiscountAmount,jdbcType=DECIMAL},
-      total_amount = #{record.totalAmount,jdbcType=DECIMAL}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.ItemSaleDetail" >
-    update item_sale_detail
-    <set >
-      <if test="salePrice != null" >
-        sale_price = #{salePrice,jdbcType=DECIMAL},
-      </if>
-      <if test="saleNumber != null" >
-        sale_number = #{saleNumber,jdbcType=BIGINT},
-      </if>
-      <if test="saleAfterDiscount != null" >
-        sale_after_discount = #{saleAfterDiscount,jdbcType=DECIMAL},
-      </if>
-      <if test="saleDiscountAmount != null" >
-        sale_discount_amount = #{saleDiscountAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="totalAmount != null" >
-        total_amount = #{totalAmount,jdbcType=DECIMAL},
-      </if>
-    </set>
-    where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
-      and item_id = #{itemId,jdbcType=VARCHAR}
-      and repo_id = #{repoId,jdbcType=VARCHAR}
-      and supplier_id = #{supplierId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateBySaleId">
+        total_amount = #{record.totalAmount,jdbcType=DECIMAL}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.ItemSaleDetail">
+        update item_sale_detail
+        <set>
+            <if test="salePrice != null">
+                sale_price = #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="saleNumber != null">
+                sale_number = #{saleNumber,jdbcType=BIGINT},
+            </if>
+            <if test="saleAfterDiscount != null">
+                sale_after_discount = #{saleAfterDiscount,jdbcType=DECIMAL},
+            </if>
+            <if test="saleDiscountAmount != null">
+                sale_discount_amount = #{saleDiscountAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where item_sale_id = #{itemSaleId,jdbcType=VARCHAR}
+        and item_id = #{itemId,jdbcType=VARCHAR}
+        and repo_id = #{repoId,jdbcType=VARCHAR}
+        and supplier_id = #{supplierId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateBySaleId">
     update item_sale_detail set sale_reject_remark = 0
     where item_sale_id=#{itemSaleId}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.ItemSaleDetail" >
+    <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.ItemSaleDetail">
     update item_sale_detail
     set sale_price = #{salePrice,jdbcType=DECIMAL},
       sale_number = #{saleNumber,jdbcType=BIGINT},
