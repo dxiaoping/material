@@ -223,4 +223,53 @@
     where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
   </update>
+
+
+
+  <select id="selectAllRemain" parameterType="com.powersi.material.pojo.requestBody.RepoRemainReq"
+          resultType="com.powersi.material.pojo.responseBody.RepoRemainRes" >
+
+    select i.id,ic.item_class_name,i.item_class_id,i.item_name,i.item_sale_price,i.item_factory_name,rr.total_remain,
+    MAX(rrd.in_repo_date) as in_repo_date,
+    sum(rrd.repo_remain_in_pic * rrd.remain_amount) as remain_all_in_pic
+
+    from item i,item_class ic,repo_remain rr,repo_remain_detail rrd
+
+    where i.id = rr.item_id and rr.id = rrd.repo_remain_id and i.item_class_id = ic.id
+
+    <if test="itemName != null" >
+      and ( i.id like "%"#{itemName,jdbcType=VARCHAR}"%" or i.item_name like "%"#{itemName,jdbcType=VARCHAR}"%" or i.item_spell like "%"#{itemName,jdbcType=VARCHAR}"%" )
+    </if>
+
+    <if test="itemClassId != null" >
+      and (i.item_class_id = #{itemClassId,jdbcType=INTEGER} or ic.item_class_father = #{itemClassId,jdbcType=INTEGER})
+    </if>
+
+    <if test="itemFactoryName != null" >
+      and i.item_factory_name like "%"#{itemFactoryName,jdbcType=VARCHAR}"%"
+    </if>
+
+    <if test="totalRemain != null" >
+      and rr.total_remain &lt;= #{totalRemain,jdbcType=DECIMAL}
+    </if>
+
+    <if test="remainStatus == 1" >
+      and rr.total_remain &gt;= 0
+    </if>
+    <if test="remainStatus == 2" >
+      and rr.total_remain &gt; 0
+    </if>
+    <if test="remainStatus == 3" >
+      and rr.total_remain = 0
+    </if>
+
+    group by i.id
+
+    <if test="remainStatus == 1 || remainStatus == 2" >
+      order by rr.total_remain desc
+    </if>
+
+  </select>
+
+
 </mapper>

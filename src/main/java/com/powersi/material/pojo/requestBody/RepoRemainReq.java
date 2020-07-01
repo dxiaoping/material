@@ -2,7 +2,7 @@ package com.powersi.material.pojo.requestBody;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
+import java.math.BigDecimal;
 
 @Data
 public class RepoRemainReq {
@@ -18,6 +18,6 @@ public class RepoRemainReq {
     private String repoId;
     //状态库存状态
     private String remainStatus;
-    //库存的数目
-    private String totalRemain;
+    //库存的总数目
+    private BigDecimal totalRemain;
 }

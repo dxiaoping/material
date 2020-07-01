@@ -353,7 +353,7 @@
     where i.item_class_id = ic.id
 
     <if test="itemName != null" >
-      and ( i.id like "%"#{itemName,jdbcType=VARCHAR}"%" or i.item_name like "%"#{itemName,jdbcType=VARCHAR}"%" )
+      and ( i.id like "%"#{itemName,jdbcType=VARCHAR}"%" or i.item_name like "%"#{itemName,jdbcType=VARCHAR}"%" or i.item_spell like "%"#{itemName,jdbcType=VARCHAR}"%")
     </if>
 
     <if test="itemClassId != null" >
