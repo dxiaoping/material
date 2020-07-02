@@ -29,4 +29,9 @@ public class SupplierServiceImpl implements ISupplierService {
 
 
     }
+
+    @Override
+    public Supplier findSupplierById(String id) {
+        return supplierMapper.selectByPrimaryKey(id);
+    }
 }

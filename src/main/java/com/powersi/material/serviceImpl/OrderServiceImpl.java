@@ -7,10 +7,11 @@ import com.powersi.material.service.IOrderService;
 import com.powersi.material.utils.SnowflakeIdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Transactional
 @Service
 public class OrderServiceImpl implements IOrderService {
 

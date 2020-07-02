@@ -4,4 +4,5 @@ import com.powersi.material.pojo.Supplier;
 
 public interface ISupplierService {
     public Supplier findByName(String name);
+    public Supplier findSupplierById(String id);
 }

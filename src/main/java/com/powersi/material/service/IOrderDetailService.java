@@ -1,5 +1,6 @@
 package com.powersi.material.service;
 
+import com.powersi.material.pojo.Item;
 import com.powersi.material.pojo.Order;
 import com.powersi.material.pojo.OrderDetail;
 
@@ -15,6 +16,8 @@ public interface IOrderDetailService {
     public void deleteOrderDetailById(String id);
 
     public void insertOrderDetail(OrderDetail orderDetail);
+
+    public List<OrderDetail> findByExample(String itemId,String itemName);
 
 
 }
