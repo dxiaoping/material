@@ -272,4 +272,58 @@
   </select>
 
 
+  <select id="selectRemainDetail" parameterType="com.powersi.material.pojo.requestBody.RemainDetailReq"
+          resultType="com.powersi.material.pojo.responseBody.RemainDetailRes" >
+
+    select s.supplier_name,rrd.in_repo_date,rrd.repo_remain_in_pic,rrd.remain_amount,rrd.times
+
+    from repo_remain rr,repo_remain_detail rrd,supplier s
+
+    where rr.id = rrd.repo_remain_id and rrd.supplier_id = s.id
+
+    <if test="id != null" >
+      and  rr.item_id = #{id,jdbcType=VARCHAR}
+    </if>
+
+    <if test="supplierId != null" >
+      and  rrd.supplier_id = #{supplierId,jdbcType=VARCHAR}
+    </if>
+
+    <if test="times != null" >
+      and rrd.times = #{times,jdbcType=INTEGER}
+    </if>
+
+    <if test="remainStatus == 1" >
+      and rrd.remain_amount &gt;= 0
+    </if>
+    <if test="remainStatus == 2" >
+      and rrd.remain_amount &gt; 0
+    </if>
+    <if test="remainStatus == 3" >
+      and rrd.remain_amount = 0
+    </if>
+
+    <if test="totalRemain != null" >
+      and rrd.remain_amount &lt;= #{totalRemain,jdbcType=DECIMAL}
+    </if>
+
+    <if test="inRepoDate != null" >
+
+      <foreach collection="inRepoDate" item="id"  index="index"  >
+        <if test="index==0" >
+          and rrd.in_repo_date &gt;= #{id}
+        </if>
+        <if test="index==1" >
+          and rrd.in_repo_date &lt;= #{id}
+        </if>
+      </foreach>
+
+    </if>
+
+    <if test="remainStatus == 1 || remainStatus == 2" >
+      order by rrd.times desc
+    </if>
+
+  </select>
+
 </mapper>
