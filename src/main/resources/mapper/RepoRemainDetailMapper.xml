@@ -326,4 +326,41 @@
 
   </select>
 
+  <select id="getRemainDetail" parameterType="com.powersi.material.pojo.requestBody.getRemainDetailReq"
+          resultType="com.powersi.material.pojo.responseBody.getRemainDetailRes" >
+
+    select rrd.times,rrd.remain_amount
+
+    from repo_remain rr,repo_remain_detail rrd
+
+    where rr.id = rrd.repo_remain_id
+
+    <if test="id != null" >
+      and  rr.item_id = #{id,jdbcType=VARCHAR}
+    </if>
+
+    <if test="totalRemain != null" >
+      and rrd.remain_amount &lt;= #{totalRemain,jdbcType=DECIMAL}
+    </if>
+
+    <if test="inRepoDate != null" >
+
+      <foreach collection="inRepoDate" item="id"  index="index"  >
+        <if test="index==0" >
+          and rrd.in_repo_date &gt;= #{id}
+        </if>
+        <if test="index==1" >
+          and rrd.in_repo_date &lt;= #{id}
+        </if>
+      </foreach>
+
+    </if>
+
+    <if test="supplierId != null" >
+      and  rrd.supplier_id = #{supplierId,jdbcType=VARCHAR}
+    </if>
+
+    order by rrd.remain_amount desc
+  </select>
+
 </mapper>

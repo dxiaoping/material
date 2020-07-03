@@ -6,8 +6,10 @@ import com.powersi.material.pojo.RepoRemainDetailKey;
 import com.powersi.material.pojo.Supplier;
 import com.powersi.material.pojo.requestBody.RemainDetailReq;
 import com.powersi.material.pojo.requestBody.RepoRemainReq;
+import com.powersi.material.pojo.requestBody.getRemainDetailReq;
 import com.powersi.material.pojo.responseBody.RemainDetailRes;
 import com.powersi.material.pojo.responseBody.RepoRemainRes;
+import com.powersi.material.pojo.responseBody.getRemainDetailRes;
 import jdk.nashorn.internal.ir.annotations.Reference;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -62,5 +64,9 @@ public interface RepoRemainDetailMapper {
             "where \n" +
             "rr.id = rrd.repo_remain_id and s.id = rrd.supplier_id and rr.item_id = #{id} ")
     List<Supplier> selectSAllSup(@Param("id") String id);
+
+
+
+    List<getRemainDetailRes> getRemainDetail(getRemainDetailReq req);
 
 }

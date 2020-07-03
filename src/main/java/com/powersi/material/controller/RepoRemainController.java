@@ -7,14 +7,17 @@ import com.github.pagehelper.PageInfo;
 import com.powersi.material.pojo.requestBody.RemainDetailReq;
 import com.powersi.material.pojo.requestBody.RepoRemainReq;
 import com.powersi.material.pojo.requestBody.SeLectItemDTO;
+import com.powersi.material.pojo.requestBody.getRemainDetailReq;
 import com.powersi.material.pojo.responseBody.*;
 import com.powersi.material.service.RepoRemainService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -119,5 +122,28 @@ public class RepoRemainController {
     }
     }
 
+    @PostMapping("/getRemainDetail")
+    public ResponseEntity<String> getRemainDetail(@RequestBody getRemainDetailReq req) {
+
+        try {
+
+            if ("".equals(req.getTotalRemain())){
+                req.setTotalRemain(null);
+            }
+            if(req.getInRepoDate()[0] == null){
+                req.setInRepoDate(null);
+            }
+
+            List<getRemainDetailRes> list = service.getRemainDetail(req);
+
+            return ResponseEntity.ok(mapper.writeValueAsString(list));
+
+        } catch (JsonProcessingException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+
+        }
+
+    }
 
 }

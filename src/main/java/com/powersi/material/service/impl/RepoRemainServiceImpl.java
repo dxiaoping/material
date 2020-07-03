@@ -6,10 +6,8 @@ import com.powersi.material.mapper.RepoRemainDetailMapper;
 import com.powersi.material.mapper.RepoRemainMapper;
 import com.powersi.material.pojo.requestBody.RemainDetailReq;
 import com.powersi.material.pojo.requestBody.RepoRemainReq;
-import com.powersi.material.pojo.responseBody.ClassRemainRes;
-import com.powersi.material.pojo.responseBody.RemainDetailRes;
-import com.powersi.material.pojo.responseBody.RemainDetailTimesSupRes;
-import com.powersi.material.pojo.responseBody.RepoRemainRes;
+import com.powersi.material.pojo.requestBody.getRemainDetailReq;
+import com.powersi.material.pojo.responseBody.*;
 import com.powersi.material.service.RepoRemainService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +89,15 @@ import java.util.List;
         rdts.setSuppliers(rrdmapper.selectSAllSup(id));
 
         return rdts;
+    }
+
+    public List<getRemainDetailRes> getRemainDetail(getRemainDetailReq req){
+
+        List<getRemainDetailRes> list = rrdmapper.getRemainDetail(req);
+
+        return list;
+
+
     }
 
 }
