@@ -81,4 +81,14 @@ public class OrderDetailImpl implements IOrderDetailService {
 
 
     }
+
+    //订单号和货号能确定唯一一个orderDetail对象，因此可以找出每个商品的订货数量
+    @Override
+    public OrderDetail findByOrderIdAndItemId(String orderId, String itemId) {
+        OrderDetailExample example=new OrderDetailExample();
+        OrderDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andItemIdEqualTo(itemId);
+        criteria.andOrderIdEqualTo(orderId);
+        return orderDetailMapper.selectByExample(example).get(0);
+    }
 }

@@ -1,11 +1,14 @@
 package com.powersi.material.pojo.responseBody;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ReceiveResp {
 
     private String receiveId;
     private String orderId;
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date receiveDate;
     private String orderPerson;
     private String receivePerson;

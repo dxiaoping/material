@@ -19,5 +19,8 @@ public interface IOrderDetailService {
 
     public List<OrderDetail> findByExample(String itemId,String itemName);
 
+    //订单号和货号能确定唯一一个orderDetail对象，因此可以找出每个商品的订货数量
+    public OrderDetail findByOrderIdAndItemId(String orderId,String itemId);
+
 
 }

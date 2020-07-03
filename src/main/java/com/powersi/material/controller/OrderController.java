@@ -6,8 +6,10 @@ import com.powersi.material.pojo.*;
 import com.powersi.material.pojo.requestBody.OrderReq;
 import com.powersi.material.pojo.requestBody.OrderReqList;
 import com.powersi.material.pojo.responseBody.OrderResp;
+import com.powersi.material.pojo.responseBody.ReceiveResp;
 import com.powersi.material.service.*;
 import com.powersi.material.utils.ListPageUtil;
+import com.powersi.material.utils.PageBean;
 import com.powersi.material.utils.SnowflakeIdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,12 +40,14 @@ public class OrderController {
     private IReceiveService receiveService;
     @Autowired
     private IReceiveDetailService receiveDetailService;
+    @Autowired
+    private IEmployeeService employeeService;
 
 
 
     @RequestMapping("/dealOrderReq")
     public void dealOrderReq(@RequestBody OrderReqList orderReqList){
-        System.out.println("papapappapappappapa");
+
 
         Double sumMoney=0d;
         List<OrderReq> list=orderReqList.getOrderReqList();
@@ -132,8 +136,8 @@ public class OrderController {
 
 
     @RequestMapping("/backOrderRespByPage")
-//    public ListPageUtil backOrderRespByPage(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum){
-        public ListPageUtil backOrderRespByPage(){
+    public PageBean backOrderRespByPage(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum){
+//        public ListPageUtil backOrderRespByPage(){
 //        PageHelper.startPage(pageNum,PAGE_SIZE);
         List<OrderResp> orderResps=new ArrayList<>();
 
@@ -161,17 +165,16 @@ public class OrderController {
         System.out.println(orderResps.size());
 */
         ListPageUtil<OrderResp> orderRespListPageUtil = new ListPageUtil<>(orderResps, PAGE_SIZE);
+        PageBean pageBean=new PageBean();
+        pageBean.setTotal(orderResps.size());
+        pageBean.setPagedList(orderRespListPageUtil.getPagedList(pageNum));
 
-        return orderRespListPageUtil;
+        return pageBean;
     }
 
     @RequestMapping("/findOrderRespByExample")
 //    public List<OrderResp> findOrderRespByExample(String itemId,String itemName){
-    public ListPageUtil findOrderRespByExample(String itemId,String itemName){
-        System.out.println("itemId"+itemId);
-        System.out.println("itemName"+itemName);
-
-        System.out.println("进来了");
+    public PageBean findOrderRespByExample(String itemId,String itemName,@RequestParam(value = "pageNum",defaultValue = "1",required = false) int pageNum){
         List<OrderResp> orderResps=new ArrayList<>();
         List<OrderDetail> orderDetails = orderDetailService.findByExample(itemId, itemName);
         for (OrderDetail orderDetail : orderDetails) {
@@ -189,11 +192,20 @@ public class OrderController {
 
         }
         ListPageUtil<OrderResp> orderRespListPageUtil = new ListPageUtil<>(orderResps, PAGE_SIZE);
+        PageBean pageBean=new PageBean();
+        pageBean.setPagedList(orderRespListPageUtil.getPagedList(pageNum));
+        pageBean.setTotal(orderResps.size());
 
 //        return orderResps;
 
-        return orderRespListPageUtil;
+        return pageBean;
     }
+
+
+
+
+
+
 
 
 

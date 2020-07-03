@@ -4,8 +4,6 @@ import com.powersi.material.mapper.OrderMapper;
 import com.powersi.material.mapper.customerMapper.CustomerSupplierItemMapper;
 import com.powersi.material.pojo.Order;
 import com.powersi.material.service.IOrderService;
-import com.powersi.material.utils.SnowflakeIdUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,8 +43,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void insertOrder(Order order) {
-        Long snowflakeId = SnowflakeIdUtil.getSnowflakeId();
-        order.setId(snowflakeId.toString());
+
         orderMapper.insert(order);
     }
 
