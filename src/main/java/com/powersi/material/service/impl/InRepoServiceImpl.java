@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.powersi.material.commons.Id;
 import com.powersi.material.mapper.*;
+import com.powersi.material.pojo.InRepository;
 import com.powersi.material.pojo.InRepositoryDetail;
 import com.powersi.material.pojo.RepoRemain;
 import com.powersi.material.pojo.RepoRemainDetail;
@@ -156,6 +157,11 @@ public class InRepoServiceImpl implements InRepoService {
 
         return true;
 
+    }
+
+    @Override
+    public void insertInRepository(InRepository inRepository) {
+        mapper.insert(inRepository);
     }
 
 }

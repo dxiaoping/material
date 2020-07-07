@@ -6,6 +6,7 @@ import com.powersi.material.pojo.responseBody.ReceiveResp;
 import com.powersi.material.service.*;
 import com.powersi.material.utils.ListPageUtil;
 import com.powersi.material.utils.PageBean;
+import com.powersi.material.utils.SnowflakeIdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,8 @@ public class ReceiveController {
     private IReceiveDetailService receiveDetailService;
     @Autowired
     private IEmployeeService employeeService;
+    @Autowired
+    private InRepoService inRepoService;
     @RequestMapping("/findReceiveResp")
     public PageBean findReceiveResp(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum){
         List<Receive> receives=receiveService.findAll();
@@ -109,6 +112,12 @@ public class ReceiveController {
         rec.setEmployeeId(empId);
         receiveService.updateRec(rec);
         List<ReceiveDetail> receiveDetails = receiveDetailService.findRecDetailByRecId(receiveId);
+        //往入库表插入数据
+        InRepository inRepository=new InRepository();
+        inRepository.setId(new Long(SnowflakeIdUtil.getSnowflakeId()).toString());
+        inRepository.setReceiveId(receiveId);
+        inRepository.setInRepoState(0);
+        inRepoService.insertInRepository(inRepository);
         for (ReceiveDetail receiveDetail : receiveDetails) {
             //修改最近价格为这一次的进货价
             Item item = itemService.findItemById(receiveDetail.getItemId());

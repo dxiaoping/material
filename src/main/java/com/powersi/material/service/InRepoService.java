@@ -1,6 +1,7 @@
 package com.powersi.material.service;
 
 import com.github.pagehelper.PageInfo;
+import com.powersi.material.pojo.InRepository;
 import com.powersi.material.pojo.requestBody.InRepoReq;
 import com.powersi.material.pojo.requestBody.InRepositoryDetailReq;
 import com.powersi.material.pojo.requestBody.SelectInRepoReq;
@@ -16,5 +17,7 @@ public interface InRepoService {
     PageInfo<InRepositoryDetailRes> selectInRepoDetail(InRepositoryDetailReq req);
 
     boolean addInRepositoryDetail(InRepoReq req);
+
+    public void insertInRepository(InRepository inRepository);
 
 }
