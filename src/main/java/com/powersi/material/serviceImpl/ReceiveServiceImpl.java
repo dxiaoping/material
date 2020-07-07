@@ -26,4 +26,9 @@ public class ReceiveServiceImpl implements IReceiveService {
     public Receive findRecByRecId(String recId) {
         return receiveMapper.selectByPrimaryKey(recId);
     }
+
+    @Override
+    public void updateRec(Receive receive) {
+        receiveMapper.updateByPrimaryKey(receive);
+    }
 }

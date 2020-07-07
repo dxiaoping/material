@@ -9,4 +9,5 @@ public interface IReceiveService {
     public void insertReceive(Receive receive);
     public List<Receive> findAll();
     public Receive findRecByRecId(String recId);
+    public void updateRec(Receive receive);
 }

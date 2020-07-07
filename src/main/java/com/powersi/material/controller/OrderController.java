@@ -56,6 +56,8 @@ public class OrderController {
         }
 
         Order order=new Order();
+        /*long randomNum=SnowflakeIdUtil.getSnowflakeId();
+        String orderId=new Long(randomNum).toString();*/
         String orderId=new Long(SnowflakeIdUtil.getSnowflakeId()).toString();
         order.setId(orderId);
         order.setEmployeeId(orderReqList.getEmployeeId());
@@ -69,7 +71,8 @@ public class OrderController {
         String receiveId=new Long(SnowflakeIdUtil.getSnowflakeId()).toString();
         //往收货表添加数据
         receive.setId(receiveId);
-        receive.setEmployeeId(orderReqList.getEmployeeId());
+//        receive.setEmployeeId(orderReqList.getEmployeeId());
+        receive.setEmployeeId("");
         receive.setOrderId(orderId);
         receive.setReceOperDate(new Date());
         receive.setReceState(0);

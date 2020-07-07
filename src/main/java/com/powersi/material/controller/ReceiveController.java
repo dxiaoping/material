@@ -1,9 +1,6 @@
 package com.powersi.material.controller;
 
-import com.powersi.material.pojo.Employee;
-import com.powersi.material.pojo.OrderDetail;
-import com.powersi.material.pojo.Receive;
-import com.powersi.material.pojo.ReceiveDetail;
+import com.powersi.material.pojo.*;
 import com.powersi.material.pojo.responseBody.ReceiveDetailResp;
 import com.powersi.material.pojo.responseBody.ReceiveResp;
 import com.powersi.material.service.*;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,18 +36,28 @@ public class ReceiveController {
     @RequestMapping("/findReceiveResp")
     public PageBean findReceiveResp(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum){
         List<Receive> receives=receiveService.findAll();
-        System.out.println("rererererere"+receives.size());
         List<ReceiveResp> receiveRespList=new ArrayList<>();
 //        ReceiveResp receiveResp=new ReceiveResp();不能放在这里最后只能插入同一个对象！！！！！！！！！！
         for (Receive receive : receives) {
             ReceiveResp receiveResp=new ReceiveResp();
             receiveResp.setOrderId(receive.getOrderId());
-            Employee emp = employeeService.findEmpById(receive.getEmployeeId());
+            Order order = orderService.findOrderById(receive.getOrderId());
+            Employee emp = employeeService.findEmpById(order.getEmployeeId());
             receiveResp.setOrderPerson(emp.getEmpName());
             receiveResp.setReceiveDate(receive.getReceOperDate());
             receiveResp.setReceiveId(receive.getId());
-            receiveResp.setReceivePerson("");
-            receiveResp.setReceiveState("未收货");
+            if(receive.getEmployeeId().equals("")){
+                receiveResp.setReceivePerson("");
+            }else {
+                receiveResp.setReceivePerson(employeeService.findEmpById(receive.getEmployeeId()).getEmpName());
+            }
+            if(receive.getReceState()==0){
+                receiveResp.setReceiveState("未收货");
+            }else {
+                receiveResp.setReceiveState("已到货");
+            }
+
+
             receiveRespList.add(receiveResp);
 
         }
@@ -65,13 +73,18 @@ public class ReceiveController {
     public PageBean findReceiveDetailByReceiveId(String receiveId,@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum){
         List<ReceiveDetailResp> receiveDetailRespList =new ArrayList<>();
         List<ReceiveDetail> receiveDetailList = receiveDetailService.findRecDetailByRecId(receiveId);
-        System.out.println("****************************"+receiveDetailList.size());
 //        ReceiveDetailResp receiveDetailResp=new ReceiveDetailResp();不能放在这里最后只能插入同一个对象！！！！！！！！！！
         for (ReceiveDetail receiveDetail : receiveDetailList) {
             ReceiveDetailResp receiveDetailResp=new ReceiveDetailResp();
             receiveDetailResp.setArriveNumber(receiveDetail.getReceArriveNumber());
             String itemId=receiveDetail.getItemId();
             receiveDetailResp.setItemId(itemId);
+            //c查询出当前价格
+            String inPrice = orderService.findInPriceByItemIdAndSupplierName(receiveDetail.getItemId(), supplierService.findSupplierById(receiveDetail.getSupplierId()).getSupplierName());
+            receiveDetailResp.setCurrentPrice(new BigDecimal(Double.parseDouble(inPrice)));
+            //查询出最近价格
+            Item itemById = itemService.findItemById(receiveDetail.getItemId());
+            receiveDetailResp.setLatelyPrice(itemById.getItemLatelyPic());
             receiveDetailResp.setItemName(itemService.findItemById(itemId).getItemName());
             String orderId=receiveService.findRecByRecId(receiveId).getOrderId();
             OrderDetail orderDetail = orderDetailService.findByOrderIdAndItemId(orderId, itemId);
@@ -85,6 +98,30 @@ public class ReceiveController {
         pageBean.setPagedList(listPageUtil.getPagedList(pageNum));
 
         return pageBean;
+
+    }
+
+    @RequestMapping("/confirmReceive")
+    public void confirmReceive(String receiveId,String empId){
+
+        Receive rec = receiveService.findRecByRecId(receiveId);
+        rec.setReceState(1);
+        rec.setEmployeeId(empId);
+        receiveService.updateRec(rec);
+        List<ReceiveDetail> receiveDetails = receiveDetailService.findRecDetailByRecId(receiveId);
+        for (ReceiveDetail receiveDetail : receiveDetails) {
+            //修改最近价格为这一次的进货价
+            Item item = itemService.findItemById(receiveDetail.getItemId());
+            String inPrice = orderService.findInPriceByItemIdAndSupplierName(receiveDetail.getItemId(), supplierService.findSupplierById(receiveDetail.getSupplierId()).getSupplierName());
+            item.setItemLatelyPic(new BigDecimal(Double.parseDouble(inPrice)));
+            itemService.updateItem(item);
+
+            //订单号和货号能确定唯一一个orderDetail对象，因此可以找出每个商品的订货数量
+            OrderDetail orderDetail = orderDetailService.findByOrderIdAndItemId(rec.getOrderId(), receiveDetail.getItemId());
+            receiveDetail.setReceArriveNumber(orderDetail.getOrderNumber());
+            receiveDetailService.updateReceiveDetail(receiveDetail);
+        }
+
 
     }
 }

@@ -26,4 +26,9 @@ public class ReceiveDetailImpl implements IReceiveDetailService {
         criteria.andReceIdEqualTo(id);
         return receiveDetailMapper.selectByExample(example);
     }
+
+    @Override
+    public void updateReceiveDetail(ReceiveDetail receiveDetail) {
+        receiveDetailMapper.updateByPrimaryKey(receiveDetail);
+    }
 }
