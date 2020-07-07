@@ -1,8 +1,11 @@
 package com.powersi.material.mapper;
 
+import com.github.pagehelper.PageInfo;
 import com.powersi.material.pojo.ReceiveDetail;
 import com.powersi.material.pojo.ReceiveDetailExample;
 import com.powersi.material.pojo.ReceiveDetailKey;
+import com.powersi.material.pojo.requestBody.InRepositoryDetailReq;
+import com.powersi.material.pojo.responseBody.InRepositoryDetailRes;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,4 +32,8 @@ public interface ReceiveDetailMapper {
     int updateByPrimaryKeySelective(ReceiveDetail record);
 
     int updateByPrimaryKey(ReceiveDetail record);
+
+    //入库详情需要在此查询
+    List<InRepositoryDetailRes> selectInRepoDetail(InRepositoryDetailReq req);
+
 }

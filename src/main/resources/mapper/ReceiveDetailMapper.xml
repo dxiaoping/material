@@ -193,4 +193,35 @@
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
       and item_id = #{itemId,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectInRepoDetail" parameterType="com.powersi.material.pojo.requestBody.InRepositoryDetailReq"
+          resultType="com.powersi.material.pojo.responseBody.InRepositoryDetailRes" >
+    select
+    red.item_id,
+    i.item_name,
+    s.supplier_name,
+    s.id as supplier_id,
+    red.rece_arrive_number as Items_number,
+    i.item_lately_pic
+    from
+    receive_detail red,item i,supplier s
+    where
+    red.supplier_id = s.id and red.item_id = i.id
+    <if test="receId != null" >
+      and red.rece_id = #{receId,jdbcType=VARCHAR}
+    </if>
+    <if test="itemId != null" >
+      and ( i.item_name like "%"#{itemId,jdbcType=VARCHAR}"%" or i.id like "%"#{itemId,jdbcType=VARCHAR}"%" )
+    </if>
+    <if test="supplierId != null" >
+      and ( s.id like "%"#{supplierId,jdbcType=VARCHAR}"%" or s.supplier_name like "%"#{supplierId,jdbcType=VARCHAR}"%" )
+    </if>
+    <if test="inRepoNumber1 != null" >
+      and red.rece_arrive_number &gt;= #{inRepoNumber1,jdbcType=INTEGER}
+    </if>
+    <if test="inRepoNumber2 != null" >
+      and red.rece_arrive_number &lt;= #{inRepoNumber2,jdbcType=INTEGER}
+    </if>
+  </select>
+
 </mapper>

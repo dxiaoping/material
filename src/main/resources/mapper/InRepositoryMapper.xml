@@ -214,9 +214,13 @@
     select inr.id,inr.receive_id,re.employee_id as employeeId1,inr.employee_id as employeeId2,
     em1.emp_name as empName1,em2.emp_name as empName2,inr.in_repo_state,inr.in_repo_date
     from
-    in_repository inr,employee em1,employee em2,receive re
-    where
-    inr.employee_id = em2.id and re.id = inr.receive_id and re.employee_id = em1.id
+    in_repository inr
+    LEFT JOIN employee em2
+    on inr.employee_id = em2.id
+    LEFT JOIN receive re
+    on  re.id = inr.receive_id
+    LEFT JOIN employee em1
+    on re.employee_id = em1.id
     <if test="id != null" >
       and ( inr.id like "%"#{id,jdbcType=VARCHAR}"%" or inr.receive_id like "%"#{id,jdbcType=VARCHAR}"%" )
     </if>

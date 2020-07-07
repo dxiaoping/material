@@ -1,9 +1,6 @@
 package com.powersi.material.mapper;
 
-import com.powersi.material.pojo.RepoRemainDetail;
-import com.powersi.material.pojo.RepoRemainDetailExample;
-import com.powersi.material.pojo.RepoRemainDetailKey;
-import com.powersi.material.pojo.Supplier;
+import com.powersi.material.pojo.*;
 import com.powersi.material.pojo.requestBody.RemainDetailReq;
 import com.powersi.material.pojo.requestBody.RepoRemainReq;
 import com.powersi.material.pojo.requestBody.getRemainDetailReq;
@@ -65,7 +62,18 @@ public interface RepoRemainDetailMapper {
             "rr.id = rrd.repo_remain_id and s.id = rrd.supplier_id and rr.item_id = #{id} ")
     List<Supplier> selectSAllSup(@Param("id") String id);
 
+    @Select("select \n" +
+            "times \n" +
+            "from repo_remain_detail rrd,repo_remain rr\n" +
+            "where rrd.repo_remain_id = rr.id \n" +
+            "and rr.item_id = #{ItemId}\n" +
+            "ORDER BY rrd.times desc\n" +
+            "LIMIT 1")
+    Integer getTimesByItemId(@Param("ItemId") String ItemId);
 
+    //判断有无库存
+    @Select("select * from repo_remain where item_id = #{itemId}")
+    RepoRemain selectByItemId(String itemId);
 
     List<getRemainDetailRes> getRemainDetail(getRemainDetailReq req);
 

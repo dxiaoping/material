@@ -4,7 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import com.powersi.material.pojo.requestBody.InRepoReq;
+import com.powersi.material.pojo.requestBody.InRepositoryDetailReq;
 import com.powersi.material.pojo.requestBody.SelectInRepoReq;
+import com.powersi.material.pojo.responseBody.InRepositoryDetailRes;
 import com.powersi.material.pojo.responseBody.RemainDetailRes;
 import com.powersi.material.pojo.responseBody.SelectInRepoRes;
 import com.powersi.material.service.InRepoService;
@@ -27,8 +30,6 @@ public class InRepoController {
 
     @PostMapping("/selectAllInRepo")
     public ResponseEntity<String> selectAllInRepo(@RequestBody SelectInRepoReq req) {
-
-
         try {
             //员工
             if ("".equals(req.getEmployeeId())){
@@ -42,16 +43,53 @@ public class InRepoController {
             if("".equals(req.getId())){
                 req.setId(null);
             }
-
-//            System.out.println(JSON.toJSONString(req));
             PageInfo<SelectInRepoRes> list = service.selectAllInRepo(req);
+            return ResponseEntity.ok(mapper.writeValueAsString(list));
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/selectInRepoDetail")
+    public ResponseEntity<String> selectInRepoDetail(@RequestBody InRepositoryDetailReq req) {
+        try {
+            if ("".equals(req.getItemId())){
+                req.setItemId(null);
+            }
+            if("".equals(req.getSupplierId())){
+                req.setSupplierId(null);
+            }
+            if("".equals(req.getInRepoNumber1())){
+                req.setInRepoNumber1(null);
+            }
+            if("".equals(req.getInRepoNumber2())){
+                req.setInRepoNumber2(null);
+            }
+            if("".equals(req.getRepoId())){
+                req.setRepoId(null);
+            }
+
+            System.out.println(JSON.toJSONString(req));
+
+            PageInfo<InRepositoryDetailRes> list = service.selectInRepoDetail(req);
 
             return ResponseEntity.ok(mapper.writeValueAsString(list));
-
         } catch (JsonProcessingException e) {
-
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 
+
+    @PostMapping("/addInRepositoryDetail")
+    public ResponseEntity<String> addInRepositoryDetail(@RequestBody InRepoReq req) {
+
+        try {
+
+            boolean b = service.addInRepositoryDetail(req);
+
+            return ResponseEntity.ok(mapper.writeValueAsString(b));
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
 
@@ -59,3 +97,5 @@ public class InRepoController {
 
 
 }
+
+
