@@ -19,6 +19,7 @@ public interface ItemClassMapper {
     int insertSelective(ItemClass record);
 
     List<ItemClass> selectByExample(ItemClassExample example);
+    List<Integer> selectClassId(@Param("fatherId") Integer fatherId);
 
     ItemClass selectByPrimaryKey(Integer id);
 

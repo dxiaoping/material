@@ -18,6 +18,16 @@ public class ItemSaleDetail extends ItemSaleDetailKey {
     private Date saleTime;
     /**是否退货 0:退货 1:正常*/
     private Integer saleRejectRemark;
+    /**供货商-批次-数量*/
+    private String batch;
+
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
+    }
 
     public BigDecimal getSalePrice() {
         return salePrice;

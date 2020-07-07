@@ -101,4 +101,19 @@ public class TurnoverRes {
     public void setProfitIncrease(BigDecimal profitIncrease) {
         this.profitIncrease = profitIncrease;
     }
+
+    @Override
+    public String toString() {
+        return "TurnoverRes{" +
+                "dateTime='" + dateTime + '\'' +
+                ", cost=" + cost +
+                ", saleVolume=" + saleVolume +
+                ", saleNum=" + saleNum +
+                ", profit=" + profit +
+                ", costIncrease=" + costIncrease +
+                ", saleVolumeIncrease=" + saleVolumeIncrease +
+                ", saleNumIncrease=" + saleNumIncrease +
+                ", profitIncrease=" + profitIncrease +
+                '}';
+    }
 }

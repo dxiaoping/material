@@ -187,28 +187,31 @@
     </insert>
     <sql id="base_attribute">
      item_sale_id, item_id, repo_id, supplier_id, sale_price, sale_number, sale_after_discount,
-    sale_discount_amount, total_amount,sale_time,sale_reject_remark
+    sale_discount_amount, total_amount,sale_time,sale_reject_remark,batch
   </sql>
     <select id="selectBySaleId" resultType="com.powersi.material.pojo.ItemSaleDetail">
     select * from item_sale_detail where item_sale_id = #{itemSaleId}
   </select>
 
     <select id="selectByTimeAndClass" resultType="com.powersi.material.pojo.ItemSaleDetail">
-        select * from item_sale_detail where sale_reject_remark = 1
+        select isd.* from item_sale_detail isd
+        left join item it on it.id = isd.item_id
+        where isd.sale_reject_remark = 1
         <choose>
             <when test="startTime != null and endTime != null">
-                and sale_time between #{startTime} and #{endTime}
+                and isd.sale_time between #{startTime} and #{endTime}
             </when>
             <when test="startTime != null and endTime == null">
-                and sale_time <![CDATA[ >= ]]> #{startTime}
+                and isd.sale_time <![CDATA[ >= ]]> #{startTime}
             </when>
             <when test="startTime == null and endTime != null">
-                and sale_time <![CDATA[ <= ]]> #{endTimeTime}
+                and isd.sale_time <![CDATA[ <= ]]> #{endTime}
             </when>
         </choose>
-        <!--      <if test="itemClass != null">-->
-        <!--        and (id like #{key} or member_id like #{key} or employee_id like #{key})-->
-        <!--      </if>-->
+        and it.item_class_id in
+        <foreach item="item" index="index" collection="itemClass" open="(" separator="," close=")">
+            #{item}
+        </foreach>
         order by sale_time asc
     </select>
     <select id="selectBestsellerItem" resultType="com.powersi.material.pojo.responseBody.BestsellerRes">
@@ -222,7 +225,7 @@
                 and sale_time <![CDATA[ >= ]]> #{startTime}
             </when>
             <when test="startTime == null and endTime != null">
-                and sale_time <![CDATA[ <= ]]> #{endTimeTime}
+                and sale_time <![CDATA[ <= ]]> #{endTime}
             </when>
         </choose>
         group by item_id
@@ -252,7 +255,8 @@
             #{detail.saleDiscountAmount},
             #{detail.totalAmount},
             #{detail.saleTime},
-            #{detail.saleRejectRemark}
+            #{detail.saleRejectRemark},
+            #{detail.batch}
             )
         </foreach>
 

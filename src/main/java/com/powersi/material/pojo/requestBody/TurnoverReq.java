@@ -1,6 +1,7 @@
 package com.powersi.material.pojo.requestBody;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @description: 营业额统计页面请求参数
@@ -16,7 +17,7 @@ public class TurnoverReq {
     /** 查询周期*/
     private String cycle;
     /** 商品类别*/
-    private String itemClass;
+    private List<Integer> itemClass;
 
     public Date getStartTime() {
         return startTime;
@@ -42,11 +43,11 @@ public class TurnoverReq {
         this.cycle = cycle;
     }
 
-    public String getItemClass() {
+    public List<Integer> getItemClass() {
         return itemClass;
     }
 
-    public void setItemClass(String itemClass) {
+    public void setItemClass(List<Integer> itemClass) {
         this.itemClass = itemClass;
     }
 }

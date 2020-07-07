@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class RepoRemainDetail extends RepoRemainDetailKey {
-    private Integer times;
 
     private Integer remainAmount;
 
@@ -12,13 +11,6 @@ public class RepoRemainDetail extends RepoRemainDetailKey {
 
     private Date inRepoDate;
 
-    public Integer getTimes() {
-        return times;
-    }
-
-    public void setTimes(Integer times) {
-        this.times = times;
-    }
 
     public Integer getRemainAmount() {
         return remainAmount;

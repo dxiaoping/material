@@ -1,8 +1,8 @@
 package com.powersi.material.mapper;
 
-import com.powersi.material.pojo.Item;
 import com.powersi.material.pojo.ItemSale;
 import com.powersi.material.pojo.ItemSaleExample;
+import com.powersi.material.pojo.responseBody.SearchItem;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -34,5 +34,5 @@ public interface ItemSaleMapper {
 
     int updateByPrimaryKey(ItemSale record);
 
-    List<Item> getAllItem();
+    List<SearchItem> getAllItem(Date currentTime);
 }

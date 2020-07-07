@@ -84,12 +84,20 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="getRemainDetailByItem" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from repo_remain_detail where remain_amount > 0
+    and repo_remain_id = #{repoRemainId}
+    order by in_repo_date asc
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.RepoRemainDetailKey" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from repo_remain_detail
     where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and times = #{times,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.powersi.material.pojo.RepoRemainDetailKey" >
     delete from repo_remain_detail
@@ -103,9 +111,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.powersi.material.pojo.RepoRemainDetail" >
-    insert into repo_remain_detail (repo_remain_id, supplier_id, times, 
+    insert into repo_remain_detail (repo_remain_id, supplier_id, times,
       remain_amount, repo_remain_in_pic, in_repo_date)
-    values (#{repoRemainId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, 
+    values (#{repoRemainId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER},
       #{remainAmount,jdbcType=INTEGER}, #{repoRemainInPic,jdbcType=DECIMAL}, #{inRepoDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.powersi.material.pojo.RepoRemainDetail" >
@@ -213,6 +221,7 @@
     </set>
     where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
+    and times = #{times,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.RepoRemainDetail" >
     update repo_remain_detail
@@ -222,6 +231,7 @@
       in_repo_date = #{inRepoDate,jdbcType=TIMESTAMP}
     where repo_remain_id = #{repoRemainId,jdbcType=VARCHAR}
       and supplier_id = #{supplierId,jdbcType=VARCHAR}
+      and times = #{times,jdbcType=INTEGER}
   </update>
 
 

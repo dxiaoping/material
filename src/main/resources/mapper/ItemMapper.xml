@@ -78,10 +78,11 @@
     id, item_class_id, item_code, item_name, item_spell, item_wubi, item_spec, item_unit,
     item_sale_price, item_factory_name, item_disc_state, item_lately_pic, item_aver_pic
   </sql>
-  <select id="selectByKeyWord" resultMap="BaseResultMap">
-    select * from item
-    where item_name like #{keyWord}
-    or id like #{keyWord};
+  <select id="selectByKeyWord" resultType="com.powersi.material.pojo.responseBody.SearchItem">
+    select item.*,rr.total_remain stock from item
+    left join repo_remain rr on rr.item_id=item.id
+    where item.item_name like #{keyWord}
+    or item.id like #{keyWord};
   </select>
 
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemExample" >

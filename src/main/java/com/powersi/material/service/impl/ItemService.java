@@ -11,6 +11,7 @@ import com.powersi.material.pojo.Item;
 import com.powersi.material.pojo.ItemClass;
 import com.powersi.material.pojo.ItemExample;
 import com.powersi.material.pojo.requestBody.SeLectItemDTO;
+import com.powersi.material.pojo.responseBody.SearchItem;
 import com.powersi.material.pojo.responseBody.SearchItemDTO;
 import com.powersi.material.pojo.responseBody.SelectItemRes;
 import com.powersi.material.units.BarcodeUtil;
@@ -183,9 +184,9 @@ public class ItemService {
     }
 
 
-    public List<Item> search(String keyWord){
+    public List<SearchItem> search(String keyWord){
 
-        List<Item> list = mapper.selectByKeyWord("%"+keyWord+"%");
+        List<SearchItem> list = mapper.selectByKeyWord("%"+keyWord+"%");
         return list;
     }
 }

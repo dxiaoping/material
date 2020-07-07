@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,9 +32,9 @@ public class StatisticsController {
      */
     @PostMapping("turnover")
     public ResponseEntity<List> getTurnoverList(@RequestBody(required = false) TurnoverReq turnoverReq){
-
-        List<TurnoverRes> list = null;
-        list = statisticsService.getTurnoverStatistics(turnoverReq);
+        System.out.println("统计类别");
+        System.out.println(turnoverReq.getItemClass());
+        List<TurnoverRes> list = statisticsService.getTurnoverStatistics(turnoverReq);
 
         return ResponseEntity.ok(list);
     }

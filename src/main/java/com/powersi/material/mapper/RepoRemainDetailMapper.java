@@ -28,6 +28,7 @@ public interface RepoRemainDetailMapper {
     int insertSelective(RepoRemainDetail record);
 
     List<RepoRemainDetail> selectByExample(RepoRemainDetailExample example);
+    List<RepoRemainDetail> getRemainDetailByItem(String repoRemainId);
 
     RepoRemainDetail selectByPrimaryKey(RepoRemainDetailKey key);
 

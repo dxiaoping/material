@@ -1,192 +1,202 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.powersi.material.mapper.ItemClassMapper" >
-  <resultMap id="BaseResultMap" type="com.powersi.material.pojo.ItemClass" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="item_class_father" property="itemClassFather" jdbcType="INTEGER" />
-    <result column="item_class_name" property="itemClassName" jdbcType="VARCHAR" />
-    <result column="item_class_desc" property="itemClassDesc" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+<mapper namespace="com.powersi.material.mapper.ItemClassMapper">
+    <resultMap id="BaseResultMap" type="com.powersi.material.pojo.ItemClass">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="item_class_father" property="itemClassFather" jdbcType="INTEGER"/>
+        <result column="item_class_name" property="itemClassName" jdbcType="VARCHAR"/>
+        <result column="item_class_desc" property="itemClassDesc" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     id, item_class_father, item_class_name, item_class_desc
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemClassExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from item_class
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from item_class
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.powersi.material.pojo.ItemClassExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from item_class
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectClassId" resultType="int">
+        select id from item_class
+        <if test="fatherId != null">
+            where id = #{fatherId} or item_class_father = #{fatherId}
+        </if>
+
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from item_class
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from item_class
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.powersi.material.pojo.ItemClassExample" >
-    delete from item_class
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.powersi.material.pojo.ItemClass" >
-    insert into item_class (id, item_class_father, item_class_name, 
+    <delete id="deleteByExample" parameterType="com.powersi.material.pojo.ItemClassExample">
+        delete from item_class
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.powersi.material.pojo.ItemClass">
+    insert into item_class (id, item_class_father, item_class_name,
       item_class_desc)
-    values (#{id,jdbcType=INTEGER}, #{itemClassFather,jdbcType=INTEGER}, #{itemClassName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{itemClassFather,jdbcType=INTEGER}, #{itemClassName,jdbcType=VARCHAR},
       #{itemClassDesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.powersi.material.pojo.ItemClass" >
-    insert into item_class
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="itemClassFather != null" >
-        item_class_father,
-      </if>
-      <if test="itemClassName != null" >
-        item_class_name,
-      </if>
-      <if test="itemClassDesc != null" >
-        item_class_desc,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="itemClassFather != null" >
-        #{itemClassFather,jdbcType=INTEGER},
-      </if>
-      <if test="itemClassName != null" >
-        #{itemClassName,jdbcType=VARCHAR},
-      </if>
-      <if test="itemClassDesc != null" >
-        #{itemClassDesc,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.powersi.material.pojo.ItemClassExample" resultType="java.lang.Integer" >
-    select count(*) from item_class
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update item_class
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.itemClassFather != null" >
+    <insert id="insertSelective" parameterType="com.powersi.material.pojo.ItemClass">
+        insert into item_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="itemClassFather != null">
+                item_class_father,
+            </if>
+            <if test="itemClassName != null">
+                item_class_name,
+            </if>
+            <if test="itemClassDesc != null">
+                item_class_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="itemClassFather != null">
+                #{itemClassFather,jdbcType=INTEGER},
+            </if>
+            <if test="itemClassName != null">
+                #{itemClassName,jdbcType=VARCHAR},
+            </if>
+            <if test="itemClassDesc != null">
+                #{itemClassDesc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.powersi.material.pojo.ItemClassExample"
+            resultType="java.lang.Integer">
+        select count(*) from item_class
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update item_class
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.itemClassFather != null">
+                item_class_father = #{record.itemClassFather,jdbcType=INTEGER},
+            </if>
+            <if test="record.itemClassName != null">
+                item_class_name = #{record.itemClassName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.itemClassDesc != null">
+                item_class_desc = #{record.itemClassDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update item_class
+        set id = #{record.id,jdbcType=INTEGER},
         item_class_father = #{record.itemClassFather,jdbcType=INTEGER},
-      </if>
-      <if test="record.itemClassName != null" >
         item_class_name = #{record.itemClassName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.itemClassDesc != null" >
-        item_class_desc = #{record.itemClassDesc,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update item_class
-    set id = #{record.id,jdbcType=INTEGER},
-      item_class_father = #{record.itemClassFather,jdbcType=INTEGER},
-      item_class_name = #{record.itemClassName,jdbcType=VARCHAR},
-      item_class_desc = #{record.itemClassDesc,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.ItemClass" >
-    update item_class
-    <set >
-      <if test="itemClassFather != null" >
-        item_class_father = #{itemClassFather,jdbcType=INTEGER},
-      </if>
-      <if test="itemClassName != null" >
-        item_class_name = #{itemClassName,jdbcType=VARCHAR},
-      </if>
-      <if test="itemClassDesc != null" >
-        item_class_desc = #{itemClassDesc,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.ItemClass" >
+        item_class_desc = #{record.itemClassDesc,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.powersi.material.pojo.ItemClass">
+        update item_class
+        <set>
+            <if test="itemClassFather != null">
+                item_class_father = #{itemClassFather,jdbcType=INTEGER},
+            </if>
+            <if test="itemClassName != null">
+                item_class_name = #{itemClassName,jdbcType=VARCHAR},
+            </if>
+            <if test="itemClassDesc != null">
+                item_class_desc = #{itemClassDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.powersi.material.pojo.ItemClass">
     update item_class
     set item_class_father = #{itemClassFather,jdbcType=INTEGER},
       item_class_name = #{itemClassName,jdbcType=VARCHAR},

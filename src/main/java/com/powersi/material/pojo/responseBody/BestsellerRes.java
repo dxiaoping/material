@@ -20,7 +20,7 @@ public class BestsellerRes {
     /**销售额*/
     private BigDecimal totalVolume;
     /**库存量*/
-    private long stock;
+    private BigDecimal stock;
 
     public String getItemId() {
         return itemId;
@@ -62,11 +62,11 @@ public class BestsellerRes {
         this.totalVolume = totalVolume;
     }
 
-    public long getStock() {
+    public BigDecimal getStock() {
         return stock;
     }
 
-    public void setStock(long stock) {
+    public void setStock(BigDecimal stock) {
         this.stock = stock;
     }
 }

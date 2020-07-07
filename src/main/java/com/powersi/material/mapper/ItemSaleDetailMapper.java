@@ -12,7 +12,7 @@ import java.util.List;
 public interface ItemSaleDetailMapper {
 
     List<ItemSaleDetail> selectBySaleId(String itemSaleId);
-    List<ItemSaleDetail> selectByTimeAndClass(@Param("startTime")Date startTime,@Param("endTime")Date endTime,@Param("itemClass")String itemClass);
+    List<ItemSaleDetail> selectByTimeAndClass(@Param("startTime")Date startTime,@Param("endTime")Date endTime,@Param("itemClass")List<Integer> itemClass);
     List<BestsellerRes> selectBestsellerItem(@Param("startTime")Date startTime, @Param("endTime")Date endTime);
 
     int insertSaleDetail(List<ItemSaleDetail> saleDetails);

@@ -167,25 +167,26 @@
     </trim>
   </insert>
   <select id="selectByCondition" resultType="com.powersi.material.pojo.ItemSale">
-    select * from item_sale
+    select itsa.* from item_sale itsa left join employee emp on emp.id = itsa.employee_id
+    left join member mem on mem.member_telp = itsa.member_id
     <where>
     <choose>
       <when test="startTime != null and endTime != null">
-        and sale_time between #{startTime} and #{endTime}
+        and itsa.sale_time between #{startTime} and #{endTime}
       </when>
       <when test="startTime != null and endTime == null">
-        and sale_time <![CDATA[ >= ]]> #{startTime}
+        and itsa.sale_time <![CDATA[ >= ]]> #{startTime}
       </when>
       <when test="startTime == null and endTime != null">
-        and sale_time <![CDATA[ <= ]]> #{endTimeTime}
+        and itsa.sale_time <![CDATA[ <= ]]> #{endTimeTime}
       </when>
     </choose>
 
         <if test="key != null">
-          and (id like #{key} or member_id like #{key} or employee_id like #{key})
+          and (itsa.id like #{key} or mem.member_name like #{key} or emp.emp_name like #{key})
         </if>
       <if test="backSaleState != 2">
-          and (sale_reject_remark = #{backSaleState})
+          and (itsa.sale_reject_remark = #{backSaleState})
         </if>
 
     </where>
@@ -282,7 +283,13 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
-  <select id="getAllItem" resultType="com.powersi.material.pojo.Item">
-    select * from item;
+  <select id="getAllItem" resultType="com.powersi.material.pojo.responseBody.SearchItem">
+    select item.*,rrd.stock from item
+    left join repo_remain rr on rr.item_id=item.id
+    left join (select repo_remain_id,sum(remain_amount) stock
+    from repo_remain_detail
+    where in_repo_date <![CDATA[ < ]]> #{currentTime}
+    group by repo_remain_id) rrd  on rr.id=rrd.repo_remain_id
+    where rrd.stock>0
   </select>
 </mapper>
