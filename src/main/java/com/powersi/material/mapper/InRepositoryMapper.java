@@ -1,7 +1,10 @@
 package com.powersi.material.mapper;
 
+import com.github.pagehelper.PageInfo;
 import com.powersi.material.pojo.InRepository;
 import com.powersi.material.pojo.InRepositoryExample;
+import com.powersi.material.pojo.requestBody.SelectInRepoReq;
+import com.powersi.material.pojo.responseBody.SelectInRepoRes;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,4 +31,7 @@ public interface InRepositoryMapper {
     int updateByPrimaryKeySelective(InRepository record);
 
     int updateByPrimaryKey(InRepository record);
+
+    List<SelectInRepoRes> selectAllInRepo(SelectInRepoReq req);
+
 }

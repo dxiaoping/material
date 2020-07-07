@@ -208,4 +208,34 @@
       in_repo_state = #{inRepoState,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectAllInRepo" parameterType="com.powersi.material.pojo.requestBody.SelectInRepoReq"
+          resultType="com.powersi.material.pojo.responseBody.SelectInRepoRes" >
+    select inr.id,inr.receive_id,re.employee_id as employeeId1,inr.employee_id as employeeId2,
+    em1.emp_name as empName1,em2.emp_name as empName2,inr.in_repo_state,inr.in_repo_date
+    from
+    in_repository inr,employee em1,employee em2,receive re
+    where
+    inr.employee_id = em2.id and re.id = inr.receive_id and re.employee_id = em1.id
+    <if test="id != null" >
+      and ( inr.id like "%"#{id,jdbcType=VARCHAR}"%" or inr.receive_id like "%"#{id,jdbcType=VARCHAR}"%" )
+    </if>
+    <if test="employeeId != null" >
+      and ( inr.employee_id like "%"#{employeeId,jdbcType=VARCHAR}"%" or re.employee_id like "%"#{employeeId,jdbcType=VARCHAR}"%" or em1.emp_name like "%"#{employeeId,jdbcType=VARCHAR}"%" or em2.emp_name like "%"#{employeeId,jdbcType=VARCHAR}"%" )
+    </if>
+    <if test="inRepoDate != null" >
+      <foreach collection="inRepoDate" item="id"  index="index"  >
+        <if test="index==0" >
+          and inr.in_repo_date &gt;= #{id}
+        </if>
+        <if test="index==1" >
+          and inr.in_repo_date &lt;= #{id}
+        </if>
+      </foreach>
+    </if>
+    <if test="inRepoState != null" >
+      and  inr.in_repo_state = #{inRepoState,jdbcType=INTEGER}
+    </if>
+  </select>
+
 </mapper>
