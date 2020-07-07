@@ -65,6 +65,7 @@ public class InRepoServiceImpl implements InRepoService {
             //未入库，在收货详情查询
             list = rdmapper.selectInRepoDetail(req);
         }else if (req.getInRepoState() == 1){
+
             //已入库，在入库详情查询
             list = idmapper.selectInRepoDetail(req);
         }

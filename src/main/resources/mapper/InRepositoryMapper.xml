@@ -219,7 +219,7 @@
     on inr.employee_id = em2.id
     LEFT JOIN receive re
     on  re.id = inr.receive_id
-    LEFT JOIN employee em1
+    inner JOIN employee em1
     on re.employee_id = em1.id
     <if test="id != null" >
       and ( inr.id like "%"#{id,jdbcType=VARCHAR}"%" or inr.receive_id like "%"#{id,jdbcType=VARCHAR}"%" )
