@@ -39,7 +39,14 @@ public class ItemController {
         try {
 
             if (item != null){
-                return ResponseEntity.ok(mapper.writeValueAsString( service.addItem(item)));
+
+                Item i = service.addItem(item);
+
+                if("".equals(i.getId())){
+                    return ResponseEntity.ok("-1");
+                }
+
+                return ResponseEntity.ok(mapper.writeValueAsString(i));
             }else{
                 return ResponseEntity.badRequest().body("添加商品出错误");
             }

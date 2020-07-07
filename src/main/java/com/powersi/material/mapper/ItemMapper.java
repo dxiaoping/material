@@ -81,4 +81,8 @@ public interface ItemMapper {
             "values (#{supplier_id},#{item_id},#{in_price})")
     int insertST(@Param("supplier_id") String supplier_id,@Param("item_id") String item_id,@Param("in_price") BigDecimal in_price);
 
+    @Select("select item_name from item where item_name = #{name}")
+    String selectByName(@Param("name") String name);
+
+
 }

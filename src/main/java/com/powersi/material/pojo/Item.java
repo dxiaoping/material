@@ -1,5 +1,7 @@
 package com.powersi.material.pojo;
 
+import lombok.ToString;
+
 import javax.persistence.Entity;
 import java.math.BigDecimal;
 
@@ -132,5 +134,14 @@ public class Item {
 
     public void setItemAverPic(BigDecimal itemAverPic) {
         this.itemAverPic = itemAverPic;
+    }
+
+    public String toString(){
+
+        return "商品货号:"+this.getId()+",商品名称:"+this.getItemName()+",商品类别编号:"+this.getItemClassId()
+                +",拼音码:"+this.getItemSpell()+",五笔码:"+this.getItemWubi()+ ",规格:"+this.getItemSpec()
+                +",单位:"+this.getItemUnit()+",零售价:"+this.getItemSalePrice()+",生产厂家:"+this.getItemFactoryName()
+                +",折扣状态:"+this.getItemDiscState();
+
     }
 }

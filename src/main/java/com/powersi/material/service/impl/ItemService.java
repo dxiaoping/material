@@ -1,5 +1,6 @@
 package com.powersi.material.service.impl;
 
+import com.alibaba.druid.sql.visitor.functions.Char;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -105,6 +106,14 @@ public class ItemService {
     @Transactional
     public Item addItem(Item item){
 
+        //判断该商品是否存在
+        String name = mapper.selectByName(item.getItemName());
+
+        if(name != null){
+            item.setId("");
+            return item;
+        }
+
         //生成主键
         long itemid = myid.nextId();
         //主键
@@ -128,6 +137,16 @@ public class ItemService {
 
         String path = "barcode_"+item.getId()+".png";
         //生成条形码文件
+
+//        String info = item.toString();
+//        char[] a = info.toCharArray();
+//        StringBuffer sb = new StringBuffer();
+//        for (int i = 0; i < a.length; i++) {
+//            System.out.print((int)a[i]+" ");
+//            sb.append((int)a[i]+",");
+//        }
+//        info = sb.toString();
+
         BarcodeUtil.generateFile(item.getId(),rootpath+path);
         //将条形码文件保存
         item.setItemCode(path);
