@@ -295,6 +295,10 @@ public class StatisticsServiceImpl implements IStatisticsService {
             turnoverRes2.setProfitIncrease(profitIncrease);
             turnoverRes2.setSaleVolumeIncrease(saleVolumeIncrease);
             turnoverRes2.setSaleNumIncrease(saleNumIncrease);
+            costIncrease = new BigDecimal(0);
+            profitIncrease = new BigDecimal(0);
+            saleVolumeIncrease = new BigDecimal(0);
+            saleNumIncrease = new BigDecimal(0);
         }
         return turnoverResList;
     }
