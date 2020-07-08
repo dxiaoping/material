@@ -101,10 +101,13 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
 
-    <select id="selectByTime" resultType="com.powersi.material.pojo.RepoRemainDetail">
-        select * from repo_remain_detail rrd
+    <select id="selectByTime" resultType="com.powersi.material.pojo.responseBody.WarehouseInfo">
+        select rrd.*,ird.in_repo_number num from repo_remain_detail rrd
         left join repo_remain rr on rrd.repo_remain_id = rr.id
         left join item on item.id = rr.item_id
+        left join in_repository_detail ird
+        on (rrd.supplier_id=ird.supplier_id and ird.item_id = item.id
+        and ird.times = rrd.times)
         <where>
             <choose>
                 <when test="startTime != null and endTime != null">
