@@ -6,6 +6,7 @@ import com.powersi.material.pojo.Item;
 import com.powersi.material.pojo.ItemExample;
 import com.powersi.material.pojo.OrderDetail;
 import com.powersi.material.pojo.OrderDetailExample;
+import com.powersi.material.pojo.responseBody.OrderDetialResp;
 import com.powersi.material.service.IOrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class OrderDetailImpl implements IOrderDetailService {
     @Override
     public void updateOrderDetail(OrderDetail orderDetail) {
 
-        orderDetailMapper.updateByPrimaryKeySelective(orderDetail);
+        orderDetailMapper.updateByPrimaryKey(orderDetail);
     }
 
     @Override
@@ -82,6 +83,14 @@ public class OrderDetailImpl implements IOrderDetailService {
 
     }
 
+    @Override
+    public List<OrderDetail> findDetailListByOrderId(String orderId) {
+        OrderDetailExample example=new OrderDetailExample();
+        OrderDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        return orderDetailMapper.selectByExample(example);
+    }
+
     //订单号和货号能确定唯一一个orderDetail对象，因此可以找出每个商品的订货数量
     @Override
     public OrderDetail findByOrderIdAndItemId(String orderId, String itemId) {
@@ -91,4 +100,11 @@ public class OrderDetailImpl implements IOrderDetailService {
         criteria.andOrderIdEqualTo(orderId);
         return orderDetailMapper.selectByExample(example).get(0);
     }
+
+    @Override
+    public List<OrderDetialResp> findOrderDetailRespsByOrderId(String orderId) {
+        return orderDetailMapper.findOrderDetailRespsByOrderId(orderId);
+    }
+
+
 }

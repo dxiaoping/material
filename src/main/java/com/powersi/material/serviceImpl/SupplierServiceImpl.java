@@ -6,6 +6,7 @@ import com.powersi.material.pojo.Supplier;
 import com.powersi.material.pojo.SupplierExample;
 import com.powersi.material.pojo.SupplierItem;
 import com.powersi.material.pojo.SupplierItemKey;
+import com.powersi.material.pojo.responseBody.SupplierResp;
 import com.powersi.material.service.ISupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,10 @@ public class SupplierServiceImpl implements ISupplierService {
     public void updateInPice(SupplierItem supplierItem) {
 
         supplierItemMapper.updateByPrimaryKey(supplierItem);
+    }
+
+    @Override
+    public List<SupplierResp> findAllSuppliersSql() {
+        return supplierMapper.findAllSuppliersSql();
     }
 }

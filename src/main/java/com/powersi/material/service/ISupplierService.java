@@ -2,6 +2,7 @@ package com.powersi.material.service;
 
 import com.powersi.material.pojo.Supplier;
 import com.powersi.material.pojo.SupplierItem;
+import com.powersi.material.pojo.responseBody.SupplierResp;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface ISupplierService {
     public SupplierItem findSupplierItemByPrimaryKey(String supplierId,String itemId);
     //更新价格
     public void updateInPice(SupplierItem supplierItem);
+
+    public List<SupplierResp> findAllSuppliersSql();
 }

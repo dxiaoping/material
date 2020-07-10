@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.powersi.material.pojo.*;
 import com.powersi.material.pojo.requestBody.OrderReq;
 import com.powersi.material.pojo.requestBody.OrderReqList;
+import com.powersi.material.pojo.responseBody.NewOrderResp;
+import com.powersi.material.pojo.responseBody.OrderDetialResp;
 import com.powersi.material.pojo.responseBody.OrderResp;
 import com.powersi.material.pojo.responseBody.ReceiveResp;
 import com.powersi.material.service.*;
@@ -71,7 +73,7 @@ public class OrderController {
         String receiveId=new Long(SnowflakeIdUtil.getSnowflakeId()).toString();
         //往收货表添加数据
         receive.setId(receiveId);
-//        receive.setEmployeeId(orderReqList.getEmployeeId());
+       //receive.setEmployeeId(orderReqList.getEmployeeId());
         receive.setEmployeeId("");
         receive.setOrderId(orderId);
         receive.setReceOperDate(new Date());
@@ -98,11 +100,11 @@ public class OrderController {
 
     }
 
-    @RequestMapping("/findAllOrder")
+   /* @RequestMapping("/findAllOrder")
     public List<Order> findAllOrder(){
 
         return orderService.findAll();
-    }
+    }*/
 
     @RequestMapping("/findSupplierNameByItemId")
     public List<String> findSupplierNameByItemId(String itemId){
@@ -138,6 +140,8 @@ public class OrderController {
     }
 
 
+
+
     @RequestMapping("/backOrderRespByPage")
     public PageBean backOrderRespByPage(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum){
 //        public ListPageUtil backOrderRespByPage(){
@@ -161,12 +165,18 @@ public class OrderController {
             orderResps.add(orderResp);
         }
 
-        /*System.out.println("orderDetails"+orderDetails.size());
-        System.out.println(orderResps.size());
-        PageInfo pageInfo=new PageInfo(orderResps);
-        System.out.println("总记录数"+pageInfo.getTotal());
-        System.out.println(orderResps.size());
-*/
+        ListPageUtil<OrderResp> orderRespListPageUtil = new ListPageUtil<>(orderResps, PAGE_SIZE);
+        PageBean pageBean=new PageBean();
+        pageBean.setTotal(orderResps.size());
+        pageBean.setPagedList(orderRespListPageUtil.getPagedList(pageNum));
+
+        return pageBean;
+    }
+
+    //sql形式封装到dto中提高查询性能
+    @RequestMapping("/backOrderRespsByPageSql")
+    public PageBean backOrderRespsByPageSql(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum){
+        List<OrderResp> orderResps = orderService.findAllOrderResp();
         ListPageUtil<OrderResp> orderRespListPageUtil = new ListPageUtil<>(orderResps, PAGE_SIZE);
         PageBean pageBean=new PageBean();
         pageBean.setTotal(orderResps.size());
@@ -203,6 +213,82 @@ public class OrderController {
 
         return pageBean;
     }
+
+    //查询所有订单数据
+    @RequestMapping("/findAllOrder")
+    public PageBean findAllOrder(@RequestParam(value = "pageNum",defaultValue = "1",required = false)int pageNum){
+        List<Order> orders = orderService.findAll();
+        List<NewOrderResp> list=new ArrayList<>();
+        for (Order order : orders) {
+
+            NewOrderResp orderResp=new NewOrderResp();
+            System.out.println("yyyy"+order.getEmployeeId());
+            String empName=employeeService.findEmpById(order.getEmployeeId()).getEmpName();
+            orderResp.setEmpName(empName);
+            orderResp.setIsArrive(order.getOrderIsArrive());
+            orderResp.setOrderAmountMoney(order.getOrderAmountMoney());
+            orderResp.setOrderDate(order.getOrderOperDate());
+            orderResp.setOrderId(order.getId());
+            orderResp.setOrderStatus(order.getOrdeStatus());
+            list.add(orderResp);
+        }
+        ListPageUtil listPageUtil=new ListPageUtil(list,PAGE_SIZE);
+        PageBean pageBean=new PageBean();
+        pageBean.setTotal(list.size());
+        pageBean.setPagedList(listPageUtil.getPagedList(pageNum));
+        return pageBean;
+    }
+
+    @RequestMapping("/findAllNewOrderRespBySql")
+    public PageBean findAllNewOrderRespBySql(@RequestParam(value = "pageNum",defaultValue = "1",required = false)int pageNum){
+        List<NewOrderResp> newOrderResps = orderService.findAllNewOrderResps();
+        ListPageUtil listPageUtil=new ListPageUtil(newOrderResps,PAGE_SIZE);
+        PageBean pageBean=new PageBean();
+        pageBean.setTotal(newOrderResps.size());
+        pageBean.setPagedList(listPageUtil.getPagedList(pageNum));
+        return pageBean;
+
+    }
+
+    @RequestMapping("/findOrderDetailRespByOrderId")
+    public PageBean findOrderDetailRespByOrderId(String orderId,@RequestParam(value = "pageNum",defaultValue = "1",required = false)int pageNum){
+        System.out.println("jfiaojfoajfoajfoajfa"+orderId);
+        List<OrderDetail> detailList = orderDetailService.findDetailListByOrderId(orderId);
+        System.out.println("detailList"+detailList.size());
+        List<OrderDetialResp> orderDetialResps=new ArrayList<>();
+        for (OrderDetail orderDetail : detailList) {
+            OrderDetialResp orderDetialResp=new OrderDetialResp();
+            orderDetialResp.setSupplierName(supplierService.findSupplierById(orderDetail.getSupplierId()).getSupplierName());
+            Item item=itemService.findItemById(orderDetail.getItemId());
+            orderDetialResp.setFactoryName(item.getItemFactoryName());
+            orderDetialResp.setItemName(item.getItemName());
+            orderDetialResp.setOrderNumber(orderDetail.getOrderNumber());
+            orderDetialResp.setPriceLately(item.getItemLatelyPic());
+            orderDetialResps.add(orderDetialResp);
+
+
+        }
+        ListPageUtil listPageUtil=new ListPageUtil(orderDetialResps,PAGE_SIZE);
+        PageBean pageBean=new PageBean();
+        pageBean.setTotal(orderDetialResps.size());
+        pageBean.setPagedList(listPageUtil.getPagedList(pageNum));
+        return pageBean;
+
+    }
+    //sql方式的实现上述代码
+    @RequestMapping("/findOrderDetailRespByOrderIdSqL")
+    public PageBean findOrderDetailRespByOrderIdSqL(String orderId,@RequestParam(value = "pageNum",defaultValue = "1",required = false)int pageNum){
+
+        List<OrderDetialResp> orderDetialResps = orderDetailService.findOrderDetailRespsByOrderId(orderId);
+        ListPageUtil listPageUtil=new ListPageUtil(orderDetialResps,PAGE_SIZE);
+        PageBean pageBean=new PageBean();
+        pageBean.setTotal(orderDetialResps.size());
+        pageBean.setPagedList(listPageUtil.getPagedList(pageNum));
+        return pageBean;
+
+    }
+
+
 
 
 

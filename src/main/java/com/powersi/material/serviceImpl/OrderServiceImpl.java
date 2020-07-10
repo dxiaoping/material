@@ -3,6 +3,8 @@ package com.powersi.material.serviceImpl;
 import com.powersi.material.mapper.OrderMapper;
 import com.powersi.material.mapper.customerMapper.CustomerSupplierItemMapper;
 import com.powersi.material.pojo.Order;
+import com.powersi.material.pojo.responseBody.NewOrderResp;
+import com.powersi.material.pojo.responseBody.OrderResp;
 import com.powersi.material.service.IOrderService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,5 +57,15 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public String findInPriceByItemIdAndSupplierName(String itemId, String supplierName) {
         return customerSupplierItemMapper.findInPriceByItemIdAndSupplierName(itemId,supplierName);
+    }
+
+    @Override
+    public List<NewOrderResp> findAllNewOrderResps() {
+        return orderMapper.findAllNewOrderResps();
+    }
+
+    @Override
+    public List<OrderResp> findAllOrderResp() {
+        return orderMapper.findAllOrderResp();
     }
 }

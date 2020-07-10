@@ -57,6 +57,18 @@ public class SupplierController {
         return pageBean;
     }
 
+    //sql形式实现代码
+    @RequestMapping("/findAllSuppliersSql")
+    public PageBean findAllSuppliersSql(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum){
+
+        List<SupplierResp> supplierRespList = supplierService.findAllSuppliersSql();
+        ListPageUtil listPageUtil=new ListPageUtil(supplierRespList,PAGE_SIZE);
+        PageBean pageBean=new PageBean();
+        pageBean.setTotal(supplierRespList.size());
+        pageBean.setPagedList(listPageUtil.getPagedList(pageNum));
+        return pageBean;
+    }
+
     //这里用resp来接受是因为之前用resp向前端发送为了简便直接用resp来接收了,没有重新创req对象了
     @RequestMapping("/updateInPrice")
     public void updateInPrice(@RequestBody SupplierResp supplierResp){
