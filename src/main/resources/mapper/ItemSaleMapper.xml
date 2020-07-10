@@ -180,6 +180,7 @@
       <when test="startTime == null and endTime != null">
         and itsa.sale_time <![CDATA[ <= ]]> #{endTimeTime}
       </when>
+
     </choose>
 
         <if test="key != null">

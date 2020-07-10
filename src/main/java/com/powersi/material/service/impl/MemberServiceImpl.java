@@ -9,6 +9,7 @@ import com.powersi.material.service.IMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -32,6 +33,7 @@ public class MemberServiceImpl implements IMemberService {
     public int save(Member member) {
         if (memberMapper.selectByPrimaryKey(member.getMemberTelp()) == null) {
             member.setMemberRegTime(new Date());
+            member.setMemberAmountMoney(new BigDecimal(0));
             return memberMapper.insert(member);
         } else {
             return memberMapper.updateByPrimaryKeySelective(member);
