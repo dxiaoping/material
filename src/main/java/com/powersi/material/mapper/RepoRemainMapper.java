@@ -4,6 +4,7 @@ import com.powersi.material.pojo.RepoRemain;
 import com.powersi.material.pojo.RepoRemainDetail;
 import com.powersi.material.pojo.RepoRemainExample;
 import com.powersi.material.pojo.responseBody.ClassRemainRes;
+import com.powersi.material.pojo.responseBody.WarehouseInfo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -16,7 +17,7 @@ public interface RepoRemainMapper {
     int deleteByExample(RepoRemainExample example);
 
     int deleteByPrimaryKey(String id);
-    List<RepoRemainDetail> selectByTime(Date startTime, Date endTime,@Param("itemClass")List<Integer> itemClass);
+    List<WarehouseInfo> selectByTime(Date startTime, Date endTime, @Param("itemClass")List<Integer> itemClass);
 
     int insert(RepoRemain record);
 
